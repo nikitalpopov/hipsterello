@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "7.9.0"
+
+services:
+  - mongodb
+
+before_install:
+  - npm i -g npm@4.2.0
+
+notifications:
+  slack:
+    rooms:
+      - hipsterello:8dxZ3Xs9P1HYX9MSrsFCLeRO
