@@ -14,12 +14,27 @@ it('set ups connection', () => {
 });
 
 it('creates user', () => {
-    const user = ({
+    const request = ({
         email: `test@mail.com`,
         password: `test`
     });
+    db.createUser(request);
 
-    db.createUser(user);
+    db.findUser(request.email).then((err, res) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            if (res.email !== request.email) {
+                throw new Error('User not found!')
+            }
+            else {
+                console.log(res);
+            }
+        }
+    }).catch((err) => {
+        throw new Error('Error: ' + err.message)
+    });
 });
 
 it('finds user', () => {
@@ -28,23 +43,37 @@ it('finds user', () => {
         password: `test`
     });
 
-    db.createUser(request);
-
-    const user = new User({
-        email: `test@mail.com`,
-        password: `test`
+    db.findUser(request.email).then((err, res) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            if (res.email !== request.email) {
+                throw new Error('User not found!')
+            }
+            else {
+                console.log(res);
+            }
+        }
+    }).catch((err) => {
+        throw new Error('Error: ' + err.message)
     });
-
-    expect(db.findUser(request)).toBe(request);
 });
 
 it('deletes user', () => {
     const request = ({
         email: `test@mail.com`,
-        password: null
+        password: `test`
     });
 
     db.deleteUser(request);
+
+    const result = ({
+        email: null,
+        password: null
+    });
+
+    expect(db.findUser(request)).toBe(null);
 });
 
 it('deletes user by id', () => {
