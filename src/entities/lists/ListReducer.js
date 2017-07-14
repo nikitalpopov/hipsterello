@@ -1,15 +1,26 @@
-import { CREATE_LIST, DELETE_LIST, UPDATE_LIST } from './ListAction';
+import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListAction';
 
 export default function(state = [], action) {
-  switch (action.type) {
-    case CREATE_LIST:
-      return ['a'];
-    case DELETE_LIST:
-      let copiedState = state.slice();
-      return copiedState.slice(0, 2);
-    case UPDATE_LIST:
-      return state.slice();
-    default:
-      return state;
-  }
+    let copiedState = state.slice();
+
+    switch (action.type) {
+        case CREATE_LIST:
+            return ['listItem1'];
+
+        case GET_LIST:
+            copiedState.push('listItem4');
+
+            return copiedState;
+
+        case UPDATE_LIST:
+            return state.slice();
+
+        case DELETE_LIST:
+            copiedState = copiedState.slice(0, 2);
+
+            return copiedState;
+
+        default:
+            return state;
+    }
 }

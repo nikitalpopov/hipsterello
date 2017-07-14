@@ -1,42 +1,50 @@
 import ListReducer from './ListReducer';
-import { CREATE_LIST, DELETE_LIST, UPDATE_LIST } from './ListAction';
+import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListAction';
 
 describe('ListReducer', () => {
-  let initialState;
+    let initialState;
 
-  beforeEach(() => {
-    initialState = ['element1', 'element2', 'element3'];
-  });
+    beforeEach(() => {
+        initialState = ['listItem1', 'listItem2', 'listItem3'];
+    });
 
-  it('should return empty array', () => {
-    const action = {
-      type: undefined
-    };
-    expect(ListReducer(undefined, action)).toEqual([]);
-  });
+    it('should return empty array in case of undefined', () => {
+        const action = {
+            type: undefined
+        };
 
-  it('should return array with 1 element', () => {
-    const action = {
-      type: CREATE_LIST
-    };
+        expect(ListReducer(undefined, action)).toEqual([]);
+    });
 
-    expect(ListReducer(undefined, action)).toHaveLength(1);
-  });
+    it('should return array with 1 listItem in case of ' + CREATE_LIST, () => {
+        const action = {
+            type: CREATE_LIST
+        };
 
-  it('should return array with 2 elements', () => {
-    const action = {
-      type: DELETE_LIST
-    };
+        expect(ListReducer(undefined, action)).toHaveLength(1);
+    });
 
-    expect(ListReducer(initialState, action)).toHaveLength(2);
-  });
+    it('should return array with 1 listItem in case of ' + GET_LIST, () => {
+        const action = {
+            type: GET_LIST
+        };
 
-  it('should return array with 3 elements', () => {
-    const action = {
-      type: UPDATE_LIST
-    };
+        expect(ListReducer(initialState, action)).toHaveLength(4);
+    });
 
-    expect(ListReducer(initialState, action)).toHaveLength(3);
-  })
+    it('should return array with 3 listItems in case of ' + UPDATE_LIST, () => {
+        const action = {
+            type: UPDATE_LIST
+        };
 
+        expect(ListReducer(initialState, action)).toHaveLength(3);
+    });
+
+    it('should return array with 2 listItems in case of ' + DELETE_LIST, () => {
+        const action = {
+            type: DELETE_LIST
+        };
+
+        expect(ListReducer(initialState, action)).toHaveLength(2);
+    });
 });
