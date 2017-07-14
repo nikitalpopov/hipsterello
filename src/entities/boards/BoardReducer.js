@@ -2,7 +2,7 @@
  * Created by @nikitalpopov on 11/07/2017.
  */
 
-import { GET_BOARDS } from './BoardsActions'
+import { GET_BOARDS } from './BoardActions'
 
 export default function(state = {}, action) {
     switch (action.type) {
@@ -11,6 +11,7 @@ export default function(state = {}, action) {
                 ...state,
                 ...action.payload
             };
+
         default:
             return state;
     }

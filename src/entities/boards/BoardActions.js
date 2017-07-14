@@ -2,7 +2,7 @@
  * Created by @nikitalpopov on 11/07/2017.
  */
 
-import api from '../api/api.js'
+import api from '../../api/api.js'
 
 export const GET_BOARDS = 'GET_BOARDS';
 

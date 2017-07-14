@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getBoards } from './BoardsActions'
+import { getBoards } from './BoardActions'
 
 export class Boards extends Component {
     handleBoardsLoad(event) {

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { logInUser } from '../auth/AuthActions';
-import Boards from './Boards';
+import Board from '../entities/boards/Board';
 
 class App extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
-            return ( <Boards /> );
+            return ( <Board /> );
         } else {
             return ( <Redirect to='/login'/> );
         }
