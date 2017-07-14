@@ -14,10 +14,23 @@ export default class User {
             password: userData.password
         });
 
-        return UserModelInstance.save()
-            .then((result) => {
-                return result;
-        });
+        return UserModel
+            .findByEmail(UserModelInstance.email)
+            .then((user) => {
+                if (!user) {
+                    return UserModelInstance.save();
+                } else {
+                    if (user.password === userData.password) {
+                        return user;
+                    } else {
+                        throw new Error('Wrong password! Cannot auth current user!')
+                    }
+                }
+            })
+            .then((user) => {
+                return user;
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -25,7 +38,9 @@ export default class User {
      * @param userId
      */
     static findUserById(userId) {
-        return UserModel.findById(userId);
+        return UserModel
+            .findById(userId)
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -33,37 +48,41 @@ export default class User {
      * @param userData
      */
     static findUserByEmail(userData) {
-        return UserModel.findOne({ email: userData.email });
+        return UserModel
+            .findOne({ email: userData.email })
+            .catch(console.log.bind(console));
     };
     /**
      * @description Обновляем данные пользователя
      * @param userData
-     * @param password
      */
-    static updateUser(userData, password) {
+    static updateUser(userData) {
         return UserModel
             .findById(userData._id)
             .then((foundUser) => {
-                if (password === foundUser.password) {
+                if (userData.password === foundUser.password) {
                     if (userData.email) {
                         foundUser.email = userData.email;
                     }
                     if (userData.password) {
                         foundUser.password = userData.password;
                     }
+                    return foundUser.save();
+                } else {
+                    throw new Error('Wrong password! Cannot update current user!')
                 }
-                return foundUser.save(); })
+            })
             .then((savedResult) => {
                 return savedResult;
-        });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
      * @description Удаляем данные пользователя
      * @param userData
-     * @param password
      */
-    static deleteUser(userData, password) {
+    static deleteUser(userData) {
         if (!userData._id && !userData.email) {
             throw new Error('There is no ids for delete!')
         }
@@ -71,24 +90,30 @@ export default class User {
             return UserModel
                 .findById(userData._id)
                 .then((foundUser) => {
-                    if (password === foundUser.password) {
+                    if (userData.password === foundUser.password) {
                         return foundUser.remove();
+                    } else {
+                        throw new Error('Wrong password! Cannot delete current user!')
                     }
                 })
                 .then((deletedResult) => {
                     return deletedResult;
-            });
+                })
+                .catch(console.log.bind(console));
         } else {
             return UserModel
                 .findOne({ email: userData.email })
                 .then((foundUser) => {
-                    if (password === foundUser.password) {
+                    if (userData.password === foundUser.password) {
                         return foundUser.remove();
+                    } else {
+                        throw new Error('Wrong password! Cannot delete current user!')
                     }
                 })
                 .then((deletedResult) => {
                     return deletedResult;
-            });
+                })
+                .catch(console.log.bind(console));
         }
     };
 }

@@ -26,18 +26,15 @@ app.use( cors({ origin: '*' }) );
 // REST API
 app.post('/login', (req, res) => {
     User
-        .findUserByEmail({ email: req.body.email })
-        .then(user => {
-            return (user) ? user : User.createUser(req.body);
-        })
-        .then(data => {
-            res.send(data);
+        .createUser(req.body)
+        .then((createdUser) => {
+            res.send(createdUser);
     });
 });
 
 app.post('/user/update', (req, res) => {
     User
-        .updateUser(req.body.userData, req.body.password)
+        .updateUser(req.body.userData)
         .then((updatedUser) => {
             res.send(updatedUser)
     });
@@ -45,17 +42,18 @@ app.post('/user/update', (req, res) => {
 
 app.post('/user/delete', (req, res) => {
     User
-        .deleteUser(req.body.userData, req.body.password)
+        .deleteUser(req.body.userData)
         .then((deletedUser) => {
             res.send(deletedUser)
-    });
+        })
+        .catch(console.log.bind(console));
 });
 
 app.post('/boards', (req, res) => {
     Board
         .findBoardById(req.body._id)
-        .then((data) => {
-            res.send(data)
+        .then((foundBoard) => {
+            res.send(foundBoard)
     });
 });
 
