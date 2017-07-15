@@ -7,13 +7,13 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getBoard } from './BoardActions'
+import { getBoardByUser } from './BoardActions'
 
 export class Board extends Component {
     handleBoardsLoad(event) {
         event.preventDefault();
 
-        getBoard( this.store.user );
+        getBoardByUser( this.store.user );
     }
 
     renderHelper() {

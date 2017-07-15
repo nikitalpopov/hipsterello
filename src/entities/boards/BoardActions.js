@@ -24,6 +24,17 @@ export function createBoard(request) {
  * @description Отдаёт данные для запроса на получение доски
  * @param request – пользователь, для которого ищем доску
  */
+export function getBoardByUser(request) {
+    return {
+        type: GET_BOARD,
+        payload: api.getBoardByUser(request._id)
+    }
+}
+
+/**
+ * @description Отдаёт данные для запроса на получение доски
+ * @param request – объект с _id необходимой доски внутри
+ */
 export function getBoard(request) {
     return {
         type: GET_BOARD,
