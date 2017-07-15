@@ -7,13 +7,13 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getBoards } from './BoardActions'
+import { getBoard } from './BoardActions'
 
-export class Boards extends Component {
+export class Board extends Component {
     handleBoardsLoad(event) {
         event.preventDefault();
 
-        getBoards( this.store.user );
+        getBoard( this.store.user );
     }
 
     renderHelper() {
@@ -45,7 +45,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getBoards }, dispatch)
+    return bindActionCreators({ getBoard }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps())(Boards);
+export default connect(mapStateToProps, mapDispatchToProps())(Board);
