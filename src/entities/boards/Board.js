@@ -45,7 +45,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getBoard }, dispatch)
+    return bindActionCreators({ getBoardByUser }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps())(Board);
