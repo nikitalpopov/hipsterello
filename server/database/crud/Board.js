@@ -33,7 +33,7 @@ export default class Board {
      * @param userId
      */
     static findBoardByUserId(userId) {
-        return BoardModel.findOne({ 'userId': userId });
+        return BoardModel.findOne({ userId: userId });
     };
 
     /**

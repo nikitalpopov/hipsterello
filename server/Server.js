@@ -51,7 +51,7 @@ app.post('/user/delete', (req, res) => {
 
 app.get('/board/user/:id', (req, res) => {
     Board
-        .findBoardByUserId(req.body._id)
+        .findBoardByUserId(req.params.id)
         .then((foundBoard) => {
             res.send(foundBoard)
     });
