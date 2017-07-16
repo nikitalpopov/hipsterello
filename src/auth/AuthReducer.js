@@ -14,6 +14,7 @@ export default function(state = {}, action) {
                     user: action.payload.data
                 }
             };
+
         default:
             return state;
     }
