@@ -9,19 +9,19 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case CREATE_CARD:
-            return copiedState.push(action.payload);
+            return copiedState.push(action.payload.data);
 
         case GET_CARD:
-            return copiedState.push(action.payload);
+            return copiedState.push(action.payload.data);
 
         case UPDATE_CARD:
-            copiedState[copiedState.findIndex((obj) => obj._id === action.payload._id)] = action.payload;
+            copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data._id)] = action.payload.data;
 
             return copiedState;
 
         case DELETE_CARD:
             let index = -1;
-            index = copiedState.indexOf(action.payload);
+            index = copiedState.indexOf(action.payload.data);
 
             if (~index) { copiedState.splice(index, 1) }
 
