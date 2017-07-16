@@ -14,8 +14,8 @@ export class Board extends Component {
         super(props);
 
         this.state = {
-            board: getBoardByUser(this.props.user)
-        };
+            board: this.props.getBoardByUser(this.props.user)
+        }
     }
 
     renderHelper() {
@@ -41,7 +41,9 @@ export class Board extends Component {
 
 function mapStateToProps(state) {
     return {
-        board: state.board
+        isAuthorized: state.auth.isAuthorized,
+        user: state.auth.user,
+        board: state.boards.board
     };
 }
 
