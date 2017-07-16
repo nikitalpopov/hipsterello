@@ -9,10 +9,10 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case CREATE_CARD:
-            return [state, action.payload];
+            return copiedState.push(action.payload);
 
         case GET_CARD:
-            return [state, action.payload];
+            return copiedState.push(action.payload);
 
         case UPDATE_CARD:
             copiedState[copiedState.findIndex((obj) => obj._id === action.payload._id)] = action.payload;
