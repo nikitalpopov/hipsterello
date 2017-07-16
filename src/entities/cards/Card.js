@@ -52,7 +52,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getBoardByUser }, dispatch)
+    return bindActionCreators({ getCard }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
