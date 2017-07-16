@@ -23,7 +23,7 @@ export class Board extends Component {
             return <div>
                 <h1>Welcome!</h1>
                 <br />There is your board:
-                { this.props.board.title }
+                <p>{ this.props.board.title }</p>
             </div>
         }
 
@@ -47,7 +47,7 @@ function mapStateToProps(state) {
     return {
         isAuthorized: state.auth.isAuthorized,
         user: state.auth.user,
-        board: state.boards.data
+        board: state.boards
     };
 }
 
