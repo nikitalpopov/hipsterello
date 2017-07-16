@@ -9,19 +9,19 @@ export default function(state = {}, action) {
         case CREATE_BOARD:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload.data
             };
 
         case GET_BOARD:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload.data
             };
 
         case UPDATE_BOARD:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload.data
             };
 
         default:
