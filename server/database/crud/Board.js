@@ -29,6 +29,14 @@ export default class Board {
     };
 
     /**
+     * @description Находим доску по id пользователя
+     * @param userId
+     */
+    static findBoardByUserId(userId) {
+        return BoardModel.findOne({ 'userId': userId });
+    };
+
+    /**
      * @description Обновляем данные доски
      * @param boardData
      */
