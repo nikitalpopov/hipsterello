@@ -10,16 +10,17 @@ import { bindActionCreators } from 'redux';
 import { getBoardByUser } from './BoardActions'
 
 export class Board extends Component {
-    handleBoardsLoad(event) {
-        event.preventDefault();
+    constructor(props) {
+        super(props);
 
-        getBoardByUser( this.store.user );
+        this.state = {
+            board: getBoardByUser(this.props.user)
+        };
     }
 
     renderHelper() {
         if (this.props.isAuthorized) {
-            this.handleBoardsLoad.bind(this);
-            return <div><h1>Welcome!</h1><br />There are your boards:</div>
+            return <div><h1>Welcome!</h1><br />There is your board:</div>
         }
 
         if (!this.props.isAuthorized) {
@@ -40,7 +41,7 @@ export class Board extends Component {
 
 function mapStateToProps(state) {
     return {
-        isAuthorized: state.auth.isAuthorized
+        board: state.board
     };
 }
 
@@ -48,4 +49,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ getBoardByUser }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps())(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
