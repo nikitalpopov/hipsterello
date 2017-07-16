@@ -20,7 +20,7 @@ class Auth extends Component {
     }
 
     handlePasswordChange(event) {
-        this.setState({ enteredPassword:event.target.value });
+        this.setState({ enteredPassword: event.target.value });
     }
 
     handleLoginButtonClick(event) {
