@@ -20,7 +20,11 @@ export class Board extends Component {
 
     renderHelper() {
         if (this.props.isAuthorized) {
-            return <div><h1>Welcome!</h1><br />There is your board:</div>
+            return <div>
+                <h1>Welcome!</h1>
+                <br />There is your board:
+                { this.props.board.title }
+            </div>
         }
 
         if (!this.props.isAuthorized) {
@@ -43,7 +47,7 @@ function mapStateToProps(state) {
     return {
         isAuthorized: state.auth.isAuthorized,
         user: state.auth.user,
-        board: state.boards.board
+        board: state.boards.data
     };
 }
 
