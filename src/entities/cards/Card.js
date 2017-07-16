@@ -20,11 +20,13 @@ export class Card extends Component {
 
     renderHelper() {
         if (this.props.isAuthorized) {
-            return <div>
-                <h1>Welcome!</h1>
-                <br />There are your cards:
-                <p>{ this.props.board.title }</p>
-            </div>
+            return (
+                <div>
+                    <h1>Welcome!</h1>
+                    <br />There are your cards:
+                    <p>{ this.props.board.title }</p>
+                </div>
+            )
         }
 
         if (!this.props.isAuthorized) {
