@@ -8,6 +8,12 @@ export default function(state = [], action) {
     let copiedState = state.slice();
 
     switch (action.type) {
+        case GET_BOARD:
+            return {
+                ...state,
+                ...action.payload.data.card
+            };
+
         case CREATE_CARD:
             return copiedState.push(action.payload.data);
 

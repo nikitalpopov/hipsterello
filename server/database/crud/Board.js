@@ -69,7 +69,7 @@ export default class Board {
                 foundBoard[0].listsId.push(listId);
                 return foundBoard[0].save(); })
             .then((savedResult) => {
-                return savedResult.listsId;
+                return savedResult;
             });
     };
 

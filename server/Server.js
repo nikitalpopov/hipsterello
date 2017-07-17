@@ -1,6 +1,3 @@
-/**
- * Created by @nikitalpopov on 06/07/2017.
- */
 
 import express from 'express';
 import cors from 'cors';
@@ -10,7 +7,7 @@ import { serverPort } from '../src/config.json';
 
 import * as db from './database/DataBaseUtils';
 
-import User  from './database/crud/User';
+
 import Board from './database/crud/Board';
 import List  from './database/crud/List';
 import Card  from './database/crud/Card';
@@ -23,31 +20,10 @@ app.use( bp.json() );
 
 app.use( cors({ origin: '*' }) );
 
+export default app;
+
 // REST API
-app.post('/login', (req, res) => {
-    User
-        .createUser(req.body)
-        .then((createdUser) => {
-            res.send(createdUser);
-    });
-});
 
-app.post('/user/update', (req, res) => {
-    User
-        .updateUser(req.body)
-        .then((updatedUser) => {
-            res.send(updatedUser)
-    });
-});
-
-app.post('/user/delete', (req, res) => {
-    User
-        .deleteUser(req.body)
-        .then((deletedUser) => {
-            res.send(deletedUser)
-        })
-        .catch(console.log.bind(console));
-});
 
 app.get('/board/user/:id', (req, res) => {
     Board

@@ -14,11 +14,55 @@ export class Card extends Component {
         super(props);
 
         this.state = {
-            card: [/*?*/]
+            title: this.props.title
+        };
+
+
+        this.onChangeCard = this.onChangeCard.bind(this);
+    }
+
+
+    onChangeCard(event) {
+        const name = event.target.name;
+
+        this.setState({
+            [name]: event.target.value
+        })
+    }
+
+    onKeyPress(event) {
+        if (event.key === 13 || event.which ===13) {
+            this.props.updateCard(this.state)
         }
     }
 
+    deleteCard() {
+        this.props.deleteCard(this.state)
+    }
+
+
+
+    // this.props.createCard(cardData)
+    // this.props.updateCard(cardData)
+    // this.props.deleteCard(cardData)
+
+
     renderHelper() {
+        return (
+            <div>
+            <input type="text"
+                   name="title"
+                   value={this.state.title}
+                   onChange={this.onChangeCardTitle}
+                   onKeyPress={this.onKeyPress}
+                   onBlur={}
+            />
+
+                <button onClick={this.deleteCard}>Delete</button>
+            </div>
+        );
+
+
         if (this.props.isAuthorized) {
             return (
                 <div>

@@ -14,24 +14,28 @@ export class CardsContainer extends Component {
         this.state = {
             cardsId: this.props.list.cardsId
         }
+
+        this.onCardCreate = this.onCardCreate.bind(this);
+
+        // store.methods
     }
 
-    // Alternative?
-    // renderHelper() {
-    //     let res = '';
-    //     for (let iter of this.state.cardsId.length) {
-    //         res += (
-    //             <Card id={ this.state.cardsId[iter] }/>
-    //         )
-    //     }
-    //     return res;
-    // }
+    onCardCreate(cardData) {
+        this.props.createCard()
+    }
+
+    updateCard(cardData) {
+        this.props.updateCard()
+    }
+
+
+
 
     render() {
         return (
             <div>
-                { this.props.cardsId
-                    .map((card, index) => (<Card id={index} />))
+                { this.props.cards
+                    .map((card, index) => (<Card id={index} onCardCreate={this.onCardCreate} updateCard={this.updateCard}/>))
                 }
             </div>
         )
@@ -43,6 +47,10 @@ function mapStateToProps(state) {
         board: state.boards,
         list: state.lists // .?
     };
+}
+
+const mapDispatchToProps = () => {
+
 }
 
 export default connect(mapStateToProps, null)(CardsContainer);
