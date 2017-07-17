@@ -2,10 +2,12 @@
  * Created by @nikitalpopov on 17/07/2017.
  */
 
-import app from '../../Server';
+import express from 'express';
 import Board from '../../database/crud/Board';
 
-app.get('/board/user/:id', (req, res) => {
+let router = express.Router();
+
+router.get('/board/user/:id', (req, res) => {
     Board
         .findBoardByUserId(req.params.id)
         .then((foundBoard) => {
@@ -13,7 +15,7 @@ app.get('/board/user/:id', (req, res) => {
         });
 });
 
-app.post('/board/create', (req, res) => {
+router.post('/board/create', (req, res) => {
     Board
         .createBoard(req.body, req.body.userId)
         .then((createdBoard) => {
@@ -21,7 +23,7 @@ app.post('/board/create', (req, res) => {
         });
 });
 
-app.get('/board/:id', (req, res) => {
+router.get('/board/:id', (req, res) => {
     Board
         .findBoardById(req.params.id)
         .then((foundBoard) => {
@@ -29,7 +31,7 @@ app.get('/board/:id', (req, res) => {
         });
 });
 
-app.post('/board/update', (req, res) => {
+router.post('/board/update', (req, res) => {
     Board
         .updateBoard(req.body)
         .then((updatedBoard) => {
@@ -37,10 +39,12 @@ app.post('/board/update', (req, res) => {
         });
 });
 
-app.post('/board/delete', (req, res) => {
+router.post('/board/delete', (req, res) => {
     Board
         .deleteBoard(req.body)
         .then((deletedBoard) => {
             res.send(deletedBoard)
         });
 });
+
+module.exports = router;

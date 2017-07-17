@@ -1,7 +1,9 @@
-import app from '../../Server';
+import express from 'express';
 import User  from '../../database/crud/User';
 
-app.post('/login', (req, res) => {
+let router = express.Router();
+
+router.post('/login', (req, res) => {
     User
         .createUser(req.body)
         .then((createdUser) => {
@@ -9,7 +11,7 @@ app.post('/login', (req, res) => {
         });
 });
 
-app.get('/user/:id', (req, res) => {
+router.get('/user/:id', (req, res) => {
     User
         .findUserById(req.params.id)
         .then((foundUser) => {
@@ -17,7 +19,7 @@ app.get('/user/:id', (req, res) => {
         })
 });
 
-app.post('/user/update', (req, res) => {
+router.post('/user/update', (req, res) => {
     User
         .updateUser(req.body)
         .then((updatedUser) => {
@@ -25,7 +27,7 @@ app.post('/user/update', (req, res) => {
         });
 });
 
-app.post('/user/delete', (req, res) => {
+router.post('/user/delete', (req, res) => {
     User
         .deleteUser(req.body)
         .then((deletedUser) => {
@@ -33,3 +35,5 @@ app.post('/user/delete', (req, res) => {
         })
         .catch(console.log.bind(console));
 });
+
+module.exports = router;

@@ -2,10 +2,12 @@
  * Created by @nikitalpopov on 17/07/2017.
  */
 
-import app from '../../Server';
+import express from 'express';
 import List  from '../../database/crud/List';
 
-app.post('/list/create', (req, res) => {
+let router = express.Router();
+
+router.post('/list/create', (req, res) => {
     List
         .createList(req.body, req.body.boardId)
         .then((createdList) => {
@@ -13,7 +15,7 @@ app.post('/list/create', (req, res) => {
         });
 });
 
-app.get('/list/:id', (req, res) => {
+router.get('/list/:id', (req, res) => {
     List
         .findListById(req.params.id)
         .then((foundList) => {
@@ -21,7 +23,7 @@ app.get('/list/:id', (req, res) => {
         });
 });
 
-app.post('/list/update', (req, res) => {
+router.post('/list/update', (req, res) => {
     List
         .updateList(req.body)
         .then((updatedList) => {
@@ -29,10 +31,12 @@ app.post('/list/update', (req, res) => {
         });
 });
 
-app.post('/list/delete', (req, res) => {
+router.post('/list/delete', (req, res) => {
     List
         .deleteList(req.body)
         .then((deletedList) => {
             res.send(deletedList)
         });
 });
+
+module.exports = router;

@@ -15,6 +15,11 @@ app.use( bp.json() );
 
 app.use( cors({ origin: '*' }) );
 
+app.use( require('./database/routes/UserRoutes') );
+app.use( require('./database/routes/BoardRoutes') );
+app.use( require('./database/routes/ListRoutes') );
+app.use( require('./database/routes/CardRoutes') );
+
 export default app;
 
 const server = app.listen(serverPort, () => {

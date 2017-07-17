@@ -2,10 +2,12 @@
  * Created by @nikitalpopov on 17/07/2017.
  */
 
-import app from '../../Server';
+import express from 'express';
 import Card  from '../../database/crud/Card';
 
-app.post('/card/create', (req, res) => {
+let router = express.Router();
+
+router.post('/card/create', (req, res) => {
     Card
         .createCard(req.body, req.body.listId)
         .then((createdCard) => {
@@ -13,7 +15,7 @@ app.post('/card/create', (req, res) => {
         });
 });
 
-app.get('/card/:id', (req, res) => {
+router.get('/card/:id', (req, res) => {
     Card
         .findCardById(req.params.id)
         .then((foundCard) => {
@@ -21,7 +23,7 @@ app.get('/card/:id', (req, res) => {
         });
 });
 
-app.post('/card/update', (req, res) => {
+router.post('/card/update', (req, res) => {
     Card
         .updateCard(req.body)
         .then((updatedCard) => {
@@ -29,10 +31,12 @@ app.post('/card/update', (req, res) => {
         });
 });
 
-app.post('/card/delete', (req, res) => {
+router.post('/card/delete', (req, res) => {
     Card
         .deleteCard(req.body)
         .then((deletedCard) => {
             res.send(deletedCard)
         });
 });
+
+module.exports = router;
