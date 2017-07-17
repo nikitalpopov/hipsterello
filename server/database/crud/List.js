@@ -28,7 +28,7 @@ export default class List {
      * @param listId
      */
     static findListById(listId) {
-        return ListModel.find(listId);
+        return ListModel.findById(listId);
     };
 
     /**
@@ -64,7 +64,7 @@ export default class List {
                 foundList[0].cardsId.push(cardId);
                 return foundList[0].save(); })
             .then((savedResult) => {
-                return savedResult.listsId;
+                return savedResult;
         });
     };
 
