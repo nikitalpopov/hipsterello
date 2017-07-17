@@ -1,5 +1,5 @@
 import app from '../../Server';
-import User  from './database/crud/User';
+import User  from '../../database/crud/User';
 
 app.post('/login', (req, res) => {
     User
@@ -7,6 +7,14 @@ app.post('/login', (req, res) => {
         .then((createdUser) => {
             res.send(createdUser);
         });
+});
+
+app.get('/user/:id', (req, res) => {
+    User
+        .findUserById(req.params.id)
+        .then((foundUser) => {
+            res.send(foundUser);
+        })
 });
 
 app.post('/user/update', (req, res) => {
