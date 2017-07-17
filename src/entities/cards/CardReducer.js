@@ -2,17 +2,14 @@
  * Created by @nikitalpopov on 14/07/2017.
  */
 
-import { CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD } from './CardActions';
+import { GET_INITIAL_DATA, CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD } from './CardActions';
 
 export default function(state = [], action) {
     let copiedState = state.slice();
 
     switch (action.type) {
-        case GET_BOARD:
-            return {
-                ...state,
-                ...action.payload.data.card
-            };
+        case GET_INITIAL_DATA:
+            return;
 
         case CREATE_CARD:
             return copiedState.push(action.payload.data);

@@ -2,10 +2,13 @@
  * Created by @nikitalpopov on 11/07/2017.
  */
 
-import { CREATE_BOARD, GET_BOARD, UPDATE_BOARD, DELETE_BOARD } from './BoardActions';
+import { GET_INITIAL_DATA, CREATE_BOARD, GET_BOARD, UPDATE_BOARD, DELETE_BOARD } from './BoardActions';
 
 export default function(state = {}, action) {
     switch (action.type) {
+        case GET_INITIAL_DATA:
+            return;
+
         case CREATE_BOARD:
             return {
                 ...state,

@@ -4,10 +4,11 @@
 
 import api from '../../api/api.js'
 
-export const CREATE_BOARD = 'CREATE_BOARD';
-export const GET_BOARD    = 'GET_BOARD';
-export const UPDATE_BOARD = 'UPDATE_BOARD';
-export const DELETE_BOARD = 'DELETE_BOARD';
+export const GET_INITIAL_DATA = 'GET_INITIAL_DATA';
+export const CREATE_BOARD     = 'CREATE_BOARD';
+export const GET_BOARD        = 'GET_BOARD';
+export const UPDATE_BOARD     = 'UPDATE_BOARD';
+export const DELETE_BOARD     = 'DELETE_BOARD';
 
 /**
 * @description Отдаёт данные для запроса на создание доски
