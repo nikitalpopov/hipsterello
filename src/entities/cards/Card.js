@@ -17,10 +17,8 @@ export class Card extends Component {
             title: this.props.title
         };
 
-
         this.onChangeCard = this.onChangeCard.bind(this);
     }
-
 
     onChangeCard(event) {
         const name = event.target.name;
@@ -40,34 +38,23 @@ export class Card extends Component {
         this.props.deleteCard(this.state)
     }
 
-
-
     // this.props.createCard(cardData)
     // this.props.updateCard(cardData)
     // this.props.deleteCard(cardData)
 
-
     renderHelper() {
-        return (
-            <div>
-            <input type="text"
-                   name="title"
-                   value={this.state.title}
-                   onChange={this.onChangeCardTitle}
-                   onKeyPress={this.onKeyPress}
-                   onBlur={}
-            />
-
-                <button onClick={this.deleteCard}>Delete</button>
-            </div>
-        );
-
-
         if (this.props.isAuthorized) {
             return (
                 <div>
-                    <h4>There are your cards:</h4>
-                    <p>{ this.props.board.title }</p>
+                    <input type="text"
+                           name="title"
+                           value={ this.state.title }
+                           onChange={ this.onChangeCardTitle }
+                           onKeyPress={ this.onKeyPress }
+                           // onBlur={}
+                    />
+
+                    <button onClick={ this.deleteCard }>Delete</button>
                 </div>
             )
         }
