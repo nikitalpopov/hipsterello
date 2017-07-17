@@ -66,8 +66,7 @@ export class Card extends Component {
         if (this.props.isAuthorized) {
             return (
                 <div>
-                    <h1>Welcome!</h1>
-                    <br />There are your cards:
+                    <h4>There are your cards:</h4>
                     <p>{ this.props.board.title }</p>
                 </div>
             )

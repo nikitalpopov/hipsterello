@@ -46,7 +46,7 @@ class Auth extends Component {
                 <div>
                     <form className="form-horizontal">
                         <fieldset>
-                            <legend>Form Name</legend>
+                            <legend>Auth</legend>
                             <div className="form-group">
                                 <label className="col-md-4 control-label">E-mail</label>
                                 <div className="col-md-4">

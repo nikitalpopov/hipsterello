@@ -21,8 +21,8 @@ export class Board extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
             return <div>
-                <h1>Welcome!</h1>
-                <br />There is your board:
+                <h2>Welcome!</h2>
+                <h2>There is your board:</h2>
                 <p>{ this.props.board.title }</p>
             </div>
         }

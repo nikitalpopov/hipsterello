@@ -23,14 +23,7 @@ ReactDOM.render(
     <Provider store={ store }>
         <Router>
             <div>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/boards">Boards</Link></li>
-                </ul>
-
-                <hr/>
-
+                <h1>Hipsterello</h1>
                 <Route exact path="/" component={ App }/>
                 <Route path="/boards" component={ App }/>
                 <Route path="/login" component={ Auth }/>
