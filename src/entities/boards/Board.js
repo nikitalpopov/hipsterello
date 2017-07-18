@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getInitialData } from './BoardActions'
-import {CardsContainer} from "../cards/CardsContainer";
+import { ListsContainer } from "../lists/ListsContainer";
 
 export class Board extends Component {
     constructor(props) {
@@ -29,7 +29,7 @@ export class Board extends Component {
                             <h2>Welcome!</h2>
                             <h2>There is your board:</h2>
                             <p>{ this.props.board.title }</p>
-                            <CardsContainer />
+                            <ListsContainer />
                         </div>
                     </fieldset>
                 </form>

@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import {CardsContainer} from "../cards/CardsContainer";
+import { CardsContainer } from "../cards/CardsContainer";
 
 export class List extends Component {
     constructor(props) {
@@ -38,7 +38,7 @@ export class List extends Component {
                             <button onClick={ this.props.onUpdateList(this.state).bind(this) }>Save</button>
                             <button onClick={ this.props.onDeleteList(this.state).bind(this) }>Delete</button>
                         </div>
-                        {/*<CardsContainer />*/}
+                        <CardsContainer />
                     </fieldset>
                 </form>
             )
