@@ -6,21 +6,25 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case GET_INITIAL_DATA:
+            // @todo add list with _id === 0
             return copiedState.concat(action.payload.data.lists);
 
         case CREATE_LIST:
-            return ['listItem1'];
+            return copiedState.push(action.payload.data);
 
         case GET_LIST:
-            copiedState.push('listItem4');
+            return copiedState.push(action.payload.data);
+
+        case UPDATE_LIST:
+            copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data._id)] = action.payload.data;
 
             return copiedState;
 
-        case UPDATE_LIST:
-            return state.slice();
-
         case DELETE_LIST:
-            copiedState = copiedState.slice(0, 2);
+            let index = -1;
+            index = copiedState.indexOf(action.payload.data);
+
+            if (~index) { copiedState.splice(index, 1) }
 
             return copiedState;
 
