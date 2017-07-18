@@ -7,14 +7,15 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { createCard, getCard, updateCard, deleteCard } from './CardActions';
+import { createCard, updateCard, deleteCard } from './CardActions';
 
 export class Card extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            title: this.props.title
+            title: this.props.title,
+            text: this.props.text
         };
 
         this.onChangeCard = this.onChangeCard.bind(this);
@@ -28,35 +29,74 @@ export class Card extends Component {
         })
     }
 
-    onKeyPress(event) {
-        if (event.key === 13 || event.which ===13) {
-            this.props.updateCard(this.state)
-        }
+    // onKeyPress(event) {
+    //     if (event.key === 'Enter') {
+    //         this.props.updateCard(this.state)
+    //     }
+    // }
+
+    createCard() {
+        this.props.createCard(this.state);
+    }
+
+    saveCard() {
+        this.props.updateCard(this.state);
     }
 
     deleteCard() {
         this.props.deleteCard(this.state)
     }
 
-    // this.props.createCard(cardData)
-    // this.props.updateCard(cardData)
-    // this.props.deleteCard(cardData)
-
     renderHelper() {
         if (this.props.isAuthorized) {
-            return (
-                <div>
-                    <input type="text"
-                           name="title"
-                           value={ this.state.title }
-                           onChange={ this.onChangeCardTitle }
-                           onKeyPress={ this.onKeyPress }
-                           // onBlur={}
-                    />
+            if (this.props.card._id !== 0) {
+                return (
+                    <form className="form-horizontal">
+                        <fieldset>
+                            <legend>Card</legend>
+                            <div>
+                                <input type="text"
+                                       name="title"
+                                       value={ this.state.title }
+                                       onChange={ this.onChangeCard }
+                                />
 
-                    <button onClick={ this.deleteCard }>Delete</button>
-                </div>
-            )
+                                <input type="text"
+                                       name="text"
+                                       value={ this.state.text }
+                                       onChange={ this.onChangeCard }
+                                />
+
+                                <button onClick={ this.saveCard }>Save</button>
+                                <button onClick={ this.deleteCard }>Delete</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                )
+            } else {
+                return (
+                    <form className="form-horizontal">
+                        <fieldset>
+                            <legend>Add card</legend>
+                            <div>
+                                <input type="text"
+                                       name="title"
+                                       placeholder="Add new title"
+                                       onChange={ this.onChangeCard }
+                                />
+
+                                <input type="text"
+                                       name="text"
+                                       placeholder="Add new text"
+                                       onChange={ this.onChangeCard }
+                                />
+
+                                <button onClick={ this.createCard }>Add</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                )
+            }
         }
 
         if (!this.props.isAuthorized) {
@@ -84,7 +124,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getCard }, dispatch)
+    return bindActionCreators({ createCard, updateCard, deleteCard }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
