@@ -10,14 +10,6 @@ import { createCard, getCard, updateCard, deleteCard } from './CardActions';
 import Card from './Card';
 
 export class CardsContainer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            cards: this.props.cards // list будет передан через <CardsContainer list={someList} />
-        }
-    }
-
     onCreateCard(cardData) {
         this.props.createCard(cardData)
     }
@@ -33,24 +25,30 @@ export class CardsContainer extends Component {
     render() {
         return (
             <div>
-                { this.props.cards
-                    .map((card, index) => (
-                        <Card
-                            card={ card }
-                            index={ index }
-                            onCreateCard={ this.onCreateCard.bind(this) }
-                            onUpdateCard={ this.onUpdateCard.bind(this) }
-                            onDeleteCard={ this.onDeleteCard.bind(this) }
-                        />)
-                    )
-                }
+                {/*{ this.props.cards*/}
+                    {/*.map((card, index) => (*/}
+                        {/*<Card*/}
+                            {/*card={ card }*/}
+                            {/*index={ index }*/}
+                            {/*onCreateCard={ this.onCreateCard.bind(this) }*/}
+                            {/*onUpdateCard={ this.onUpdateCard.bind(this) }*/}
+                            {/*onDeleteCard={ this.onDeleteCard.bind(this) }*/}
+                        {/*/>)*/}
+                    {/*)*/}
+                {/*}*/}
             </div>
         )
     }
+}
+
+function mapStateToProps(state) {
+    return {
+        cards: state.cards
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createCard, getCard, updateCard, deleteCard }, dispatch)
 };
 
-export default connect(null, mapDispatchToProps)(CardsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);

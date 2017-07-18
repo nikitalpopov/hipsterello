@@ -38,7 +38,7 @@ export class List extends Component {
                             <button onClick={ this.props.onUpdateList(this.state).bind(this) }>Save</button>
                             <button onClick={ this.props.onDeleteList(this.state).bind(this) }>Delete</button>
                         </div>
-                        <CardsContainer list={ this.props.list }/>
+                        {/*<CardsContainer />*/}
                     </fieldset>
                 </form>
             )

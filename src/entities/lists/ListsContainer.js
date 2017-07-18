@@ -10,14 +10,6 @@ import { createList, getList, updateList, deleteList } from './ListActions';
 import List from './List';
 
 export class ListsContainer extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            lists: this.props.lists // board будет передан через <ListsContainer board={someBoard} />
-        }
-    }
-
     onCreateList(listData) {
         this.props.createList(listData)
     }
@@ -49,8 +41,14 @@ export class ListsContainer extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        lists: state.lists
+    };
+}
+
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createList, getList, updateList, deleteList }, dispatch)
 };
 
-export default connect(null, mapDispatchToProps)(ListsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);
