@@ -8,9 +8,8 @@ export default class Card {
     /**
      * @description Создаем карточку, привязываем её к списку
      * @param cardData
-     * @param listId
      */
-    static createCard(cardData, listId) {
+    static createCard(cardData) {
         const CardModelInstance = new CardModel({
             title: cardData.title
         });
@@ -19,10 +18,8 @@ export default class Card {
 
         return CardModelInstance.save()
             .then((createdCard) => {
-                return List.updateCards(listId, createdCard._id);
-            })
-            .then((result) => {
-                return result;
+                List.updateCards(cardData.listId, createdCard);
+                return createdCard;
         });
     };
 

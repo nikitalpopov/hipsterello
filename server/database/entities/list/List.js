@@ -3,6 +3,8 @@
  */
 import mongoose from 'mongoose';
 
+import CardSchema from '../card/Card';
+
 const Schema = mongoose.Schema;
 
 const ListSchema = new Schema({
@@ -13,8 +15,8 @@ const ListSchema = new Schema({
         type: String,
         default: '#f0f0f0'
     },
-    cardsId: {
-        type: [Schema.Types.ObjectId],
+    cards: {
+        type: [CardSchema],
         default: []
     },
     createdAt: {
@@ -27,4 +29,5 @@ ListSchema.statics.findByBoardId = function(request) {
     return this.model('List').find({ 'boardId' : request });
 };
 
+export default ListSchema;
 export const List = mongoose.model('List', ListSchema);

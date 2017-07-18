@@ -26,5 +26,5 @@ CardSchema.statics.findByListId = function(request) {
     return this.model('Card').find({ 'listId' : request });
 };
 
+export default CardSchema;
 export const Card = mongoose.model('Card', CardSchema);
-

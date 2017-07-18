@@ -5,9 +5,8 @@ export default class List {
     /**
     * @description Создаем список, привязываем его к доске
     * @param listData
-    * @param boardId
     */
-    static createList(listData, boardId) {
+    static createList(listData) {
         const ListModelInstance = new ListModel({
             title: listData.title
         });
@@ -16,10 +15,8 @@ export default class List {
 
         return ListModelInstance.save()
             .then((createdList) => {
-                return Board.updateLists(boardId, createdList._id);
-            })
-            .then((result) => {
-                return result;
+                Board.updateLists(listData.boardId, createdList);
+                return createdList;
         });
     };
 
@@ -41,9 +38,9 @@ export default class List {
             .then((foundList) => {
                 if (listData.title) { foundList[0].title = listData.title; }
                 if (listData.color) { foundList[0].color = listData.color; }
-                if (listData.cardsId) {
-                    for (const cardId of listData.cardsId) {
-                        foundList[0].cardsId.push(cardId);
+                if (listData.cards) {
+                    for (const card of listData.cards) {
+                        foundList[0].cards.push(card);
                     }
                 }
                 return foundList[0].save(); })
@@ -55,13 +52,13 @@ export default class List {
     /**
      * @description Обновляем данные о привязанных к списку карточках
      * @param listId
-     * @param cardId
+     * @param card
      */
-    static updateCards(listId, cardId) {
+    static updateCards(listId, card) {
         return ListModel
             .find({ _id: listId })
             .then((foundList) => {
-                foundList[0].cardsId.push(cardId);
+                foundList[0].cards.push(card);
                 return foundList[0].save(); })
             .then((savedResult) => {
                 return savedResult;

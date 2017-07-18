@@ -9,7 +9,7 @@ let router = express.Router();
 
 router.post('/list/create', (req, res) => {
     List
-        .createList(req.body, req.body.boardId)
+        .createList(req.body)
         .then((createdList) => {
             res.send(createdList)
         });

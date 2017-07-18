@@ -17,7 +17,7 @@ router.get('/board/user/:id', (req, res) => {
 
 router.post('/board/create', (req, res) => {
     Board
-        .createBoard(req.body, req.body.userId)
+        .createBoard(req.body)
         .then((createdBoard) => {
             res.send(createdBoard)
         });

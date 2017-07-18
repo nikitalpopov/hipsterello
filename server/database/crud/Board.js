@@ -4,9 +4,8 @@ export default class Board {
     /**
      * @description Создаем доску, привязываем к ней пользователя
      * @param boardData
-     * @param userId
      */
-    static createBoard(boardData, userId) {
+    static createBoard(boardData) {
         const BoardModelInstance = new BoardModel({
             userId: boardData.userId,
             title: boardData.title
@@ -46,9 +45,9 @@ export default class Board {
             .then((foundBoard) => {
                 if (boardData.title) { foundBoard[0].title = boardData.title; }
                 if (boardData.color) { foundBoard[0].color = boardData.color; }
-                if (boardData.listsId) {
-                    for (const listId of boardData.listsId) {
-                        foundBoard[0].listsId.push(listId);
+                if (boardData.lists) {
+                    for (const list of boardData.lists) {
+                        foundBoard[0].lists.push(list);
                     }
                 }
                 return foundBoard[0].save(); })
@@ -60,13 +59,13 @@ export default class Board {
     /**
      * @description Обновляем данные о привязанных к доске списках
      * @param boardId
-     * @param listId
+     * @param list
      */
-    static updateLists(boardId, listId) {
+    static updateLists(boardId, list) {
         return BoardModel
             .find({ _id: boardId })
             .then((foundBoard) => {
-                foundBoard[0].listsId.push(listId);
+                foundBoard[0].lists.push(list);
                 return foundBoard[0].save(); })
             .then((savedResult) => {
                 return savedResult;

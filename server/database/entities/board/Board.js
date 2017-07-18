@@ -3,6 +3,8 @@
  */
 import mongoose from 'mongoose';
 
+import ListSchema from '../list/List';
+
 const Schema = mongoose.Schema;
 
 const BoardSchema = new Schema({
@@ -17,8 +19,8 @@ const BoardSchema = new Schema({
         type: String,
         default: '#dcdcdc'
     },
-    listsId: {
-        type: [Schema.Types.ObjectId],
+    lists: {
+        type: [ListSchema],
         default: []
     },
     createdAt: {
@@ -31,4 +33,5 @@ BoardSchema.statics.findByUserId = function(request) {
     return this.model('Board').find({ 'userId': request });
 };
 
+export default BoardSchema;
 export const Board = mongoose.model('Board', BoardSchema);

@@ -9,7 +9,7 @@ let router = express.Router();
 
 router.post('/card/create', (req, res) => {
     Card
-        .createCard(req.body, req.body.listId)
+        .createCard(req.body)
         .then((createdCard) => {
             res.send(createdCard)
         });
