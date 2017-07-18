@@ -1,5 +1,5 @@
 import ListReducer from './ListReducer';
-import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListAction';
+import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListActions';
 
 describe('ListReducer', () => {
     let initialState;

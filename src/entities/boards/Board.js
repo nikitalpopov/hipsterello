@@ -7,14 +7,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getBoardByUser } from './BoardActions'
+import { getInitialData } from './BoardActions'
 
 export class Board extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            board: this.props.getBoardByUser(this.props.user)
+            board: this.props.getInitialData(this.props.user)
         }
     }
 
@@ -32,11 +32,11 @@ export class Board extends Component {
                     </fieldset>
                 </form>
             )
-        }
-
-        if (!this.props.isAuthorized) {
+        } else {
             return (
-                <div><Redirect to="/login" /></div>
+                <div>
+                    <Redirect to="/login" />
+                </div>
             );
         }
     }
@@ -59,7 +59,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getBoardByUser }, dispatch)
+    return bindActionCreators({ getInitialData }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

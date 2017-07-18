@@ -2,7 +2,8 @@
  * Created by @nikitalpopov on 14/07/2017.
  */
 
-import { GET_INITIAL_DATA, CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD } from './CardActions';
+import { GET_INITIAL_DATA } from '../boards/BoardActions';
+import { CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD } from './CardActions';
 
 export default function(state = [], action) {
     let copiedState = state.slice();

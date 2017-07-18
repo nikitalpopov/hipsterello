@@ -1,4 +1,5 @@
-import { GET_INITIAL_DATA, CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListAction';
+import { GET_INITIAL_DATA } from '../boards/BoardActions';
+import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListActions';
 
 export default function(state = [], action) {
     let copiedState = state.slice();

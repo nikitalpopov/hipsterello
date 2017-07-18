@@ -11,6 +11,17 @@ export const UPDATE_BOARD     = 'UPDATE_BOARD';
 export const DELETE_BOARD     = 'DELETE_BOARD';
 
 /**
+ * @description Отдаёт данные для запроса на получение первичных данных
+ * @param request – пользователь, для которого ищем доску
+ */
+export function getInitialData(request) {
+    return {
+        type: GET_INITIAL_DATA,
+        payload: api.getBoardByUser(request._id)
+    }
+}
+
+/**
 * @description Отдаёт данные для запроса на создание доски
 * @param request - объект с данными для создания новой доски
 */
