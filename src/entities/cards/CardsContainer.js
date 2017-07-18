@@ -14,7 +14,7 @@ export class CardsContainer extends Component {
         super(props);
 
         this.state = {
-            cards: this.props.list.cards
+            cards: this.props.list.cards // list будет передан через <CardsContainer list={someList} />
         }
     }
 
@@ -52,7 +52,6 @@ export class CardsContainer extends Component {
 function mapStateToProps(state) {
     return {
         board: state.boards,
-        list: state.lists // .?
     };
 }
 

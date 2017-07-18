@@ -7,7 +7,10 @@ import { GET_INITIAL_DATA, CREATE_BOARD, GET_BOARD, UPDATE_BOARD, DELETE_BOARD }
 export default function(state = {}, action) {
     switch (action.type) {
         case GET_INITIAL_DATA:
-            return;
+            return {
+                ...state,
+                ...action.payload.data
+            };
 
         case CREATE_BOARD:
             return {
@@ -22,6 +25,12 @@ export default function(state = {}, action) {
             };
 
         case UPDATE_BOARD:
+            return {
+                ...state,
+                ...action.payload.data
+            };
+
+        case DELETE_BOARD:
             return {
                 ...state,
                 ...action.payload.data
