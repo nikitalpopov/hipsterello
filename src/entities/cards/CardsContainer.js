@@ -4,7 +4,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { createCard, getCard, updateCard, deleteCard } from './CardActions';
 import Card from './Card';
 
 export class CardsContainer extends Component {
@@ -12,30 +14,35 @@ export class CardsContainer extends Component {
         super(props);
 
         this.state = {
-            cardsId: this.props.list.cardsId
+            cards: this.props.list.cards
         }
-
-        this.onCardCreate = this.onCardCreate.bind(this);
-
-        // store.methods
     }
 
-    onCardCreate(cardData) {
-        this.props.createCard()
+    onCreateCard(cardData) {
+        this.props.createCard(cardData)
     }
 
-    updateCard(cardData) {
-        this.props.updateCard()
+    onUpdateCard(cardData) {
+        this.props.updateCard(cardData)
     }
 
-
-
+    onDeleteCard(cardData) {
+        this.props.deleteCard(cardData)
+    }
 
     render() {
         return (
             <div>
                 { this.props.cards
-                    .map((card, index) => (<Card id={index} onCardCreate={this.onCardCreate} updateCard={this.updateCard}/>))
+                    .map((card, index) => (
+                        <Card
+                            card={ card }
+                            index={ index }
+                            onCreateCard={ this.onCreateCard.bind(this) }
+                            onUpdateCard={ this.onUpdateCard.bind(this) }
+                            onDeleteCard={ this.onDeleteCard.bind(this) }
+                        />)
+                    )
                 }
             </div>
         )
@@ -49,8 +56,8 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ createCard, getCard, updateCard, deleteCard }, dispatch)
+};
 
-}
-
-export default connect(mapStateToProps, null)(CardsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
