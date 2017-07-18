@@ -56,21 +56,26 @@ router.get('/get-started/:id', (req, res) => {
 
                         answer.lists.push(foundList);
 
-                        return cardsId;
+                        return cardsId.map(card => card._id);
                 })
             }))
                 .then((cardsId) => {
-                    Promise
-                        .all(cardsId.map((cardId) => {
-                            return Card
-                                .findCardById(cardId)
-                                .then((foundCard) => {
-                                    foundCard = foundCard._doc;
-                                    delete foundCard.__v;
-                                    answer.cards.push(foundCard);
-                                    res.send(answer);
-                                })
-                        }))
+                    let cards = cardsId[0];
+                    Promise.all(cards.map((cardId) => {
+                        return Card
+                            .findCardById(cardId)
+                            .then((foundCard) => {
+                                foundCard = foundCard._doc;
+
+                                delete foundCard.__v;
+
+                                return foundCard;
+                            })
+                    }))
+                        .then((cards) => {
+                            answer.cards = cards;
+                            res.send(answer);
+                    })
             })
     });
 });
