@@ -6,7 +6,7 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case GET_INITIAL_DATA:
-            return;
+            return copiedState.concat(action.payload.data.lists);
 
         case CREATE_LIST:
             return ['listItem1'];

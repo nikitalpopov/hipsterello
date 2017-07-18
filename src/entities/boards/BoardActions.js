@@ -17,7 +17,7 @@ export const DELETE_BOARD     = 'DELETE_BOARD';
 export function getInitialData(request) {
     return {
         type: GET_INITIAL_DATA,
-        payload: api.getBoardByUser(request._id)
+        payload: api.getInitialData(request._id)
     }
 }
 

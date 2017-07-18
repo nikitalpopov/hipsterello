@@ -9,7 +9,7 @@ export default function(state = {}, action) {
         case GET_INITIAL_DATA:
             return {
                 ...state,
-                ...action.payload.data
+                ...action.payload.data.board
             };
 
         case CREATE_BOARD:

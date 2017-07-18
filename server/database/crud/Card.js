@@ -11,7 +11,8 @@ export default class Card {
      */
     static createCard(cardData) {
         const CardModelInstance = new CardModel({
-            title: cardData.title
+            title: cardData.title,
+            text: cardData.text
         });
 
         if (cardData.color) { CardModelInstance.color = cardData.color; }

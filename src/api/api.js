@@ -23,8 +23,8 @@ export default {
         return axios.post(`${apiPrefix}/board/create`, data);
     },
 
-    getBoardByUser(id) {
-        return axios.get(`${apiPrefix}/board/user/` + id);
+    getInitialData(id) {
+        return axios.get(`${apiPrefix}/get-started/` + id);
     },
 
     getBoard(id) {

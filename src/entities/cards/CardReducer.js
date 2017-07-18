@@ -10,7 +10,7 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case GET_INITIAL_DATA:
-            return;
+            return copiedState.concat(action.payload.data.cards);
 
         case CREATE_CARD:
             return copiedState.push(action.payload.data);
