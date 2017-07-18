@@ -10,6 +10,7 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case GET_INITIAL_DATA:
+            // @todo add card with _id === 0
             return copiedState.concat(action.payload.data.cards);
 
         case CREATE_CARD:

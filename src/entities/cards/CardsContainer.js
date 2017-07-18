@@ -14,7 +14,7 @@ export class CardsContainer extends Component {
         super(props);
 
         this.state = {
-            cards: this.props.list.cards // list будет передан через <CardsContainer list={someList} />
+            cards: this.props.cards // list будет передан через <CardsContainer list={someList} />
         }
     }
 
@@ -49,14 +49,8 @@ export class CardsContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        board: state.boards,
-    };
-}
-
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createCard, getCard, updateCard, deleteCard }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
+export default connect(null, mapDispatchToProps)(CardsContainer);
