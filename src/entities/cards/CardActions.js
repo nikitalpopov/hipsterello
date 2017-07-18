@@ -4,7 +4,6 @@
 
 import api from '../../api/api.js'
 
-export const GET_INITIAL_DATA = 'GET_INITIAL_DATA';
 export const CREATE_CARD      = 'CREATE_CARD';
 export const GET_CARD         = 'GET_CARD';
 export const UPDATE_CARD      = 'UPDATE_CARD';
@@ -35,7 +34,6 @@ export function getCard(request) {
 /**
  * @description Отдаёт данные для запроса на изменение карточки
  * @param request - объект с данными для изменения карточки
- * @returns {{type: string, payload: *}}
  */
 export function updateCard(request) {
     return {
