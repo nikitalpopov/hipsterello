@@ -17,6 +17,10 @@ const CardSchema = new Schema({
         type: String,
         default: '#ffffff'
     },
+    listId: {
+        type: Schema.Types.ObjectId,
+        ref: 'List'
+    },
     createdAt: {
         type: Date,
         default: Date.now

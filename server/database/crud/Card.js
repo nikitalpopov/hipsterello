@@ -13,15 +13,11 @@ export default class Card {
     static createCard(cardObject) {
         const CardModelInstance = new CardModel({
             title: cardObject.title,
-            text: cardObject.text
+            text: cardObject.text,
+            listId: cardObject.listId
         });
 
         if (cardObject.color) CardModelInstance.color = cardObject.color;
-
-        const ids = ({
-            boardId: cardObject.boardId,
-            listId: cardObject.listId
-        });
 
         return CardModelInstance
             .save()
@@ -29,7 +25,7 @@ export default class Card {
                 delete createdCard.__v;
 
                 return Board
-                    .addCard(ids, createdCard)
+                    .addCard(cardObject.boardId, createdCard)
                     .then(() => {
                         return createdCard;
                     });
@@ -44,7 +40,7 @@ export default class Card {
         return CardModel
             .findById(
                 cardId,
-                ['_id', 'title', 'text', 'color']
+                ['_id', 'title', 'text', 'color', 'listId']
             )
             .lean();
     };
@@ -60,11 +56,7 @@ export default class Card {
                 if (cardObject.title) foundCard[0].title = cardObject.title;
                 if (cardObject.text) foundCard[0].text = cardObject.text;
                 if (cardObject.color) foundCard[0].color = cardObject.color;
-
-                const ids = ({
-                    boardId: cardObject.boardId,
-                    listId: cardObject.listId
-                });
+                if (cardObject.listId) foundCard[0].listId = cardObject.listId;
 
                 return foundCard[0]
                     .save()
@@ -72,7 +64,7 @@ export default class Card {
                         delete savedCard.__v;
 
                         return Board
-                            .updateCard(ids, savedCard)
+                            .updateCard(cardObject.boardId, savedCard)
                             .then((updatedCard) => {
                                 return updatedCard;
                             })
@@ -89,18 +81,13 @@ export default class Card {
         return CardModel
             .find({ _id: cardObject._id })
             .then((foundCard) => {
-                const ids = ({
-                    boardId: cardObject.boardId,
-                    listId: cardObject.listId
-                });
-
                 return foundCard[0]
                     .remove()
                     .then((removedCard) => {
                         delete removedCard.__v;
 
                         return Board
-                            .deleteList(ids, removedCard)
+                            .deleteList(cardObject.boardId, removedCard)
                             .then((deletedCard) => {
                                 return deletedCard;
                             })

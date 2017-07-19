@@ -25,15 +25,7 @@ const BoardSchema = new Schema({
         default: []
     },
     cards: {
-        type: [{
-            listId: {
-                type: Schema.Types.ObjectId,
-                ref: 'List'
-            },
-            card: {
-                type: CardSchema
-            }
-        }],
+        type: [CardSchema],
         default: []
     },
     createdAt: {

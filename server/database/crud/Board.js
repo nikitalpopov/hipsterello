@@ -18,6 +18,8 @@ export default class Board {
         return BoardModelInstance
             .save()
             .then((result) => {
+                delete result.__v;
+
                 return result;
             });
     };
@@ -137,15 +139,14 @@ export default class Board {
 
     /**
      * @description Привязываем карточку к доске
-     * @param ids
+     * @param boardId
      * @param card
      */
-    static addCard(ids, card) {
+    static addCard(boardId, card) {
         return BoardModel
-            .find({ _id: ids.boardId })
+            .find({ _id: boardId })
             .then((foundBoard) => {
                 foundBoard[0].cards.push({
-                    listId: ids.listId,
                     card: card
                 });
                 return foundBoard[0].save()
@@ -157,17 +158,17 @@ export default class Board {
 
     /**
      * @description Обновляем привязанную к доске карточку
-     * @param ids
+     * @param boardId
      * @param card
      */
-    static updateCard(ids, card) {
+    static updateCard(boardId, card) {
         let cardIndex;
 
         return BoardModel
-            .find({ _id: ids.boardId })
+            .find({ _id: boardId })
             .then((foundBoard) => {
                 foundBoard[0].cards.map((cardObject, index) => {
-                    if (card.card._id !== cardObject.card._id || card.listId !== cardObject.listId)
+                    if (card._id !== cardObject._id)
                         return cardObject;
 
                     cardIndex = index;
@@ -186,17 +187,17 @@ export default class Board {
 
     /**
      * @description Удаляем привязанную к доске карточку
-     * @param ids
+     * @param boardId
      * @param card
      */
-    static deleteCard(ids, card) {
+    static deleteCard(boardId, card) {
         let cardIndex;
 
         return BoardModel
-            .find({ _id: ids.boardId })
+            .find({ _id: boardId })
             .then((foundBoard) => {
                 foundBoard[0].cards.map((cardObject, index) => {
-                    if (card.card._id !== cardObject.card._id || card.listId !== cardObject.listId)
+                    if (card._id !== cardObject._id)
                         return cardObject;
 
                     cardIndex = index;
@@ -206,7 +207,7 @@ export default class Board {
 
                 return foundBoard[0].save();
             }).then((savedBoard) => {
-                return savedBoard.cards[cardIndex].card;
+                return savedBoard.cards[cardIndex];
             });
     };
 
