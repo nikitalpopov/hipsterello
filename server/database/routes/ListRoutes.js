@@ -15,15 +15,7 @@ router.post('/list/create', (req, res) => {
         });
 });
 
-router.get('/list/:id', (req, res) => {
-    List
-        .findListById(req.params.id)
-        .then((foundList) => {
-            res.send(foundList)
-        });
-});
-
-router.post('/list/update', (req, res) => {
+router.patch('/list/update', (req, res) => {
     List
         .updateList(req.body)
         .then((updatedList) => {
@@ -31,12 +23,20 @@ router.post('/list/update', (req, res) => {
         });
 });
 
-router.post('/list/delete', (req, res) => {
+router.delete('/list/delete', (req, res) => {
     List
         .deleteList(req.body)
         .then((deletedList) => {
             res.send(deletedList)
         });
 });
+
+// router.get('/list/:id', (req, res) => {
+//     List
+//         .findListById(req.params.id)
+//         .then((foundList) => {
+//             res.send(foundList)
+//         });
+// });
 
 module.exports = router;

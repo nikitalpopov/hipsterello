@@ -1,27 +1,39 @@
 /**
  * Created by @nikitalpopov on 13/07/2017.
  */
+
 import { Card as CardModel } from '../entities/card/Card';
-import List from './List';
+import Board from './Board';
 
 export default class Card {
     /**
      * @description Создаем карточку, привязываем её к списку
-     * @param cardData
+     * @param cardObject
      */
-    static createCard(cardData) {
+    static createCard(cardObject) {
         const CardModelInstance = new CardModel({
-            title: cardData.title,
-            text: cardData.text
+            title: cardObject.title,
+            text: cardObject.text
         });
 
-        if (cardData.color) { CardModelInstance.color = cardData.color; }
+        if (cardObject.color) CardModelInstance.color = cardObject.color;
 
-        return CardModelInstance.save()
+        const ids = ({
+            boardId: cardObject.boardId,
+            listId: cardObject.listId
+        });
+
+        return CardModelInstance
+            .save()
             .then((createdCard) => {
-                List.updateCards(cardData.listId, createdCard);
-                return createdCard;
-        });
+                delete createdCard.__v;
+
+                return Board
+                    .addCard(ids, createdCard)
+                    .then(() => {
+                        return createdCard;
+                    });
+            });
     };
 
     /**
@@ -29,41 +41,70 @@ export default class Card {
      * @param cardId
      */
     static findCardById(cardId) {
-        return CardModel.findById(cardId, ['title', 'text', 'color']).lean();
+        return CardModel
+            .findById(
+                cardId,
+                ['_id', 'title', 'text', 'color']
+            )
+            .lean();
     };
 
     /**
      * @description Обновляем данные карточки
-     * @param cardData
+     * @param cardObject
      */
-    static updateCard(cardData) {
+    static updateCard(cardObject) {
         return CardModel
-            .find({ _id: cardData._id })
+            .find({ _id: cardObject._id })
             .then((foundCard) => {
-                console.log(cardData);
-                console.log(foundCard[0]);
-                if (cardData.title) { foundCard[0].title = cardData.title; }
-                if (cardData.text) { foundCard[0].text = cardData.text; }
-                if (cardData.color) { foundCard[0].color = cardData.color; }
-                console.log(foundCard[0]);
-                return foundCard[0].save(); })
-            .then((savedResult) => {
-                return savedResult;
-        });
+                if (cardObject.title) foundCard[0].title = cardObject.title;
+                if (cardObject.text) foundCard[0].text = cardObject.text;
+                if (cardObject.color) foundCard[0].color = cardObject.color;
+
+                const ids = ({
+                    boardId: cardObject.boardId,
+                    listId: cardObject.listId
+                });
+
+                return foundCard[0]
+                    .save()
+                    .then((savedCard) => {
+                        delete savedCard.__v;
+
+                        return Board
+                            .updateCard(ids, savedCard)
+                            .then((updatedCard) => {
+                                return updatedCard;
+                            })
+                    });
+
+            });
     };
 
     /**
      * @description Удаляем данные карточки
-     * @param cardData
+     * @param cardObject
      */
-    static deleteCard(cardData) {
+    static deleteCard(cardObject) {
         return CardModel
-            .find({ _id: cardData._id })
+            .find({ _id: cardObject._id })
             .then((foundCard) => {
-                return foundCard[0].remove();
-            })
-            .then((deletedResult) => {
-                return deletedResult;
-        });
+                const ids = ({
+                    boardId: cardObject.boardId,
+                    listId: cardObject.listId
+                });
+
+                return foundCard[0]
+                    .remove()
+                    .then((removedCard) => {
+                        delete removedCard.__v;
+
+                        return Board
+                            .deleteList(ids, removedCard)
+                            .then((deletedCard) => {
+                                return deletedCard;
+                            })
+                    });
+            });
     };
 }

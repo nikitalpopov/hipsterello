@@ -15,15 +15,15 @@ router.post('/card/create', (req, res) => {
         });
 });
 
-router.get('/card/:id', (req, res) => {
-    Card
-        .findCardById(req.params.id)
-        .then((foundCard) => {
-            res.send(foundCard)
-        });
-});
+// router.get('/card/:id', (req, res) => {
+//     Card
+//         .findCardById(req.params.id)
+//         .then((foundCard) => {
+//             res.send(foundCard)
+//         });
+// });
 
-router.post('/card/update', (req, res) => {
+router.patch('/card/update', (req, res) => {
     Card
         .updateCard(req.body)
         .then((updatedCard) => {
@@ -31,7 +31,7 @@ router.post('/card/update', (req, res) => {
         });
 });
 
-router.post('/card/delete', (req, res) => {
+router.delete('/card/delete', (req, res) => {
     Card
         .deleteCard(req.body)
         .then((deletedCard) => {

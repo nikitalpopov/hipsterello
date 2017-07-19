@@ -4,20 +4,26 @@ import Board from './Board';
 export default class List {
     /**
     * @description Создаем список, привязываем его к доске
-    * @param listData
+    * @param listObject
     */
-    static createList(listData) {
+    static createList(listObject) {
         const ListModelInstance = new ListModel({
-            title: listData.title
+            title: listObject.title
         });
 
-        if (listData.color) { ListModelInstance.color = listData.color; }
+        if (listObject.color) ListModelInstance.color = listObject.color;
 
-        return ListModelInstance.save()
+        return ListModelInstance
+            .save()
             .then((createdList) => {
-                Board.updateLists(listData.boardId, createdList);
-                return createdList;
-        });
+                delete createdList.__v;
+
+                return Board
+                    .addList(listObject.boardId, createdList)
+                    .then(() => {
+                        return createdList;
+                });
+            });
     };
 
     /**
@@ -25,58 +31,58 @@ export default class List {
      * @param listId
      */
     static findListById(listId) {
-        return ListModel.findById(listId, ['title', 'color', 'cards']).lean();
+        return ListModel
+            .findById(
+                listId,
+                ['_id', 'title', 'color']
+            )
+            .lean();
     };
 
     /**
      * @description Обновляем данные списка
-     * @param listData
+     * @param listObject
      */
-    static updateList(listData) {
+    static updateList(listObject) {
         return ListModel
-            .find({ _id: listData._id })
+            .find({ _id: listObject._id })
             .then((foundList) => {
-                if (listData.title) { foundList[0].title = listData.title; }
-                if (listData.color) { foundList[0].color = listData.color; }
-                if (listData.cards) {
-                    for (const card of listData.cards) {
-                        foundList[0].cards.push(card);
-                    }
-                }
-                return foundList[0].save(); })
-            .then((savedResult) => {
-                return savedResult;
-        });
-    };
+                if (listObject.title) foundList[0].title = listObject.title;
+                if (listObject.color) foundList[0].color = listObject.color;
 
-    /**
-     * @description Обновляем данные о привязанных к списку карточках
-     * @param listId
-     * @param card
-     */
-    static updateCards(listId, card) {
-        return ListModel
-            .find({ _id: listId })
-            .then((foundList) => {
-                foundList[0].cards.push(card);
-                return foundList[0].save(); })
-            .then((savedResult) => {
-                return savedResult;
-        });
+                return foundList[0]
+                    .save()
+                    .then((savedList) => {
+                        delete savedList.__v;
+
+                        return Board
+                            .updateList(listObject.boardId, savedList)
+                            .then((updatedList) => {
+                                return updatedList;
+                            })
+                    });
+            });
     };
 
     /**
      * @description Удаляем данные списка
-     * @param listData
+     * @param listObject
      */
-    static deleteList(listData) {
+    static deleteList(listObject) {
         return ListModel
-            .find({ _id: listData._id })
+            .find({ _id: listObject._id })
             .then((foundList) => {
-                return foundList[0].remove();
-            })
-            .then((deletedResult) => {
-                return deletedResult;
-        });
+                return foundList[0]
+                    .remove()
+                    .then((removedList) => {
+                        delete removedList.__v;
+
+                        return Board
+                            .deleteList(listObject.boardId, removedList)
+                            .then((deletedList) => {
+                                return deletedList;
+                            })
+                    });
+            });
     };
 }

@@ -1,22 +1,25 @@
 import { Board as BoardModel } from '../entities/board/Board';
+import { List as ListModel } from '../entities/list/List';
+import { Card as CardModel } from '../entities/card/Card';
 
 export default class Board {
     /**
      * @description Создаем доску, привязываем к ней пользователя
-     * @param boardData
+     * @param boardObject
      */
-    static createBoard(boardData) {
+    static createBoard(boardObject) {
         const BoardModelInstance = new BoardModel({
-            userId: boardData.userId,
-            title: boardData.title
+            usersId: boardObject.usersId,
+            title: boardObject.title
         });
 
-        if (boardData.color) { BoardModelInstance.color = boardData.color; }
+        if (boardObject.color) BoardModelInstance.color = boardObject.color;
 
-        return BoardModelInstance.save()
+        return BoardModelInstance
+            .save()
             .then((result) => {
                 return result;
-        });
+            });
     };
 
     /**
@@ -24,7 +27,12 @@ export default class Board {
      * @param boardId
      */
     static findBoardById(boardId) {
-        return BoardModel.findById(boardId, ['userId', 'title', 'color', 'lists']).lean();
+        return BoardModel
+            .findById(
+                boardId,
+                ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
+            )
+            .lean();
     };
 
     /**
@@ -32,74 +40,206 @@ export default class Board {
      * @param userId
      */
     static findBoardByUserId(userId) {
-        return BoardModel.findOne({ userId: userId }, ['userId', 'title', 'color', 'lists']).lean();
-    };
-
-    /**
-     * @description Обновляем данные доски
-     * @param boardData
-     */
-    static updateBoard(boardData) {
         return BoardModel
-            .find({ _id: boardData._id })
-            .then((foundBoard) => {
-                if (boardData.title) { foundBoard[0].title = boardData.title; }
-                if (boardData.color) { foundBoard[0].color = boardData.color; }
-                if (boardData.lists) {
-                    for (const list of boardData.lists) {
-                        foundBoard[0].lists.push(list);
-                    }
-                }
-                return foundBoard[0].save(); })
-            .then((savedResult) => {
-                return savedResult;
-        });
+            .findOne(
+                { usersId: userId },
+                ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
+            )
+            .lean();
     };
 
     /**
-     * @description Обновляем данные о привязанных к доске списках
+     * @description Обновляем данные о привязанных к доске пользователях
+     * @param boardId
+     * @param userId
+     */
+    static addUserId(boardId, userId) {
+        return BoardModel
+            .find({ _id: boardId })
+            .then((foundBoard) => {
+                foundBoard[0].usersId.push(userId);
+                return foundBoard[0].save();
+            })
+            .then((savedReBoard) => {
+                return savedReBoard;
+            });
+    };
+
+    /**
+     * @description Привязываем список к доске
      * @param boardId
      * @param list
      */
-    static updateLists(boardId, list) {
+    static addList(boardId, list) {
         return BoardModel
             .find({ _id: boardId })
             .then((foundBoard) => {
                 foundBoard[0].lists.push(list);
-                return foundBoard[0].save(); })
+                return foundBoard[0].save();
+            })
+            .then((savedBoard) => {
+                return savedBoard;
+            });
+    };
+
+    /**
+     * @description Обновляем привязанный к доске список
+     * @param boardId
+     * @param list
+     */
+    static updateList(boardId, list) {
+        let listIndex;
+
+        return BoardModel
+            .find({ _id: boardId })
+            .then((foundBoard) => {
+                foundBoard[0].lists.map((listObject, index) => {
+                    if (list._id !== listObject._id) return listObject;
+
+                    listIndex = index;
+
+                    return new ListModel({
+                        ...listObject,
+                        ...list
+                    });
+                });
+
+                return foundBoard[0].save();
+            }).then((savedBoard) => {
+                return savedBoard.lists[listIndex];
+            });
+    };
+
+    /**
+     * @description Удаляем привязанный к доске список
+     * @param boardId
+     * @param list
+     */
+    static deleteList(boardId, list) {
+        let listIndex;
+
+        return BoardModel
+            .find({ _id: boardId })
+            .then((foundBoard) => {
+                foundBoard[0].lists.map((listObject, index) => {
+                    if (list._id !== listObject._id) return listObject;
+
+                    listIndex = index;
+
+                    return foundBoard[0].lists[index].remove();
+                });
+
+                return foundBoard[0].save();
+            }).then((savedBoard) => {
+                return savedBoard.lists[listIndex];
+            });
+    }
+
+    /**
+     * @description Привязываем карточку к доске
+     * @param ids
+     * @param card
+     */
+    static addCard(ids, card) {
+        return BoardModel
+            .find({ _id: ids.boardId })
+            .then((foundBoard) => {
+                foundBoard[0].cards.push({
+                    listId: ids.listId,
+                    card: card
+                });
+                return foundBoard[0].save()
+            })
+            .then((savedBoard) => {
+                return savedBoard;
+            });
+    };
+
+    /**
+     * @description Обновляем привязанную к доске карточку
+     * @param ids
+     * @param card
+     */
+    static updateCard(ids, card) {
+        let cardIndex;
+
+        return BoardModel
+            .find({ _id: ids.boardId })
+            .then((foundBoard) => {
+                foundBoard[0].cards.map((cardObject, index) => {
+                    if (card.card._id !== cardObject.card._id || card.listId !== cardObject.listId)
+                        return cardObject;
+
+                    cardIndex = index;
+
+                    return new CardModel({
+                        ...cardObject,
+                        ...card
+                    });
+                });
+
+                return foundBoard[0].save();
+            }).then((savedBoard) => {
+                return savedBoard.cards[cardIndex].card;
+            });
+    };
+
+    /**
+     * @description Удаляем привязанную к доске карточку
+     * @param ids
+     * @param card
+     */
+    static deleteCard(ids, card) {
+        let cardIndex;
+
+        return BoardModel
+            .find({ _id: ids.boardId })
+            .then((foundBoard) => {
+                foundBoard[0].cards.map((cardObject, index) => {
+                    if (card.card._id !== cardObject.card._id || card.listId !== cardObject.listId)
+                        return cardObject;
+
+                    cardIndex = index;
+
+                    return foundBoard[0].cards[index].remove();
+                });
+
+                return foundBoard[0].save();
+            }).then((savedBoard) => {
+                return savedBoard.cards[cardIndex].card;
+            });
+    };
+
+    /**
+     * @description Обновляем данные доски
+     * @param boardObject
+     */
+    static updateBoard(boardObject) {
+        return BoardModel
+            .find({ _id: boardObject._id })
+            .then((foundBoard) => {
+                if (boardObject.title) foundBoard[0].title = boardObject.title;
+                if (boardObject.color) foundBoard[0].color = boardObject.color;
+
+                return foundBoard[0].save();
+            })
             .then((savedResult) => {
                 return savedResult;
             });
     };
 
     // /**
-    //  * @description Обновляем данные о привязанных к пользователю досках
-    //  * @param userId
-    //  * @param boardId
+    //  * @description Удаляем данные доски
+    //  * @param boardObject
     //  */
-    // static updateBoards(userId, boardId) {
-    //     return UserModel
-    //         .find({ _id: userId })
-    //         .then((foundUser) => {
-    //             foundUser[0].boardsId.push(boardId);
-    //             return foundUser[0].save(); })
-    //         .then((savedResult) => {
-    //             return savedResult.boardsId;
+    // static deleteBoard(boardObject) {
+    //     return BoardModel
+    //         .find({ _id: boardObject._id })
+    //         .then((foundBoard) => {
+    //             return foundBoard[0].remove();
+    //         })
+    //         .then((deletedResult) => {
+    //             return deletedResult;
     //     });
     // };
-
-    /**
-     * @description Удаляем данные доски
-     * @param boardData
-     */
-    static deleteBoard(boardData) {
-        return BoardModel
-            .find({ _id: boardData._id })
-            .then((foundBoard) => {
-                return foundBoard[0].remove();
-            })
-            .then((deletedResult) => {
-                return deletedResult;
-        });
-    };
 }

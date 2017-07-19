@@ -5,9 +5,9 @@ let router = express.Router();
 
 router.post('/login', (req, res) => {
     User
-        .createUser(req.body)
-        .then((createdUser) => {
-            res.send(createdUser);
+        .loginUser(req.body)
+        .then((loggedInUser) => {
+            res.send(loggedInUser);
         });
 });
 
@@ -19,21 +19,21 @@ router.get('/user/:id', (req, res) => {
         })
 });
 
-router.post('/user/update', (req, res) => {
-    User
-        .updateUser(req.body)
-        .then((updatedUser) => {
-            res.send(updatedUser)
-        });
-});
+// router.post('/user/update', (req, res) => {
+//     User
+//         .updateUser(req.body)
+//         .then((updatedUser) => {
+//             res.send(updatedUser)
+//         });
+// });
 
-router.post('/user/delete', (req, res) => {
-    User
-        .deleteUser(req.body)
-        .then((deletedUser) => {
-            res.send(deletedUser)
-        })
-        .catch(console.log.bind(console));
-});
+// router.post('/user/delete', (req, res) => {
+//     User
+//         .deleteUser(req.body)
+//         .then((deletedUser) => {
+//             res.send(deletedUser)
+//         })
+//         .catch(console.log.bind(console));
+// });
 
 module.exports = router;
