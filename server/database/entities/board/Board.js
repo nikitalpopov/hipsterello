@@ -1,16 +1,17 @@
 /**
  * Created by admin on 07.07.2017.
  */
+
 import mongoose from 'mongoose';
 
 import ListSchema from '../list/List';
+import CardSchema from '../card/Card';
 
 const Schema = mongoose.Schema;
 
 const BoardSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        // required: true
+    usersId: {
+        type: [Schema.Types.ObjectId],
     },
     title: {
         type: String
@@ -23,15 +24,23 @@ const BoardSchema = new Schema({
         type: [ListSchema],
         default: []
     },
+    cards: {
+        type: [{
+            listId: {
+                type: Schema.Types.ObjectId,
+                ref: 'List'
+            },
+            card: {
+                type: CardSchema
+            }
+        }],
+        default: []
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
-
-BoardSchema.statics.findByUserId = function(request) {
-    return this.model('Board').find({ 'userId': request });
-};
 
 export default BoardSchema;
 export const Board = mongoose.model('Board', BoardSchema);
