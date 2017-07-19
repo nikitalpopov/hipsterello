@@ -29,7 +29,7 @@ export default class Card {
      * @param cardId
      */
     static findCardById(cardId) {
-        return CardModel.findById(cardId);
+        return CardModel.findById(cardId, ['title', 'text', 'color']).lean();
     };
 
     /**

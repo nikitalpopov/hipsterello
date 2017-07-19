@@ -25,39 +25,35 @@ export class List extends Component {
     renderHelper() {
         if (this.props.list._id !== 0) {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>List</legend>
-                        <div>
-                            <input type="text"
-                                   name="title"
-                                   value={ this.state.title }
-                                   onChange={ this.onChangeList.bind(this) }
-                            />
+                <div>
+                    <h3>List</h3>
+                    <div>
+                        <input type="text"
+                               name="title"
+                               value={ this.state.title }
+                               onChange={ this.onChangeList.bind(this) }
+                        />
 
-                            <button onClick={ this.props.onUpdateList(this.state) }>Save</button>
-                            <button onClick={ this.props.onDeleteList(this.state) }>Delete</button>
-                        </div>
-                        <CardsContainer />
-                    </fieldset>
-                </form>
+                        <button onClick={ this.props.onUpdateList(this.state) }>Save</button>
+                        <button onClick={ this.props.onDeleteList(this.state) }>Delete</button>
+                    </div>
+                    <CardsContainer />
+                </div>
             )
         } else {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>Add list</legend>
-                        <div>
-                            <input type="text"
-                                   name="title"
-                                   placeholder="Add new title"
-                                   onChange={ this.onChangeList.bind(this) }
-                            />
+                <div>
+                    <h3>Add list</h3>
+                    <div>
+                        <input type="text"
+                               name="title"
+                               placeholder="Add new title"
+                               onChange={ this.onChangeList.bind(this) }
+                        />
 
-                            <button onClick={ this.props.onCreateList(this.state).bind(this) }>Add</button>
-                        </div>
-                    </fieldset>
-                </form>
+                        <button onClick={ this.props.onCreateList(this.state).bind(this) }>Add</button>
+                    </div>
+                </div>
             )
         }
     }

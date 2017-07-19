@@ -25,7 +25,7 @@ export default class List {
      * @param listId
      */
     static findListById(listId) {
-        return ListModel.findById(listId);
+        return ListModel.findById(listId, ['title', 'color', 'cards']).lean();
     };
 
     /**

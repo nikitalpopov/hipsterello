@@ -25,50 +25,46 @@ export class Card extends Component {
     renderHelper() {
         if (this.props.card._id !== 0) {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>Card</legend>
-                        <div>
-                            <input type="text"
-                                   name="title"
-                                   value={ this.state.title }
-                                   onChange={ this.onChangeCard.bind(this) }
-                            />
+                <div>
+                    <h4>Card</h4>
+                    <div>
+                        <input type="text"
+                               name="title"
+                               value={ this.state.title }
+                               onChange={ this.onChangeCard.bind(this) }
+                        />
 
-                            <input type="text"
-                                   name="text"
-                                   value={ this.state.text }
-                                   onChange={ this.onChangeCard.bind(this) }
-                            />
+                        <input type="text"
+                               name="text"
+                               value={ this.state.text }
+                               onChange={ this.onChangeCard.bind(this) }
+                        />
 
-                            <button onClick={ this.props.onUpdateCard(this.state) }>Save</button>
-                            <button onClick={ this.props.onDeleteCard(this.state) }>Delete</button>
-                        </div>
-                    </fieldset>
-                </form>
+                        <button onClick={ this.props.onUpdateCard(this.state) }>Save</button>
+                        <button onClick={ this.props.onDeleteCard(this.state) }>Delete</button>
+                    </div>
+                </div>
             )
         } else {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>Add card</legend>
-                        <div>
-                            <input type="text"
-                                   name="title"
-                                   placeholder="Add new title"
-                                   onChange={ this.onChangeCard.bind(this) }
-                            />
+                <div>
+                    <h4>Add card</h4>
+                    <div>
+                        <input type="text"
+                               name="title"
+                               placeholder="Add new title"
+                               onChange={ this.onChangeCard.bind(this) }
+                        />
 
-                            <input type="text"
-                                   name="text"
-                                   placeholder="Add new text"
-                                   onChange={ this.onChangeCard.bind(this) }
-                            />
+                        <input type="text"
+                               name="text"
+                               placeholder="Add new text"
+                               onChange={ this.onChangeCard.bind(this) }
+                        />
 
-                            <button onClick={ this.props.onCreateCard(this.state).bind(this) }>Add</button>
-                        </div>
-                    </fieldset>
-                </form>
+                        <button onClick={ this.props.onCreateCard(this.state).bind(this) }>Add</button>
+                    </div>
+                </div>
             )
         }
     }

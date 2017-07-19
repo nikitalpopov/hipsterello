@@ -24,7 +24,7 @@ export default class Board {
      * @param boardId
      */
     static findBoardById(boardId) {
-        return BoardModel.findById(boardId);
+        return BoardModel.findById(boardId, ['userId', 'title', 'color', 'lists']).lean();
     };
 
     /**
@@ -32,7 +32,7 @@ export default class Board {
      * @param userId
      */
     static findBoardByUserId(userId) {
-        return BoardModel.findOne({ userId: userId });
+        return BoardModel.findOne({ userId: userId }, ['userId', 'title', 'color', 'lists']).lean();
     };
 
     /**

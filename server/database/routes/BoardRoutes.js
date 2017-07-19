@@ -25,7 +25,7 @@ router.get('/get-started/:id', (req, res) => {
     //     });
 
     /* For collections */
-    let answer = ({
+    let response = ({
         board: {},
         lists: [],
         cards: []
@@ -33,12 +33,10 @@ router.get('/get-started/:id', (req, res) => {
 
     Board.findBoardByUserId(req.params.id)
         .then((foundBoard) => {
-            foundBoard = foundBoard._doc;
             let listsId = foundBoard.lists;
-
-            delete foundBoard.__v;  // foundBoard.__v = undefined is alternative
             delete foundBoard.lists;  // foundBoard.lists = undefined; foundBoard = JSON.parse(JSON.stringify(foundBoard));
-            answer.board = foundBoard;
+
+            response.board = foundBoard;
 
             return listsId.map(list => list._id);
         })
@@ -47,14 +45,10 @@ router.get('/get-started/:id', (req, res) => {
                 return List
                     .findListById(listId)
                     .then((foundList) => {
-                        foundList = foundList._doc;
-
                         let cardsId = [].concat.apply([], foundList.cards);
-
-                        delete foundList.__v;
                         delete foundList.cards;
 
-                        answer.lists.push(foundList);
+                        response.lists.push(foundList);
 
                         return cardsId.map(card => card._id);
                 })
@@ -65,16 +59,12 @@ router.get('/get-started/:id', (req, res) => {
                         return Card
                             .findCardById(cardId)
                             .then((foundCard) => {
-                                foundCard = foundCard._doc;
-
-                                delete foundCard.__v;
-
                                 return foundCard;
                             })
                     }))
                         .then((cards) => {
-                            answer.cards = cards;
-                            res.send(answer);
+                            response.cards = cards;
+                            res.send(response);
                     })
             })
     });
