@@ -3,6 +3,7 @@
  */
 
 import { User as UserModel } from '../entities/user/User';
+import Board from './Board';
 
 export default class User {
     /**
@@ -14,7 +15,18 @@ export default class User {
             .findByEmail(userData.email)
             .then((user) => {
                 if (!user) {
-                    return User.createUser(userData);
+                    return User
+                        .createUser(userData)
+                        .then((createdUser) => {
+                            const board = ({
+                                usersId: createdUser._id,
+                                title: "New board"
+                            });
+
+                            Board.createBoard(board);
+
+                            return createdUser;
+                        });
                 } else {
                     if (user.password === userData.password) {
                         return user;
@@ -24,6 +36,8 @@ export default class User {
                 }
             })
             .then((user) => {
+                delete user.__v;
+
                 return user;
             })
             .catch(console.log.bind(console));
@@ -42,7 +56,7 @@ export default class User {
         return UserModelInstance
             .save()
             .then((createdUser) => {
-
+                return createdUser;
             })
     };
 
