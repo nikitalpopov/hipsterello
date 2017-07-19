@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { CardsContainer } from "../cards/CardsContainer";
+import CardsContainer from "../cards/CardsContainer";
 
 export class List extends Component {
     constructor(props) {
@@ -35,8 +35,8 @@ export class List extends Component {
                                    onChange={ this.onChangeList.bind(this) }
                             />
 
-                            <button onClick={ this.props.onUpdateList(this.state).bind(this) }>Save</button>
-                            <button onClick={ this.props.onDeleteList(this.state).bind(this) }>Delete</button>
+                            <button onClick={ this.props.onUpdateList(this.state) }>Save</button>
+                            <button onClick={ this.props.onDeleteList(this.state) }>Delete</button>
                         </div>
                         <CardsContainer />
                     </fieldset>

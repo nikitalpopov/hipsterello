@@ -41,8 +41,8 @@ export class Card extends Component {
                                    onChange={ this.onChangeCard.bind(this) }
                             />
 
-                            <button onClick={ this.props.onUpdateCard(this.state).bind(this) }>Save</button>
-                            <button onClick={ this.props.onDeleteCard(this.state).bind(this) }>Delete</button>
+                            <button onClick={ this.props.onUpdateCard(this.state) }>Save</button>
+                            <button onClick={ this.props.onDeleteCard(this.state) }>Delete</button>
                         </div>
                     </fieldset>
                 </form>

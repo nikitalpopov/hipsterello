@@ -8,15 +8,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getInitialData } from './BoardActions'
-import { ListsContainer } from "../lists/ListsContainer";
+import ListsContainer from "../lists/ListsContainer";
 
 export class Board extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            board: this.props.getInitialData(this.props.user)
-        }
+        this.props.getInitialData(this.props.user)
     }
 
     renderHelper() {

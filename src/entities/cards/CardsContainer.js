@@ -25,17 +25,17 @@ export class CardsContainer extends Component {
     render() {
         return (
             <div>
-                {/*{ this.props.cards*/}
-                    {/*.map((card, index) => (*/}
-                        {/*<Card*/}
-                            {/*card={ card }*/}
-                            {/*index={ index }*/}
-                            {/*onCreateCard={ this.onCreateCard.bind(this) }*/}
-                            {/*onUpdateCard={ this.onUpdateCard.bind(this) }*/}
-                            {/*onDeleteCard={ this.onDeleteCard.bind(this) }*/}
-                        {/*/>)*/}
-                    {/*)*/}
-                {/*}*/}
+                { this.props.cards
+                    .map((card, index) => (
+                        <Card
+                            card={ card }
+                            index={ index }
+                            onCreateCard={ this.onCreateCard.bind(this) }
+                            onUpdateCard={ this.onUpdateCard.bind(this) }
+                            onDeleteCard={ this.onDeleteCard.bind(this) }
+                        />)
+                    )
+                }
             </div>
         )
     }
