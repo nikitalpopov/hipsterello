@@ -54,8 +54,8 @@ router.get('/get-started/:id', (req, res) => {
                 })
             }))
                 .then((cardsId) => {
-                    let cards = cardsId[0];
-                    Promise.all(cards.map((cardId) => {
+                    cardsId = [].concat.apply([], cardsId);
+                    Promise.all(cardsId.map((cardId) => {
                         return Card
                             .findCardById(cardId)
                             .then((foundCard) => {
