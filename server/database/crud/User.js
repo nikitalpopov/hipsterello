@@ -36,8 +36,6 @@ export default class User {
                 }
             })
             .then((user) => {
-                delete user.__v;
-
                 return user;
             })
             .catch(console.log.bind(console));

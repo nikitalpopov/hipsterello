@@ -16,8 +16,6 @@ export default class List {
         return ListModelInstance
             .save()
             .then((createdList) => {
-                delete createdList.__v;
-
                 return Board
                     .addList(listObject.boardId, createdList)
                     .then(() => {
@@ -45,21 +43,19 @@ export default class List {
      */
     static updateList(listObject) {
         return ListModel
-            .find({ _id: listObject._id })
+            .findById(listObject._id)
             .then((foundList) => {
-                if (listObject.title) foundList[0].title = listObject.title;
-                if (listObject.color) foundList[0].color = listObject.color;
+                if (listObject.title) foundList.title = listObject.title;
+                if (listObject.color) foundList.color = listObject.color;
 
-                return foundList[0]
+                return foundList
                     .save()
                     .then((savedList) => {
-                        delete savedList.__v;
-
                         return Board
                             .updateList(listObject.boardId, savedList)
-                            .then((updatedList) => {
-                                return updatedList;
-                            })
+                            .then(() => {
+                                return savedList;
+                            });
                     });
             });
     };
@@ -70,18 +66,16 @@ export default class List {
      */
     static deleteList(listObject) {
         return ListModel
-            .find({ _id: listObject._id })
+            .findById(listObject._id)
             .then((foundList) => {
-                return foundList[0]
+                return foundList
                     .remove()
                     .then((removedList) => {
-                        delete removedList.__v;
-
                         return Board
                             .deleteList(listObject.boardId, removedList)
-                            .then((deletedList) => {
-                                return deletedList;
-                            })
+                            .then(() => {
+                                return removedList;
+                            });
                     });
             });
     };

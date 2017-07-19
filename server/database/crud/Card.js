@@ -22,8 +22,6 @@ export default class Card {
         return CardModelInstance
             .save()
             .then((createdCard) => {
-                delete createdCard.__v;
-
                 return Board
                     .addCard(cardObject.boardId, createdCard)
                     .then(() => {
@@ -51,25 +49,22 @@ export default class Card {
      */
     static updateCard(cardObject) {
         return CardModel
-            .find({ _id: cardObject._id })
+            .findById(cardObject._id)
             .then((foundCard) => {
-                if (cardObject.title) foundCard[0].title = cardObject.title;
-                if (cardObject.text) foundCard[0].text = cardObject.text;
-                if (cardObject.color) foundCard[0].color = cardObject.color;
-                if (cardObject.listId) foundCard[0].listId = cardObject.listId;
+                if (cardObject.title) foundCard.title = cardObject.title;
+                if (cardObject.text) foundCard.text = cardObject.text;
+                if (cardObject.color) foundCard.color = cardObject.color;
+                if (cardObject.listId) foundCard.listId = cardObject.listId;
 
-                return foundCard[0]
+                return foundCard
                     .save()
                     .then((savedCard) => {
-                        delete savedCard.__v;
-
                         return Board
                             .updateCard(cardObject.boardId, savedCard)
-                            .then((updatedCard) => {
-                                return updatedCard;
-                            })
+                            .then(() => {
+                                return savedCard;
+                            });
                     });
-
             });
     };
 
@@ -79,18 +74,16 @@ export default class Card {
      */
     static deleteCard(cardObject) {
         return CardModel
-            .find({ _id: cardObject._id })
+            .findById(cardObject._id)
             .then((foundCard) => {
-                return foundCard[0]
+                return foundCard
                     .remove()
                     .then((removedCard) => {
-                        delete removedCard.__v;
-
                         return Board
                             .deleteList(cardObject.boardId, removedCard)
-                            .then((deletedCard) => {
-                                return deletedCard;
-                            })
+                            .then(() => {
+                                return removedCard;
+                            });
                     });
             });
     };
