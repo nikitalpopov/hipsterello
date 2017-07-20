@@ -15,6 +15,7 @@ export const DELETE_BOARD     = 'DELETE_BOARD';
  * @param request – пользователь, для которого ищем доску
  */
 export function getInitialData(request) {
+    debugger;
     return {
         type: GET_INITIAL_DATA,
         payload: api.getInitialData(request._id)

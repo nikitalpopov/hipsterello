@@ -26,14 +26,15 @@ export class ListsContainer extends Component {
         return (
             <div>
                 { this.props.lists
-                    .map((list, index) => (
+                    .map((list, index) => {
+                        return (
                         <List
                             list={ list }
                             index={ index }
                             onCreateList={ this.onCreateList.bind(this) }
                             onUpdateList={ this.onUpdateList.bind(this) }
                             onDeleteList={ this.onDeleteList.bind(this) }
-                        />)
+                        />)}
                     )
                 }
             </div>

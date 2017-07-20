@@ -7,9 +7,10 @@ import { GET_INITIAL_DATA, CREATE_BOARD, GET_BOARD, UPDATE_BOARD, DELETE_BOARD }
 export default function(state = {}, action) {
     switch (action.type) {
         case GET_INITIAL_DATA:
+            debugger;
             return {
                 ...state,
-                ...action.payload.data.board
+                ...action.payload.data
             };
 
         case CREATE_BOARD:

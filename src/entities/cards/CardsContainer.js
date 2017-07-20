@@ -26,15 +26,18 @@ export class CardsContainer extends Component {
         return (
             <div>
                 { this.props.cards
-                    .map((card, index) => (
-                        <Card
-                            card={ card }
-                            index={ index }
-                            onCreateCard={ this.onCreateCard.bind(this) }
-                            onUpdateCard={ this.onUpdateCard.bind(this) }
-                            onDeleteCard={ this.onDeleteCard.bind(this) }
-                        />)
-                    )
+                    .map((card, index) => {
+                        if (String(this.props.listId) === String(card.listId)) {
+                            return (
+                                <Card
+                                    card={ card }
+                                    index={ index }
+                                    onCreateCard={ this.onCreateCard.bind(this) }
+                                    onUpdateCard={ this.onUpdateCard.bind(this) }
+                                    onDeleteCard={ this.onDeleteCard.bind(this) }
+                                />)
+                        } else { return null; }
+                    })
                 }
             </div>
         )

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Board from '../entities/boards/Board';
+import BoardsContainer from '../entities/boards/BoardsContainer';
 
 class App extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
-            return ( <Board /> );
+            return ( <BoardsContainer /> );
         } else {
             return ( <Redirect to='/login'/> );
         }
