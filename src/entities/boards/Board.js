@@ -11,12 +11,14 @@ export class Board extends Component {
         super(props);
 
         this.state = {
+            id: this.props.board._id,
             title: this.props.board.title
         }
     }
 
     componentWillReceiveProps(nextProps) {
         return this.setState({
+            id: nextProps.board._id,
             title: nextProps.board.title
         });
     }
@@ -42,7 +44,7 @@ export class Board extends Component {
 
                     <button /* onClick={ this.props.onUpdateCard(this.state) } */>Save</button>
 
-                    <ListsContainer />
+                    <ListsContainer boardId={ this.state.id } />
                 </div>
             </div>
         )

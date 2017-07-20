@@ -30,6 +30,7 @@ export class ListsContainer extends Component {
                         return (
                         <List
                             key={ list._id }
+                            boardId={ this.props.boardId }
                             list={ list }
                             index={ index }
                             onCreateList={ this.onCreateList.bind(this) }

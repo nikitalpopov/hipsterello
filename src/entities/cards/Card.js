@@ -10,6 +10,8 @@ export class Card extends Component {
 
         this.state = {
              _id: this.props.card._id,
+            boardId: this.props.boardId,
+            listId: this.props.card.listId,
             title: this.props.card.title,
             text: this.props.card.text
         };

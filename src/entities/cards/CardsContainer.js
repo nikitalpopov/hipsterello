@@ -30,6 +30,7 @@ export class CardsContainer extends Component {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
                                 <Card
+                                    boardId={ this.props.boardId }
                                     card={ card }
                                     index={ index }
                                     onCreateCard={ this.onCreateCard.bind(this) }

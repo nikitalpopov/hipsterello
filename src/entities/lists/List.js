@@ -11,6 +11,7 @@ export class List extends Component {
 
         this.state = {
             _id: this.props.list._id,
+            boardId: this.props.boardId,
             title: this.props.list.title,
         };
     }
@@ -29,16 +30,17 @@ export class List extends Component {
                 <div>
                     <h3>List</h3>
                     <div>
-                        <input type="text"
-                               name="title"
-                               value={ this.state.title }
-                               onChange={ this.onChangeList.bind(this) }
+                        <input
+                            type="text"
+                            name="title"
+                            value={ this.state.title }
+                            onChange={ this.onChangeList.bind(this) }
                         />
 
                         <button onClick={ (event) => { this.props.onUpdateList(this.state) } }>Save</button>
                         <button onClick={ (event) => { this.props.onDeleteList(this.state) } }>Delete</button>
                     </div>
-                    <CardsContainer listId={ this.props.list._id } />
+                    <CardsContainer listId={ this.props.list._id } boardId={ this.props.boardId } />
                 </div>
             )
         } else {
@@ -46,10 +48,11 @@ export class List extends Component {
                 <div>
                     <h3>Add list</h3>
                     <div>
-                        <input type="text"
-                               name="title"
-                               value="Add new title"
-                               onChange={ this.onChangeList.bind(this) }
+                        <input
+                            type="text"
+                            name="title"
+                            value="Add new title"
+                            onChange={ this.onChangeList.bind(this) }
                         />
 
                         <button onClick={ this.props.onCreateList(this.state).bind(this) }>Add</button>

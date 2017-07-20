@@ -34,7 +34,7 @@ export function getList(request) {
 export function updateList(request) {
     return {
         type: UPDATE_LIST,
-        payload: api.updateCard(request)
+        payload: api.updateList(request)
     }
 }
 
