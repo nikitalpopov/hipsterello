@@ -68,15 +68,18 @@ export default class List {
         return ListModel
             .findById(listObject._id)
             .then((foundList) => {
-                return foundList
-                    .remove()
-                    .then((removedList) => {
-                        return Board
-                            .deleteList(listObject.boardId, removedList)
-                            .then(() => {
-                                return removedList;
-                            });
-                    });
+                return foundList.remove();
+            })
+            .then((removedList) => {
+                return Board.deleteList(listObject.boardId, removedList)
+            }).then(() => {
+                return {
+                    success: true
+                };
+            }).catch((err) => {
+                return {
+                    error: true,
+                };
             });
     };
 }

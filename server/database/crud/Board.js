@@ -106,16 +106,22 @@ export default class Board {
      * @param list
      */
     static deleteList(boardId, list) {
-        return BoardModel.findOneAndRemove(
-            { '_id': boardId, 'lists._id': list._id },
-            {
-                '$pull': {
-                    'lists.$': list
+        return BoardModel.findById(boardId)
+            .then((board) => {
+                board.lists.pull(list);
+                return board.save();
+            })
+            .then(() => {
+                return {
+                    success: true
                 }
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .catch((err) => {
+                return {
+                    error: true
+                };
+            })
+        ;
     }
 
     /**
