@@ -76,15 +76,19 @@ export default class Card {
         return CardModel
             .findById(cardObject._id)
             .then((foundCard) => {
-                return foundCard
-                    .remove()
-                    .then((removedCard) => {
-                        return Board
-                            .deleteList(cardObject.boardId, removedCard)
-                            .then(() => {
-                                return removedCard;
-                            });
-                    });
-            });
+                return foundCard.remove();
+            })
+            .then((removedCard) => {
+                return Board.deleteCard(cardObject.boardId, removedCard)
+            }).then(() => {
+                return {
+                    success: true
+                };
+            }).catch((err) => {
+                return {
+                    error: true,
+                };
+            })
+        ;
     };
 }
