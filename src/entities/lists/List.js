@@ -10,7 +10,7 @@ export class List extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title,
+            title: this.props.list.title,
         };
     }
 
@@ -37,7 +37,7 @@ export class List extends Component {
                         <button onClick={ this.props.onUpdateList(this.state) }>Save</button>
                         <button onClick={ this.props.onDeleteList(this.state) }>Delete</button>
                     </div>
-                    <CardsContainer listId={ this.state._id } />
+                    <CardsContainer listId={ this.props.list._id } />
                 </div>
             )
         } else {
@@ -47,7 +47,7 @@ export class List extends Component {
                     <div>
                         <input type="text"
                                name="title"
-                               placeholder="Add new title"
+                               value="Add new title"
                                onChange={ this.onChangeList.bind(this) }
                         />
 

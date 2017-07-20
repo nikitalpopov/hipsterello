@@ -9,8 +9,8 @@ export class Card extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title,
-            text: this.props.text
+            title: this.props.card.title,
+            text: this.props.card.text
         };
     }
 
@@ -52,13 +52,13 @@ export class Card extends Component {
                     <div>
                         <input type="text"
                                name="title"
-                               placeholder="Add new title"
+                               value="Add new title"
                                onChange={ this.onChangeCard.bind(this) }
                         />
 
                         <input type="text"
                                name="text"
-                               placeholder="Add new text"
+                               value="Add new text"
                                onChange={ this.onChangeCard.bind(this) }
                         />
 
