@@ -147,7 +147,7 @@ export default class Board {
      * @param card
      */
     static updateCard(boardId, card) {
-        return CardModel.findOneAndUpdate(
+        return BoardModel.findOneAndUpdate(
             { '_id': boardId, 'cards._id': card._id },
             {
                 '$set': {
