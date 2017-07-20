@@ -49,8 +49,9 @@ class Auth extends Component {
                         <div className="form-group">
                             <label className="col-md-4 control-label">E-mail</label>
                             <div className="col-md-4">
-                                <input id="textinput" onChange={ this.handleEmailChange.bind(this) } name="textinput"
-                                       type="text" placeholder="Enter e-mail" className="form-control input-md"/>
+                                <input id="textinput" onChange={ this.handleEmailChange.bind(this) }
+                                       name="textinput" type="text" placeholder="Enter e-mail"
+                                       className="form-control input-md"/>
                             </div>
                         </div>
                         <div className="form-group">
@@ -65,7 +66,8 @@ class Auth extends Component {
                             <label className="col-md-4 control-label"></label>
                             <div className="col-md-4">
                                 <button id="login-button" name="login-button" className="btn btn-info"
-                                        onClick={ this.handleLoginButtonClick.bind(this) }>Login
+                                        onClick={ this.handleLoginButtonClick.bind(this) }>
+                                    Log in
                                 </button>
                             </div>
                         </div>

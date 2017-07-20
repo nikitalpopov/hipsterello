@@ -9,6 +9,7 @@ export class Card extends Component {
         super(props);
 
         this.state = {
+             _id: this.props.card._id,
             title: this.props.card.title,
             text: this.props.card.text
         };

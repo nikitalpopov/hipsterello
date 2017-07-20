@@ -10,6 +10,7 @@ export class List extends Component {
         super(props);
 
         this.state = {
+            _id: this.props.list._id,
             title: this.props.list.title,
         };
     }
