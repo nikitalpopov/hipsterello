@@ -27,7 +27,7 @@ export class CardsContainer extends Component {
             <div>
                 { this.props.cards
                     .map((card, index) => {
-                        if (this.props.listId === this.state.listId) {
+                        if (String(this.props.listId) === String(this.state.listId)) {
                             return (
                                 <Card
                                     card={ card }
