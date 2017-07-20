@@ -2,6 +2,10 @@
   "name": "hipsterello",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "7.9.0",
+    "npm": "4.2.0"
+  },
   "dependencies": {
     "axios": "^0.16.2",
     "bluebird": "^3.5.0",
@@ -9,6 +13,7 @@
     "bootstrap": "^3.3.7",
     "cors": "^2.8.3",
     "express": "^4.15.3",
+    "foreman": "2.0.0",
     "mongoose": "^4.11.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -35,6 +40,7 @@
     "react-scripts": "1.0.7"
   },
   "scripts": {
+    "foreman": "cross-env ./node_modules/.bin/nf start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "server": "cross-env ./node_modules/.bin/nodemon --watch server --exec ./node_modules/babel-cli/bin/babel-node.js server/Server.js",
