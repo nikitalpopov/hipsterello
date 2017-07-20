@@ -14,6 +14,9 @@ export class BoardsContainer extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            board: this.props.board
+        };
         this.props.getInitialData(this.props.user)
     }
 
@@ -25,7 +28,7 @@ export class BoardsContainer extends Component {
         if (this.props.isAuthorized) {
             return (
                 <Board
-                    board={ this.props.board }
+                    board={ this.state.board }
                     onUpdateBoard={ this.onUpdateBoard.bind(this) }
                 />
             )

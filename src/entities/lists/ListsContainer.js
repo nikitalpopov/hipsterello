@@ -29,6 +29,7 @@ export class ListsContainer extends Component {
                     .map((list, index) => {
                         return (
                         <List
+                            key={ list._id }
                             list={ list }
                             index={ index }
                             onCreateList={ this.onCreateList.bind(this) }

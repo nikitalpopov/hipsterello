@@ -40,8 +40,8 @@ export class Card extends Component {
                                onChange={ this.onChangeCard.bind(this) }
                         />
 
-                        <button onClick={ this.props.onUpdateCard(this.state) }>Save</button>
-                        <button onClick={ this.props.onDeleteCard(this.state) }>Delete</button>
+                        <button onClick={ (event) => { this.props.onUpdateCard(this.state) } }>Save</button>
+                        <button onClick={ (event) => { this.props.onDeleteCard(this.state) } }>Delete</button>
                     </div>
                 </div>
             )

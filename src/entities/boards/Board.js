@@ -15,6 +15,12 @@ export class Board extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            title: nextProps.board.title
+        });
+    }
+
     onChangeBoard(event) {
         const name = event.target.name;
 
@@ -31,7 +37,7 @@ export class Board extends Component {
                     <input type="text"
                            name="title"
                            value={ this.state.title }
-                           onChange={ this.onChangeBoard.bind(this) }
+                           onChange={ (event) => { this.onChangeBoard.bind(this) } }
                     />
 
                     <button /* onClick={ this.props.onUpdateCard(this.state) } */>Save</button>

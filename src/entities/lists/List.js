@@ -34,8 +34,8 @@ export class List extends Component {
                                onChange={ this.onChangeList.bind(this) }
                         />
 
-                        <button onClick={ this.props.onUpdateList(this.state) }>Save</button>
-                        <button onClick={ this.props.onDeleteList(this.state) }>Delete</button>
+                        <button onClick={ (event) => { this.props.onUpdateList(this.state) } }>Save</button>
+                        <button onClick={ (event) => { this.props.onDeleteList(this.state) } }>Delete</button>
                     </div>
                     <CardsContainer listId={ this.props.list._id } />
                 </div>
