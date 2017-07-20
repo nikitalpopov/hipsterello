@@ -14,23 +14,43 @@ export class Board extends Component {
     constructor(props) {
         super(props);
 
-        this.props.getInitialData(this.props.user)
+        this.props.getInitialData(this.props.user);
+
+        this.state = {
+            // Наверняка this.props.boards пустой из-за промиса выше
+            title: this.props.board.title
+        }
+    }
+
+    onChangeBoard(event) {
+        const name = event.target.name;
+
+        this.setState({
+            [name]: event.target.value
+        })
     }
 
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>Board</legend>
-                        <div>
-                            <h2>Welcome!</h2>
-                            <h2>There is your board:</h2>
-                            <p>{ this.props.board.title }</p>
-                            <ListsContainer />
-                        </div>
-                    </fieldset>
-                </form>
+                <div>
+                    <h2>Board</h2>
+                    <div>
+                        <h2>Welcome!</h2>
+                        <h2>There is your board:</h2>
+
+                        <input type="text"
+                               name="title"
+                               value={ this.state.title }
+                               onChange={ this.onChangeBoard.bind(this) }
+                        />
+
+                        <button /* onClick={ this.props.onUpdateCard(this.state) } */>Save</button>
+                        <button /* onClick={ this.props.onDeleteCard(this.state) } */>Delete</button>
+
+                        <ListsContainer />
+                    </div>
+                </div>
             )
         } else {
             return (
