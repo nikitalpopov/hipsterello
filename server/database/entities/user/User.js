@@ -1,6 +1,7 @@
 /**
  * Created by admin on 06.07.2017.
  */
+
 import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
@@ -21,4 +22,5 @@ UserSchema.statics.findByEmail = function(request) {
     return this.model('User').findOne({  email: request });
 };
 
+export default UserSchema;
 export const User = mongoose.model('User', UserSchema);

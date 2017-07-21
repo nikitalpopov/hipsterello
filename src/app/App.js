@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { logInUser } from '../auth/AuthActions';
-import Boards from './Boards';
+import BoardsContainer from '../entities/boards/BoardsContainer';
 
 class App extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
-            return ( <Boards /> );
+            return ( <BoardsContainer /> );
         } else {
             return ( <Redirect to='/login'/> );
         }
     }
 
     render() {
-        return <div>{ this.renderHelper() }</div>
+        return (
+            <div>
+                { this.renderHelper() }
+            </div>
+        )
     }
 }
 
@@ -26,8 +28,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ logInUser }, dispatch)
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

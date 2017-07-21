@@ -1,29 +1,33 @@
 /**
  * Created by @nikitalpopov on 13/07/2017.
  */
+
 import { Card as CardModel } from '../entities/card/Card';
-import List from './List';
+import Board from './Board';
 
 export default class Card {
     /**
      * @description Создаем карточку, привязываем её к списку
-     * @param cardData
-     * @param listId
+     * @param cardObject
      */
-    static createCard(cardData, listId) {
+    static createCard(cardObject) {
         const CardModelInstance = new CardModel({
-            title: cardData.title
+            title: cardObject.title,
+            text: cardObject.text,
+            listId: cardObject.listId
         });
 
-        if (cardData.color) { CardModelInstance.color = cardData.color; }
+        if (cardObject.color) CardModelInstance.color = cardObject.color;
 
-        return CardModelInstance.save()
+        return CardModelInstance
+            .save()
             .then((createdCard) => {
-                return List.updateCards(listId, createdCard._id);
-            })
-            .then((result) => {
-                return result;
-        });
+                return Board
+                    .addCard(cardObject.boardId, createdCard)
+                    .then(() => {
+                        return createdCard;
+                    });
+            });
     };
 
     /**
@@ -31,41 +35,60 @@ export default class Card {
      * @param cardId
      */
     static findCardById(cardId) {
-        return CardModel.findById(cardId);
+        return CardModel
+            .findById(
+                cardId,
+                ['_id', 'title', 'text', 'color', 'listId']
+            )
+            .lean();
     };
 
     /**
      * @description Обновляем данные карточки
-     * @param cardData
+     * @param cardObject
      */
-    static updateCard(cardData) {
+    static updateCard(cardObject) {
         return CardModel
-            .find({ _id: cardData._id })
+            .findById(cardObject._id)
             .then((foundCard) => {
-                console.log(cardData);
-                console.log(foundCard[0]);
-                if (cardData.title) { foundCard[0].title = cardData.title; }
-                if (cardData.text) { foundCard[0].text = cardData.text; }
-                if (cardData.color) { foundCard[0].color = cardData.color; }
-                console.log(foundCard[0]);
-                return foundCard[0].save(); })
-            .then((savedResult) => {
-                return savedResult;
-        });
+                if (cardObject.title) foundCard.title = cardObject.title;
+                if (cardObject.text) foundCard.text = cardObject.text;
+                if (cardObject.color) foundCard.color = cardObject.color;
+                if (cardObject.listId) foundCard.listId = cardObject.listId;
+
+                return foundCard
+                    .save()
+                    .then((savedCard) => {
+                        return Board
+                            .updateCard(cardObject.boardId, savedCard)
+                            .then(() => {
+                                return savedCard;
+                            });
+                    });
+            });
     };
 
     /**
      * @description Удаляем данные карточки
-     * @param cardData
+     * @param cardObject
      */
-    static deleteCard(cardData) {
+    static deleteCard(cardObject) {
         return CardModel
-            .find({ _id: cardData._id })
+            .findById(cardObject._id)
             .then((foundCard) => {
-                return foundCard[0].remove();
+                return foundCard.remove();
             })
-            .then((deletedResult) => {
-                return deletedResult;
-        });
+            .then((removedCard) => {
+                return Board.deleteCard(cardObject.boardId, removedCard)
+            }).then(() => {
+                return {
+                    success: true
+                };
+            }).catch((err) => {
+                return {
+                    error: true,
+                };
+            })
+        ;
     };
 }

@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -14,20 +15,15 @@ import reducer from './app/AppReducer';
 import Auth from './auth/Auth';
 import App from './app/App';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const store = createStore(reducer, composeWithDevTools(
+    applyMiddleware(ReduxPromise)
+));
 
 ReactDOM.render(
-    <Provider store={ createStoreWithMiddleware(reducer) }>
+    <Provider store={ store }>
         <Router>
             <div>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/boards">Boards</Link></li>
-                </ul>
-
-                <hr/>
-
+                <h1>Hipsterello</h1>
                 <Route exact path="/" component={ App }/>
                 <Route path="/boards" component={ App }/>
                 <Route path="/login" component={ Auth }/>

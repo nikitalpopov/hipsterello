@@ -1,24 +1,32 @@
 /**
  * Created by @nikitalpopov on 13/07/2017.
  */
+
 import { User as UserModel } from '../entities/user/User';
+import Board from './Board';
 
 export default class User {
     /**
-     * @description Создаем пользователя
+     * @description Обрабатываем запрос пользователя на вход/регистрацию
      * @param userData
      */
-    static createUser(userData) {
-        const UserModelInstance = new UserModel({
-            email: userData.email,
-            password: userData.password
-        });
-
+    static loginUser(userData) {
         return UserModel
-            .findByEmail(UserModelInstance.email)
+            .findByEmail(userData.email)
             .then((user) => {
                 if (!user) {
-                    return UserModelInstance.save();
+                    return User
+                        .createUser(userData)
+                        .then((createdUser) => {
+                            const board = ({
+                                usersId: createdUser._id,
+                                title: "New board"
+                            });
+
+                            Board.createBoard(board);
+
+                            return createdUser;
+                        });
                 } else {
                     if (user.password === userData.password) {
                         return user;
@@ -31,6 +39,23 @@ export default class User {
                 return user;
             })
             .catch(console.log.bind(console));
+    }
+
+    /**
+     * @description Создаем пользователя
+     * @param userData
+     */
+    static createUser(userData) {
+        const UserModelInstance = new UserModel({
+            email: userData.email,
+            password: userData.password
+        });
+
+        return UserModelInstance
+            .save()
+            .then((createdUser) => {
+                return createdUser;
+            })
     };
 
     /**

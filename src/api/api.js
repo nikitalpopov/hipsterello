@@ -11,20 +11,24 @@ export default {
         return axios.post(`${apiPrefix}/login`, data);
     },
 
-    updateUser(data) {
-        return axios.post(`${apiPrefix}/user/update`, data);
+    getUser(id) {
+        return axios.get(`${apiPrefix}/user/` + id);
     },
 
-    deleteUser(data) {
-        return axios.post(`${apiPrefix}/user/delete`, data);
-    },
+    // updateUser(data) {
+    //     return axios.post(`${apiPrefix}/user/update`, data);
+    // },
 
-    createBoard(data) {
-        return axios.post(`${apiPrefix}/board/create`, data);
-    },
+    // deleteUser(data) {
+    //     return axios.post(`${apiPrefix}/user/delete`, data);
+    // },
 
-    getBoardByUser(data) {
-        return axios.get(`${apiPrefix}/board/user/` + data._id);
+    // createBoard(data) {
+    //     return axios.post(`${apiPrefix}/board/create`, data);
+    // },
+
+    getInitialData(id) {
+        return axios.get(`${apiPrefix}/get-started/` + id);
     },
 
     getBoard(id) {
@@ -32,51 +36,43 @@ export default {
     },
 
     updateBoard(data) {
-        return axios.post(`${apiPrefix}/board/update`, data);
+        return axios.patch(`${apiPrefix}/board/update`, data);
     },
 
-    deleteBoard(data) {
-        return axios.post(`${apiPrefix}/board/delete`, data);
-    },
+    // deleteBoard(data) {
+    //     return axios.post(`${apiPrefix}/board/delete`, data);
+    // },
 
     createList(data) {
         return axios.post(`${apiPrefix}/list/create`, data);
     },
 
-    // getLists(data) {
-    //     return axios.post(`${apiPrefix}/lists`, data);
+    // getList(id) {
+    //     return axios.get(`${apiPrefix}/list/` + id);
     // },
 
-    getList(id) {
-        return axios.get(`${apiPrefix}/list/` + id);
-    },
-
     updateList(data) {
-        return axios.post(`${apiPrefix}/list/update`, data);
+        return axios.patch(`${apiPrefix}/list/update`, data);
     },
 
     deleteList(data) {
-        return axios.post(`${apiPrefix}/list/delete`, data);
+        return axios.delete(`${apiPrefix}/list/delete`, data);
     },
 
     createCard(data) {
         return axios.post(`${apiPrefix}/card/create`, data);
     },
 
-    // getCards(data) {
-    //     return axios.post(`${apiPrefix}/cards`, data);
+    // getCard(id) {
+    //     return axios.get(`${apiPrefix}/card/` + id);
     // },
 
-    getCard(id) {
-        return axios.get(`${apiPrefix}/card/` + id);
-    },
-
     updateCard(data) {
-        return axios.post(`${apiPrefix}/card/update`, data);
+        return axios.patch(`${apiPrefix}/card/update`, data);
     },
 
     deleteCard(data) {
-        return axios.post(`${apiPrefix}/card/delete`, data);
+        return axios.delete(`${apiPrefix}/card/delete`, data);
     },
 }
 
