@@ -11,14 +11,14 @@ export class Board extends Component {
         super(props);
 
         this.state = {
-            id: this.props.board._id,
+            _id: this.props.board._id,
             title: this.props.board.title
         }
     }
 
     componentWillReceiveProps(nextProps) {
         return this.setState({
-            id: nextProps.board._id,
+            _id: nextProps.board._id,
             title: nextProps.board.title
         });
     }
@@ -33,18 +33,26 @@ export class Board extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Board</h2>
-                <div>
-                    <input type="text"
-                           name="title"
-                           value={ this.state.title }
-                           onChange={ (event) => { this.onChangeBoard.bind(this) } }
-                    />
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <div className="input-group">
+                        <input
+                            className="panel-title form-control"
+                            type="text" name="title" value={ this.state.title }
+                            onChange={ this.onChangeBoard.bind(this) }
+                        />
+                        <span className="input-group-btn">
+                            <button
+                                type="button" className="btn btn-success btn-secondary"
+                                onClick={ (event) => { this.props.onUpdateBoard(this.state) } }>
+                                Save
+                            </button>
+                       </span>
+                    </div>
+                </div>
 
-                    <button /* onClick={ this.props.onUpdateCard(this.state) } */>Save</button>
-
-                    <ListsContainer boardId={ this.state.id } />
+                <div className="panel-body">
+                    <ListsContainer boardId={ this.state._id } />
                 </div>
             </div>
         )

@@ -24,20 +24,22 @@ export class CardsContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 { this.props.cards
                     .map((card, index) => {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
-                                <Card
-                                    boardId={ this.props.boardId }
-                                    card={ card }
-                                    index={ index }
-                                    onCreateCard={ this.onCreateCard.bind(this) }
-                                    onUpdateCard={ this.onUpdateCard.bind(this) }
-                                    onDeleteCard={ this.onDeleteCard.bind(this) }
-                                />)
-                        } else { return null; }
+                                <div className="col-modest align-self-center">
+                                    <Card
+                                        boardId={ this.props.boardId }
+                                        card={ card }
+                                        index={ index }
+                                        onCreateCard={ this.onCreateCard.bind(this) }
+                                        onUpdateCard={ this.onUpdateCard.bind(this) }
+                                        onDeleteCard={ this.onDeleteCard.bind(this) }
+                                    />
+                                </div>
+                            )} else { return null; }
                     })
                 }
             </div>

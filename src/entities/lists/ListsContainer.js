@@ -24,19 +24,21 @@ export class ListsContainer extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container col-modest">
                 { this.props.lists
                     .map((list, index) => {
                         return (
-                        <List
-                            key={ list._id }
-                            boardId={ this.props.boardId }
-                            list={ list }
-                            index={ index }
-                            onCreateList={ this.onCreateList.bind(this) }
-                            onUpdateList={ this.onUpdateList.bind(this) }
-                            onDeleteList={ this.onDeleteList.bind(this) }
-                        />)}
+                            <div className="col-3">
+                                <List
+                                    key={ list._id } boardId={ this.props.boardId }
+                                    list={ list } index={ index }
+
+                                    onCreateList={ this.onCreateList.bind(this) }
+                                    onUpdateList={ this.onUpdateList.bind(this) }
+                                    onDeleteList={ this.onDeleteList.bind(this) }
+                                />
+                            </div>
+                        )}
                     )
                 }
             </div>

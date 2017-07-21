@@ -24,10 +24,12 @@ export class BoardsContainer extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
-                <Board
-                    board={ this.props.board }
-                    onUpdateBoard={ this.onUpdateBoard.bind(this) }
-                />
+                <div className="container col-modest align-self-center">
+                    <Board
+                        board={ this.props.board }
+                        onUpdateBoard={ this.onUpdateBoard.bind(this) }
+                    />
+                </div>
             )
         } else {
             return (

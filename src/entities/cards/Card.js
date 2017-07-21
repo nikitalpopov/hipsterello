@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Card extends Component {
     constructor(props) {
@@ -28,44 +29,59 @@ export class Card extends Component {
     renderHelper() {
         if (this.props.card._id !== 0) {
             return (
-                <div>
-                    <h4>Card</h4>
-                    <div>
-                        <input type="text"
-                               name="title"
-                               value={ this.state.title }
-                               onChange={ this.onChangeCard.bind(this) }
+                <div className="panel panel-default panel-modest">
+                    <div className="panel-heading col-3">
+                        <input
+                            className="panel-title form-control" type="text"
+                            name="title" value={ this.state.title }
+                            onChange={ this.onChangeCard.bind(this) }
+                        />
+                    </div>
+                    <div className="panel-body">
+                        <textarea className="form-control" type="text"
+                            name="text" value={ this.state.text }
+                            onChange={ this.onChangeCard.bind(this) }
                         />
 
-                        <input type="text"
-                               name="text"
-                               value={ this.state.text }
-                               onChange={ this.onChangeCard.bind(this) }
-                        />
+                        <br />
 
-                        <button onClick={ (event) => { this.props.onUpdateCard(this.state) } }>Save</button>
-                        <button onClick={ (event) => { this.props.onDeleteCard(this.state) } }>Delete</button>
+                        <div className="btn-group-sm">
+                            <button
+                                type="button" className="btn btn-success"
+                                onClick={ (event) => { this.props.onUpdateCard(this.state) } }>
+                                Save
+                            </button>
+                            <button
+                                type="button" className="btn btn-danger"
+                                onClick={ (event) => { this.props.onDeleteCard(this.state) } }>
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )
         } else {
             return (
-                <div>
-                    <h4>Add card</h4>
-                    <div>
-                        <input type="text"
-                               name="title"
-                               value="Add new title"
-                               onChange={ this.onChangeCard.bind(this) }
+                <div className="panel panel-default panel-modest">
+                    <div className="panel-heading">
+                        <input
+                            className="panel-title" type="text"
+                            name="title" value="Add new card"
+                            onChange={ this.onChangeCard.bind(this) }
                         />
-
+                    </div>
+                    <div className="panel-body">
                         <input type="text"
                                name="text"
-                               value="Add new text"
+                               value="with this text"
                                onChange={ this.onChangeCard.bind(this) }
                         />
 
-                        <button onClick={ this.props.onCreateCard(this.state).bind(this) }>Add</button>
+                        <div className="btn-group-sm">
+                            <button onClick={ this.props.onCreateCard(this.state).bind(this) }>
+                                Add
+                            </button>
+                        </div>
                     </div>
                 </div>
             )
