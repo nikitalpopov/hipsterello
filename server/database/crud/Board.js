@@ -19,7 +19,8 @@ export default class Board {
             .save()
             .then((result) => {
                 return result;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -32,7 +33,8 @@ export default class Board {
                 boardId,
                 ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -45,7 +47,8 @@ export default class Board {
                 { usersId: userId },
                 ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -62,7 +65,8 @@ export default class Board {
             })
             .then((savedBoard) => {
                 return savedBoard;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -79,7 +83,8 @@ export default class Board {
             })
             .then((savedBoard) => {
                 return savedBoard;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -97,7 +102,8 @@ export default class Board {
             })
             .then((savedBoard) => {
                 return savedBoard;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -116,12 +122,7 @@ export default class Board {
                     success: true
                 }
             })
-            .catch((err) => {
-                return {
-                    error: true
-                };
-            })
-        ;
+            .catch(console.log.bind(console));
     }
 
     /**
@@ -138,7 +139,8 @@ export default class Board {
             })
             .then((savedBoard) => {
                 return savedBoard;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -156,7 +158,8 @@ export default class Board {
             })
             .then((savedBoard) => {
                 return savedBoard;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -175,12 +178,7 @@ export default class Board {
                     success: true
                 }
             })
-            .catch((err) => {
-                return {
-                    error: true
-                };
-            })
-        ;
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -198,7 +196,8 @@ export default class Board {
             })
             .then((savedResult) => {
                 return savedResult;
-            });
+            })
+            .catch(console.log.bind(console));
     };
 
     // /**

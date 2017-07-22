@@ -20,8 +20,10 @@ export default class List {
                     .addList(listObject.boardId, createdList)
                     .then(() => {
                         return createdList;
-                });
-            });
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -34,7 +36,8 @@ export default class List {
                 listId,
                 ['_id', 'title', 'color']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -55,9 +58,12 @@ export default class List {
                             .updateList(listObject.boardId, savedList)
                             .then(() => {
                                 return savedList;
-                            });
-                    });
-            });
+                            })
+                            .catch(console.log.bind(console));
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -76,10 +82,7 @@ export default class List {
                 return {
                     success: true
                 };
-            }).catch((err) => {
-                return {
-                    error: true,
-                };
-            });
+            })
+            .catch(console.log.bind(console));
     };
 }

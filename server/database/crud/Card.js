@@ -26,8 +26,10 @@ export default class Card {
                     .addCard(cardObject.boardId, createdCard)
                     .then(() => {
                         return createdCard;
-                    });
-            });
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -63,9 +65,12 @@ export default class Card {
                             .updateCard(cardObject.boardId, savedCard)
                             .then(() => {
                                 return savedCard;
-                            });
-                    });
-            });
+                            })
+                            .catch(console.log.bind(console));
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -84,11 +89,7 @@ export default class Card {
                 return {
                     success: true
                 };
-            }).catch((err) => {
-                return {
-                    error: true,
-                };
             })
-        ;
+            .catch(console.log.bind(console));
     };
 }

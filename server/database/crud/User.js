@@ -39,7 +39,7 @@ export default class User {
                 return user;
             })
             .catch(console.log.bind(console));
-    }
+    };
 
     /**
      * @description Создаем пользователя
@@ -56,6 +56,7 @@ export default class User {
             .then((createdUser) => {
                 return createdUser;
             })
+            .catch(console.log.bind(console));
     };
 
     /**
