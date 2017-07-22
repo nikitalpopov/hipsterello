@@ -18,6 +18,12 @@ export class Card extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+        });
+    }
+
     onChangeCard(event) {
         const name = event.target.name;
 

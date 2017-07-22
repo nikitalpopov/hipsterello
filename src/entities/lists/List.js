@@ -16,6 +16,12 @@ export class List extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+        });
+    }
+
     onChangeList(event) {
         const name = event.target.name;
 
@@ -27,7 +33,7 @@ export class List extends Component {
     renderHelper() {
         if (this.props.list._id !== 0) {
             return (
-                <div className="panel panel-default panel-modest">
+                <div className="panel panel-default">
                     <div className="panel-heading input-group">
                         <input
                             className="panel-title form-control" type="text"
@@ -56,7 +62,7 @@ export class List extends Component {
             )
         } else {
             return (
-                <div className="panel panel-default panel-modest">
+                <div className="panel panel-default">
                     <div className="panel-heading input-group">
                         <input
                             className="panel-title form-control"
@@ -67,7 +73,7 @@ export class List extends Component {
                         <span className="input-group-btn">
                             <button
                                 type="button" className="btn btn-warning btn-secondary"
-                                onClick={ (event) => {  this.props.onCreateList(this.state).bind(this) } }>
+                                onClick={ (event) => {  this.props.onCreateList(this.state) } }>
                                 Add
                             </button>
                         </span>

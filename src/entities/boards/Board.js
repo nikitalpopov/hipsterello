@@ -51,7 +51,7 @@ export class Board extends Component {
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="panel-body panel-board row">
                     <ListsContainer boardId={ this.state._id } />
                 </div>
             </div>

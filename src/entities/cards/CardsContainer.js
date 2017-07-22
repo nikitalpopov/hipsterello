@@ -10,6 +10,13 @@ import { createCard, getCard, updateCard, deleteCard } from './CardActions';
 import Card from './Card';
 
 export class CardsContainer extends Component {
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+            listId: nextProps.listId
+        });
+    }
+
     onCreateCard(cardData) {
         this.props.createCard(cardData)
     }
@@ -29,15 +36,13 @@ export class CardsContainer extends Component {
                     .map((card, index) => {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
-                                <div className="">
-                                    <Card
-                                        key={ card._id } boardId={ this.props.boardId }
-                                        card={ card } index={ index }
+                                <Card
+                                    key={ card._id } boardId={ this.props.boardId }
+                                    card={ card } index={ index }
 
-                                        onUpdateCard={ this.onUpdateCard.bind(this) }
-                                        onDeleteCard={ this.onDeleteCard.bind(this) }
-                                    />
-                                </div>
+                                    onUpdateCard={ this.onUpdateCard.bind(this) }
+                                    onDeleteCard={ this.onDeleteCard.bind(this) }
+                                />
                             )} else { return null; }
                     })
                 }
