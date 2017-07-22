@@ -74,7 +74,7 @@ export class Card extends Component {
                     </div>
                     <div className="panel-body">
                         <textarea
-                            className="form-control" type="text" rows="4"
+                            className="form-control" type="text" rows="1"
                             id="card" name="text" value={ this.state.text }
                             onChange={ this.onChangeCard.bind(this) }
                         />
