@@ -41,7 +41,7 @@ export class Card extends Component {
                     <div className="panel-body">
                         <textarea
                             className="form-control" type="text" rows="4"
-                            name="text" value={ this.state.text }
+                            id="card" name="text" value={ this.state.text }
                             onChange={ this.onChangeCard.bind(this) }
                         />
 
@@ -67,20 +67,24 @@ export class Card extends Component {
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         <input
-                            className="panel-title" type="text"
-                            name="title" value="Add new card"
+                            className="panel-title form-control" type="text"
+                            name="title" value={ this.state.title }
                             onChange={ this.onChangeCard.bind(this) }
                         />
                     </div>
                     <div className="panel-body">
-                        <input type="text"
-                               name="text"
-                               value="with this text"
-                               onChange={ this.onChangeCard.bind(this) }
+                        <textarea
+                            className="form-control" type="text" rows="4"
+                            id="card" name="text" value={ this.state.text }
+                            onChange={ this.onChangeCard.bind(this) }
                         />
 
+                        <br />
+
                         <div className="btn-group-sm">
-                            <button onClick={ this.props.onCreateCard(this.state).bind(this) }>
+                            <button
+                                type="button" className="btn btn-warning"
+                                onClick={ (event) => { this.props.onCreateCard(this.state) } }>
                                 Add
                             </button>
                         </div>

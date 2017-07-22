@@ -24,7 +24,7 @@ export class BoardsContainer extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
-                <div className="container">
+                <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
                     <Board
                         board={ this.props.board }
                         onUpdateBoard={ this.onUpdateBoard.bind(this) }
@@ -48,7 +48,6 @@ export class BoardsContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    debugger;
     return {
         isAuthorized: state.auth.isAuthorized,
         user: state.auth.user,

@@ -28,7 +28,7 @@ export class ListsContainer extends Component {
                 { this.props.lists
                     .map((list, index) => {
                         return (
-                            <div className="col-xs-4">
+                            <div className="col-modest col-xs-12 col-sm-6 col-md-4 col-lg-3">
                                 <List
                                     key={ list._id } boardId={ this.props.boardId }
                                     list={ list } index={ index }
@@ -40,9 +40,9 @@ export class ListsContainer extends Component {
                         )}
                     )
                 }
-                <div className="col-xs-4">
+                <div className="col-modest col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <List
-                        key={ 0 } boardId={ this.props.boardId } list={ ({ _id: 0}) }
+                        key={ 0 } boardId={ this.props.boardId } list={ ({ _id: 0, title: "Add new list" }) }
                         onCreateList={ this.onCreateList.bind(this) }
                         />
                 </div>

@@ -24,17 +24,16 @@ export class CardsContainer extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 { this.props.cards
                     .map((card, index) => {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
                                 <div className="">
                                     <Card
-                                        boardId={ this.props.boardId }
-                                        card={ card }
-                                        index={ index }
-                                        onCreateCard={ this.onCreateCard.bind(this) }
+                                        key={ card._id } boardId={ this.props.boardId }
+                                        card={ card } index={ index }
+
                                         onUpdateCard={ this.onUpdateCard.bind(this) }
                                         onDeleteCard={ this.onDeleteCard.bind(this) }
                                     />
@@ -42,6 +41,10 @@ export class CardsContainer extends Component {
                             )} else { return null; }
                     })
                 }
+                <Card
+                    key={ 0 } boardId={ this.props.boardId } card={ ({ _id: 0, title: "Add new card", text: "with this text", listId: this.props.listId }) }
+                    onCreateCard={ this.onCreateCard.bind(this) }
+                />
             </div>
         )
     }

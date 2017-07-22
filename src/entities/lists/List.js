@@ -27,11 +27,11 @@ export class List extends Component {
     renderHelper() {
         if (this.props.list._id !== 0) {
             return (
-                <div className="panel panel-default">
+                <div className="panel panel-default panel-modest">
                     <div className="panel-heading input-group">
                         <input
-                            className="panel-title form-control"
-                            type="text" name="title" value={ this.state.title }
+                            className="panel-title form-control" type="text"
+                            name="title" value={ this.state.title }
                             onChange={ this.onChangeList.bind(this) }
                         />
 
@@ -56,11 +56,11 @@ export class List extends Component {
             )
         } else {
             return (
-                <div className="panel panel-default">
+                <div className="panel panel-default panel-modest">
                     <div className="panel-heading input-group">
                         <input
                             className="panel-title form-control"
-                            type="text" name="title" value="Add new list"
+                            type="text" name="title" value={ this.state.title }
                             onChange={ this.onChangeList.bind(this) }
                         />
 
