@@ -29,16 +29,18 @@ export class Card extends Component {
     renderHelper() {
         if (this.props.card._id !== 0) {
             return (
-                <div className="panel panel-default panel-modest">
-                    <div className="panel-heading col-3">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
                         <input
                             className="panel-title form-control" type="text"
                             name="title" value={ this.state.title }
                             onChange={ this.onChangeCard.bind(this) }
                         />
                     </div>
+
                     <div className="panel-body">
-                        <textarea className="form-control" type="text"
+                        <textarea
+                            className="form-control" type="text" rows="4"
                             name="text" value={ this.state.text }
                             onChange={ this.onChangeCard.bind(this) }
                         />
@@ -62,7 +64,7 @@ export class Card extends Component {
             )
         } else {
             return (
-                <div className="panel panel-default panel-modest">
+                <div className="panel panel-default">
                     <div className="panel-heading">
                         <input
                             className="panel-title" type="text"

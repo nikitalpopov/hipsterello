@@ -24,12 +24,12 @@ export class CardsContainer extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="col-md-12">
                 { this.props.cards
                     .map((card, index) => {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
-                                <div className="col-modest align-self-center">
+                                <div className="">
                                     <Card
                                         boardId={ this.props.boardId }
                                         card={ card }

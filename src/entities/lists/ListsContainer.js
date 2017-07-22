@@ -24,16 +24,15 @@ export class ListsContainer extends Component {
 
     render() {
         return (
-            <div className="container col-modest">
+            <div className="col-modest">
                 { this.props.lists
                     .map((list, index) => {
                         return (
-                            <div className="col-3">
+                            <div className="col-xs-4">
                                 <List
                                     key={ list._id } boardId={ this.props.boardId }
                                     list={ list } index={ index }
 
-                                    onCreateList={ this.onCreateList.bind(this) }
                                     onUpdateList={ this.onUpdateList.bind(this) }
                                     onDeleteList={ this.onDeleteList.bind(this) }
                                 />
@@ -41,6 +40,12 @@ export class ListsContainer extends Component {
                         )}
                     )
                 }
+                <div className="col-xs-4">
+                    <List
+                        key={ 0 } boardId={ this.props.boardId } list={ ({ _id: 0}) }
+                        onCreateList={ this.onCreateList.bind(this) }
+                        />
+                </div>
             </div>
         )
     }
