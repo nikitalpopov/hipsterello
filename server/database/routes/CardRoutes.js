@@ -15,9 +15,9 @@ router.post('/card/create', (req, res) => {
         });
 });
 
-// router.get('/card/:id', (req, res) => {
+// router.get('/card/:_id', (req, res) => {
 //     Card
-//         .findCardById(req.params.id)
+//         .findCardById(req.params._id)
 //         .then((foundCard) => {
 //             res.send(foundCard)
 //         });
@@ -31,9 +31,9 @@ router.patch('/card/update', (req, res) => {
         });
 });
 
-router.delete('/card/delete', (req, res) => {
+router.delete('/card/delete/:_id/:boardId', (req, res) => {
     Card
-        .deleteCard(req.body)
+        .deleteCard(req.params)
         .then((deletedCard) => {
             res.send(deletedCard)
         });

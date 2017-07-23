@@ -18,6 +18,12 @@ export class Card extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+        });
+    }
+
     onChangeCard(event) {
         const name = event.target.name;
 
@@ -29,17 +35,19 @@ export class Card extends Component {
     renderHelper() {
         if (this.props.card._id !== 0) {
             return (
-                <div className="panel panel-default panel-modest">
-                    <div className="panel-heading col-3">
+                <div className="panel panel-default">
+                    <div className="panel-heading">
                         <input
                             className="panel-title form-control" type="text"
                             name="title" value={ this.state.title }
                             onChange={ this.onChangeCard.bind(this) }
                         />
                     </div>
+
                     <div className="panel-body">
-                        <textarea className="form-control" type="text"
-                            name="text" value={ this.state.text }
+                        <textarea
+                            className="form-control" type="text" rows="4"
+                            id="card" name="text" value={ this.state.text }
                             onChange={ this.onChangeCard.bind(this) }
                         />
 
@@ -62,23 +70,27 @@ export class Card extends Component {
             )
         } else {
             return (
-                <div className="panel panel-default panel-modest">
+                <div className="panel panel-default">
                     <div className="panel-heading">
                         <input
-                            className="panel-title" type="text"
-                            name="title" value="Add new card"
+                            className="panel-title form-control" type="text"
+                            name="title" value={ this.state.title }
                             onChange={ this.onChangeCard.bind(this) }
                         />
                     </div>
                     <div className="panel-body">
-                        <input type="text"
-                               name="text"
-                               value="with this text"
-                               onChange={ this.onChangeCard.bind(this) }
+                        <textarea
+                            className="form-control" type="text" rows="1"
+                            id="card" name="text" value={ this.state.text }
+                            onChange={ this.onChangeCard.bind(this) }
                         />
 
+                        <br />
+
                         <div className="btn-group-sm">
-                            <button onClick={ this.props.onCreateCard(this.state).bind(this) }>
+                            <button
+                                type="button" className="btn btn-warning"
+                                onClick={ (event) => { this.props.onCreateCard(this.state) } }>
                                 Add
                             </button>
                         </div>

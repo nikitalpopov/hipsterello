@@ -18,10 +18,10 @@ export default class List {
             .then((createdList) => {
                 return Board
                     .addList(listObject.boardId, createdList)
-                    .then(() => {
-                        return createdList;
-                });
-            });
+                    .then(() => { return createdList })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -34,7 +34,8 @@ export default class List {
                 listId,
                 ['_id', 'title', 'color']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -54,10 +55,16 @@ export default class List {
                         return Board
                             .updateList(listObject.boardId, savedList)
                             .then(() => {
-                                return savedList;
-                            });
-                    });
-            });
+                                return {
+                                    list: savedList,
+                                    isUpdated: true
+                                }
+                            })
+                            .catch(console.log.bind(console));
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -68,18 +75,22 @@ export default class List {
         return ListModel
             .findById(listObject._id)
             .then((foundList) => {
-                return foundList.remove();
+                return foundList
+                    .remove()
+                    .catch(console.log.bind(console));
             })
             .then((removedList) => {
-                return Board.deleteList(listObject.boardId, removedList)
-            }).then(() => {
+                return Board
+                    .deleteList(listObject.boardId, removedList)
+                    .then((deletedList) => { return deletedList })
+                    .catch(console.log.bind(console));
+            })
+            .then((deletedList) => {
                 return {
-                    success: true
+                    list: deletedList,
+                    isDeleted: true
                 };
-            }).catch((err) => {
-                return {
-                    error: true,
-                };
-            });
+            })
+            .catch(console.log.bind(console));
     };
 }

@@ -24,10 +24,10 @@ export default class Card {
             .then((createdCard) => {
                 return Board
                     .addCard(cardObject.boardId, createdCard)
-                    .then(() => {
-                        return createdCard;
-                    });
-            });
+                    .then(() => { return createdCard })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -40,7 +40,8 @@ export default class Card {
                 cardId,
                 ['_id', 'title', 'text', 'color', 'listId']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -62,10 +63,16 @@ export default class Card {
                         return Board
                             .updateCard(cardObject.boardId, savedCard)
                             .then(() => {
-                                return savedCard;
-                            });
-                    });
-            });
+                                return {
+                                    card: savedCard,
+                                    isUpdated: true
+                                }
+                            })
+                            .catch(console.log.bind(console));
+                    })
+                    .catch(console.log.bind(console));
+            })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -76,19 +83,22 @@ export default class Card {
         return CardModel
             .findById(cardObject._id)
             .then((foundCard) => {
-                return foundCard.remove();
+                return foundCard
+                    .remove()
+                    .catch(console.log.bind(console));
             })
             .then((removedCard) => {
-                return Board.deleteCard(cardObject.boardId, removedCard)
-            }).then(() => {
+                return Board
+                    .deleteCard(cardObject.boardId, removedCard)
+                    .then((deletedCard) => { return deletedCard })
+                    .catch(console.log.bind(console));
+            })
+            .then((deletedCard) => {
                 return {
-                    success: true
-                };
-            }).catch((err) => {
-                return {
-                    error: true,
+                    card: deletedCard,
+                    isDeleted: true
                 };
             })
-        ;
+            .catch(console.log.bind(console));
     };
 }

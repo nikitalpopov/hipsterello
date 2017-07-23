@@ -10,6 +10,12 @@ import { createList, getList, updateList, deleteList } from './ListActions';
 import List from './List';
 
 export class ListsContainer extends Component {
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+        });
+    }
+
     onCreateList(listData) {
         this.props.createList(listData)
     }
@@ -19,21 +25,21 @@ export class ListsContainer extends Component {
     }
 
     onDeleteList(listData) {
+        console.dir(listData);
         this.props.deleteList(listData)
     }
 
     render() {
         return (
-            <div className="container col-modest">
+            <div>
                 { this.props.lists
                     .map((list, index) => {
                         return (
-                            <div className="col-3">
+                            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                                 <List
                                     key={ list._id } boardId={ this.props.boardId }
                                     list={ list } index={ index }
 
-                                    onCreateList={ this.onCreateList.bind(this) }
                                     onUpdateList={ this.onUpdateList.bind(this) }
                                     onDeleteList={ this.onDeleteList.bind(this) }
                                 />
@@ -41,6 +47,12 @@ export class ListsContainer extends Component {
                         )}
                     )
                 }
+                <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <List
+                        key={ 0 } boardId={ this.props.boardId } list={ ({ _id: 0, title: "Add new list" }) }
+                        onCreateList={ this.onCreateList.bind(this) }
+                        />
+                </div>
             </div>
         )
     }

@@ -20,7 +20,7 @@ export default {
     // },
 
     // deleteUser(data) {
-    //     return axios.post(`${apiPrefix}/user/delete`, data);
+    //     return axios.post(`${apiPrefix}/user/delete/` + data._id);
     // },
 
     // createBoard(data) {
@@ -40,7 +40,7 @@ export default {
     },
 
     // deleteBoard(data) {
-    //     return axios.post(`${apiPrefix}/board/delete`, data);
+    //     return axios.post(`${apiPrefix}/board/delete/` + data._id);
     // },
 
     createList(data) {
@@ -56,7 +56,7 @@ export default {
     },
 
     deleteList(data) {
-        return axios.delete(`${apiPrefix}/list/delete`, data);
+        return axios.delete(`${apiPrefix}/list/delete/` + data._id + `/` + data.boardId);
     },
 
     createCard(data) {
@@ -72,7 +72,7 @@ export default {
     },
 
     deleteCard(data) {
-        return axios.delete(`${apiPrefix}/card/delete`, data);
+        return axios.delete(`${apiPrefix}/card/delete/` + data._id + `/` + data.boardId);
     },
 }
 

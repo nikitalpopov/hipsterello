@@ -23,23 +23,23 @@ export default class User {
                                 title: "New board"
                             });
 
-                            Board.createBoard(board);
-
-                            return createdUser;
-                        });
+                            return Board
+                                .createBoard(board)
+                                .then(() => { return createdUser })
+                                .catch(console.log.bind(console));
+                        })
+                        .catch(console.log.bind(console));
                 } else {
                     if (user.password === userData.password) {
-                        return user;
+                        return user
                     } else {
                         throw new Error('Wrong password! Cannot auth current user!')
                     }
                 }
             })
-            .then((user) => {
-                return user;
-            })
+            .then((user) => { return user })
             .catch(console.log.bind(console));
-    }
+    };
 
     /**
      * @description Создаем пользователя
@@ -53,9 +53,8 @@ export default class User {
 
         return UserModelInstance
             .save()
-            .then((createdUser) => {
-                return createdUser;
-            })
+            .then((createdUser) => { return createdUser })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -86,20 +85,17 @@ export default class User {
             .findById(userData._id)
             .then((foundUser) => {
                 if (userData.password === foundUser.password) {
-                    if (userData.email) {
-                        foundUser.email = userData.email;
-                    }
-                    if (userData.password) {
-                        foundUser.password = userData.password;
-                    }
-                    return foundUser.save();
+                    if (userData.email) foundUser.email = userData.email;
+                    if (userData.password) foundUser.password = userData.password;
+
+                    return foundUser
+                        .save()
+                        .catch(console.log.bind(console));
                 } else {
                     throw new Error('Wrong password! Cannot update current user!')
                 }
             })
-            .then((savedResult) => {
-                return savedResult;
-            })
+            .then((savedResult) => { return savedResult })
             .catch(console.log.bind(console));
     };
 
@@ -116,28 +112,28 @@ export default class User {
                 .findById(userData._id)
                 .then((foundUser) => {
                     if (userData.password === foundUser.password) {
-                        return foundUser.remove();
+                        return foundUser
+                            .remove()
+                            .catch(console.log.bind(console));
                     } else {
                         throw new Error('Wrong password! Cannot delete current user!')
                     }
                 })
-                .then((deletedResult) => {
-                    return deletedResult;
-                })
+                .then((deletedResult) => { return deletedResult })
                 .catch(console.log.bind(console));
         } else {
             return UserModel
                 .findOne({ email: userData.email })
                 .then((foundUser) => {
                     if (userData.password === foundUser.password) {
-                        return foundUser.remove();
+                        return foundUser
+                            .remove()
+                            .catch(console.log.bind(console));
                     } else {
                         throw new Error('Wrong password! Cannot delete current user!')
                     }
                 })
-                .then((deletedResult) => {
-                    return deletedResult;
-                })
+                .then((deletedResult) => { return deletedResult })
                 .catch(console.log.bind(console));
         }
     };

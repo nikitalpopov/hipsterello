@@ -27,9 +27,9 @@ router.get('/user/:id', (req, res) => {
 //         });
 // });
 
-// router.post('/user/delete', (req, res) => {
+// router.post('/user/delete/:_id', (req, res) => {
 //     User
-//         .deleteUser(req.body)
+//         .deleteUser(req.params)
 //         .then((deletedUser) => {
 //             res.send(deletedUser)
 //         })
