@@ -10,14 +10,15 @@ export default function(state = [], action) {
 
     switch (action.type) {
         case GET_INITIAL_DATA:
-            // @todo add card with _id === 0
             return copiedState.concat(action.payload.data.cards);
 
         case CREATE_CARD:
-            return copiedState.push(action.payload.data);
+            copiedState.push(action.payload.data);
+            return copiedState;
 
         case GET_CARD:
-            return copiedState.push(action.payload.data);
+            copiedState.push(action.payload.data);
+            return copiedState;
 
         case UPDATE_CARD:
             copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data._id)] = action.payload.data;
@@ -25,12 +26,11 @@ export default function(state = [], action) {
             return copiedState;
 
         case DELETE_CARD:
-            let index = -1;
-            index = copiedState.indexOf(action.payload.data);
-
-            if (~index) { copiedState.splice(index, 1) }
-
-            return copiedState;
+            if (action.payload.data.isDeleted === true) {
+                return copiedState.filter((obj) => {
+                    return obj._id !== action.payload.data.card._id;
+                })
+            } else { return copiedState }
 
         default:
             return state;

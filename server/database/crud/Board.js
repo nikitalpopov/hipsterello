@@ -61,7 +61,9 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.usersId.push(userId);
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
             .then((savedBoard) => {
                 return savedBoard;
@@ -79,7 +81,9 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.lists.push(list);
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
             .then((savedBoard) => {
                 return savedBoard;
@@ -115,13 +119,11 @@ export default class Board {
         return BoardModel.findById(boardId)
             .then((board) => {
                 board.lists.pull(list);
-                return board.save();
+                return board
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then(() => {
-                return {
-                    success: true
-                }
-            })
+            .then(() => { return list; })
             .catch(console.log.bind(console));
     }
 
@@ -135,7 +137,9 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.cards.push(card);
-                return foundBoard.save()
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
             .then((savedBoard) => {
                 return savedBoard;
@@ -171,13 +175,11 @@ export default class Board {
         return BoardModel.findById(boardId)
             .then((board) => {
                 board.cards.pull(card);
-                return board.save();
+                return board
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then(() => {
-                return {
-                    success: true
-                }
-            })
+            .then(() => { return card; })
             .catch(console.log.bind(console));
     };
 
@@ -192,7 +194,9 @@ export default class Board {
                 if (boardObject.title) foundBoard.title = boardObject.title;
                 if (boardObject.color) foundBoard.color = boardObject.color;
 
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
             .then((savedResult) => {
                 return savedResult;
