@@ -10,10 +10,12 @@ export default function(state = [], action) {
 
         case CREATE_LIST:
             copiedState.push(action.payload.data);
+
             return copiedState;
 
         case GET_LIST:
             copiedState.push(action.payload.data);
+
             return copiedState;
 
         case UPDATE_LIST:

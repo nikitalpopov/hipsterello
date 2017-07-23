@@ -23,11 +23,10 @@ export default class User {
                                 title: "New board"
                             });
 
-                            Board
+                            return Board
                                 .createBoard(board)
+                                .then(() => { return createdUser })
                                 .catch(console.log.bind(console));
-
-                            return createdUser;
                         })
                         .catch(console.log.bind(console));
                 } else {
@@ -88,6 +87,7 @@ export default class User {
                 if (userData.password === foundUser.password) {
                     if (userData.email) foundUser.email = userData.email;
                     if (userData.password) foundUser.password = userData.password;
+
                     return foundUser
                         .save()
                         .catch(console.log.bind(console));

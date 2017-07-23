@@ -90,7 +90,7 @@ export default class Card {
             .then((removedCard) => {
                 return Board
                     .deleteCard(cardObject.boardId, removedCard)
-                    .then((deletedCard) => { return deletedCard; })
+                    .then((deletedCard) => { return deletedCard })
                     .catch(console.log.bind(console));
             })
             .then((deletedCard) => {
