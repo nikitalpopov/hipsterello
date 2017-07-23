@@ -38,9 +38,9 @@ router.patch('/board/update', (req, res) => {
 //         });
 // });
 
-// router.post('/board/delete', (req, res) => {
+// router.post('/board/delete/:_id', (req, res) => {
 //     Board
-//         .deleteBoard(req.body)
+//         .deleteBoard(req.params)
 //         .then((deletedBoard) => {
 //             res.send(deletedBoard)
 //         });

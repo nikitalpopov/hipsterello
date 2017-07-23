@@ -17,9 +17,8 @@ export default class Board {
 
         return BoardModelInstance
             .save()
-            .then((result) => {
-                return result;
-            });
+            .then((createdBoard) => { return createdBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -32,7 +31,8 @@ export default class Board {
                 boardId,
                 ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -45,7 +45,8 @@ export default class Board {
                 { usersId: userId },
                 ['_id', 'usersId', 'title', 'color', 'lists', 'cards']
             )
-            .lean();
+            .lean()
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -58,11 +59,12 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.usersId.push(userId);
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -75,11 +77,12 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.lists.push(list);
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -88,16 +91,16 @@ export default class Board {
      * @param list
      */
     static updateList(boardId, list) {
-        return BoardModel.findOneAndUpdate(
+        return BoardModel
+            .findOneAndUpdate(
             { '_id': boardId, 'lists._id': list._id },
             {
                 '$set': {
                     'lists.$': list
                 }
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -106,22 +109,16 @@ export default class Board {
      * @param list
      */
     static deleteList(boardId, list) {
-        return BoardModel.findById(boardId)
+        return BoardModel
+            .findById(boardId)
             .then((board) => {
                 board.lists.pull(list);
-                return board.save();
+                return board
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then(() => {
-                return {
-                    success: true
-                }
-            })
-            .catch((err) => {
-                return {
-                    error: true
-                };
-            })
-        ;
+            .then(() => { return list })
+            .catch(console.log.bind(console));
     }
 
     /**
@@ -134,11 +131,12 @@ export default class Board {
             .findById(boardId)
             .then((foundBoard) => {
                 foundBoard.cards.push(card);
-                return foundBoard.save()
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -147,16 +145,16 @@ export default class Board {
      * @param card
      */
     static updateCard(boardId, card) {
-        return BoardModel.findOneAndUpdate(
+        return BoardModel
+            .findOneAndUpdate(
             { '_id': boardId, 'cards._id': card._id },
             {
                 '$set': {
                     'cards.$': card
                 }
             })
-            .then((savedBoard) => {
-                return savedBoard;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -165,22 +163,16 @@ export default class Board {
      * @param card
      */
     static deleteCard(boardId, card) {
-        return BoardModel.findById(boardId)
+        return BoardModel
+            .findById(boardId)
             .then((board) => {
                 board.cards.pull(card);
-                return board.save();
+                return board
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then(() => {
-                return {
-                    success: true
-                }
-            })
-            .catch((err) => {
-                return {
-                    error: true
-                };
-            })
-        ;
+            .then(() => { return card })
+            .catch(console.log.bind(console));
     };
 
     /**
@@ -194,11 +186,12 @@ export default class Board {
                 if (boardObject.title) foundBoard.title = boardObject.title;
                 if (boardObject.color) foundBoard.color = boardObject.color;
 
-                return foundBoard.save();
+                return foundBoard
+                    .save()
+                    .catch(console.log.bind(console));
             })
-            .then((savedResult) => {
-                return savedResult;
-            });
+            .then((savedBoard) => { return savedBoard })
+            .catch(console.log.bind(console));
     };
 
     // /**

@@ -7,7 +7,6 @@ import { LOGIN_USER } from './AuthActions'
 export default function(state = {}, action) {
     switch (action.type) {
         case LOGIN_USER:
-            debugger;
             return {
                 ...state,
                 ...{

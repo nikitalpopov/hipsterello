@@ -16,6 +16,12 @@ export class List extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        return this.setState({
+            boardId: nextProps.boardId,
+        });
+    }
+
     onChangeList(event) {
         const name = event.target.name;
 
@@ -27,28 +33,26 @@ export class List extends Component {
     renderHelper() {
         if (this.props.list._id !== 0) {
             return (
-                <div className="panel panel-default panel-modest">
-                    <div className="panel-heading">
-                        <div className="input-group">
-                            <input
-                                className="panel-title form-control"
-                                type="text" name="title" value={ this.state.title }
-                                onChange={ this.onChangeList.bind(this) }
-                            />
+                <div className="panel panel-default">
+                    <div className="panel-heading input-group">
+                        <input
+                            className="panel-title form-control" type="text"
+                            name="title" value={ this.state.title }
+                            onChange={ this.onChangeList.bind(this) }
+                        />
 
-                            <span className="input-group-btn">
-                                <button
-                                    type="button" className="btn btn-success btn-secondary"
-                                    onClick={ (event) => { this.props.onUpdateList(this.state) } }>
-                                    Save
-                                </button>
-                                <button
-                                    type="button" className="btn btn-danger btn-secondary"
-                                    onClick={ (event) => { this.props.onDeleteList(this.state) } }>
-                                    Delete
-                                </button>
-                            </span>
-                        </div>
+                        <span className="input-group-btn">
+                            <button
+                                type="button" className="btn btn-success btn-secondary"
+                                onClick={ (event) => { this.props.onUpdateList(this.state) } }>
+                                Save
+                            </button>
+                            <button
+                                type="button" className="btn btn-danger btn-secondary"
+                                onClick={ (event) => { this.props.onDeleteList(this.state) } }>
+                                Delete
+                            </button>
+                        </span>
                     </div>
 
                     <div className="panel-body">
@@ -58,19 +62,21 @@ export class List extends Component {
             )
         } else {
             return (
-                <div className="panel panel-default panel-modest">
-                    <div className="panel-heading">
+                <div className="panel panel-default">
+                    <div className="panel-heading input-group">
                         <input
-                            className="panel-title"
-                            type="text" name="title" value="Add new list"
+                            className="panel-title form-control"
+                            type="text" name="title" value={ this.state.title }
                             onChange={ this.onChangeList.bind(this) }
                         />
 
-                        <div className="btn-group-sm">
-                            <button onClick={ this.props.onCreateList(this.state).bind(this) }>
+                        <span className="input-group-btn">
+                            <button
+                                type="button" className="btn btn-warning btn-secondary"
+                                onClick={ (event) => {  this.props.onCreateList(this.state) } }>
                                 Add
                             </button>
-                        </div>
+                        </span>
                     </div>
 
                     <div className="panel-body">

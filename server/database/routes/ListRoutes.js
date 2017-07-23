@@ -23,9 +23,9 @@ router.patch('/list/update', (req, res) => {
         });
 });
 
-router.delete('/list/delete', (req, res) => {
+router.delete('/list/delete/:_id/:boardId', (req, res) => {
     List
-        .deleteList(req.body)
+        .deleteList(req.params)
         .then((deletedList) => {
             res.send(deletedList)
         });

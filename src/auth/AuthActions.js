@@ -7,7 +7,6 @@ import api from '../api/api.js'
 export const LOGIN_USER = 'LOGIN_USER';
 
 export function logInUser(request) {
-    debugger;
     return {
         type: LOGIN_USER,
         payload: api.logInUser(request)
