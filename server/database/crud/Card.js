@@ -24,9 +24,7 @@ export default class Card {
             .then((createdCard) => {
                 return Board
                     .addCard(cardObject.boardId, createdCard)
-                    .then(() => {
-                        return createdCard;
-                    })
+                    .then(() => { return createdCard })
                     .catch(console.log.bind(console));
             })
             .catch(console.log.bind(console));
@@ -65,7 +63,10 @@ export default class Card {
                         return Board
                             .updateCard(cardObject.boardId, savedCard)
                             .then(() => {
-                                return savedCard;
+                                return {
+                                    card: savedCard,
+                                    isUpdated: true
+                                }
                             })
                             .catch(console.log.bind(console));
                     })

@@ -18,9 +18,7 @@ export default class List {
             .then((createdList) => {
                 return Board
                     .addList(listObject.boardId, createdList)
-                    .then(() => {
-                        return createdList;
-                    })
+                    .then(() => { return createdList })
                     .catch(console.log.bind(console));
             })
             .catch(console.log.bind(console));
@@ -56,7 +54,12 @@ export default class List {
                     .then((savedList) => {
                         return Board
                             .updateList(listObject.boardId, savedList)
-                            .then(() => { return savedList; })
+                            .then(() => {
+                                return {
+                                    list: savedList,
+                                    isUpdated: true
+                                }
+                            })
                             .catch(console.log.bind(console));
                     })
                     .catch(console.log.bind(console));
@@ -74,12 +77,12 @@ export default class List {
             .then((foundList) => {
                 return foundList
                     .remove()
-                    .catch(console.log.bind(console));;
+                    .catch(console.log.bind(console));
             })
             .then((removedList) => {
                 return Board
                     .deleteList(listObject.boardId, removedList)
-                    .then((deletedList) => { return deletedList; })
+                    .then((deletedList) => { return deletedList })
                     .catch(console.log.bind(console));
             })
             .then((deletedList) => {

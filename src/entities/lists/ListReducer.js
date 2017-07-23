@@ -17,16 +17,20 @@ export default function(state = [], action) {
             return copiedState;
 
         case UPDATE_LIST:
-            copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data._id)] = action.payload.data;
+            if (action.payload.data.isUpdated === true) {
+                copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data.list._id)] = action.payload.data.list;
+            }
 
             return copiedState;
 
         case DELETE_LIST:
             if (action.payload.data.isDeleted === true) {
-                return copiedState.filter((obj) => {
+                copiedState = copiedState.filter((obj) => {
                     return obj._id !== action.payload.data.list._id;
                 })
-            } else { return copiedState }
+            }
+
+            return copiedState;
 
         default:
             return state;
