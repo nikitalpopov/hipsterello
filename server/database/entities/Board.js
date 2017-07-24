@@ -4,8 +4,8 @@
 
 import mongoose from 'mongoose';
 
-import ListSchema from '../list/List';
-import CardSchema from '../card/Card';
+import ListSchema from './List';
+import CardSchema from './Card';
 
 const Schema = mongoose.Schema;
 

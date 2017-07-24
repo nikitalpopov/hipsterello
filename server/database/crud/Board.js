@@ -1,6 +1,4 @@
-import { Board as BoardModel } from '../entities/board/Board';
-import { List as ListModel } from '../entities/list/List';
-import { Card as CardModel } from '../entities/card/Card';
+import { Board as BoardModel } from '../entities/Board';
 
 export default class Board {
     /**

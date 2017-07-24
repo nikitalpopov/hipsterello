@@ -1,4 +1,4 @@
-import { List as ListModel } from '../entities/list/List';
+import { List as ListModel } from '../entities/List';
 import Board from './Board';
 
 export default class List {
