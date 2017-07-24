@@ -2,7 +2,7 @@
  * Created by @nikitalpopov on 13/07/2017.
  */
 
-import { User as UserModel } from '../entities/user/User';
+import { User as UserModel } from '../entities/User';
 import Board from './Board';
 
 export default class User {
@@ -11,12 +11,17 @@ export default class User {
      * @param userData
      */
     static loginUser(userData) {
+        let user = new UserModel();
+
+        user.email    = userData.email;
+        user.password = user.generateHash(userData.password);
+
         return UserModel
-            .findByEmail(userData.email)
-            .then((user) => {
-                if (!user) {
+            .findByEmail(user.email)
+            .then((foundUser) => {
+                if (!foundUser) {
                     return User
-                        .createUser(userData)
+                        .createUser(foundUser)
                         .then((createdUser) => {
                             const board = ({
                                 usersId: createdUser._id,
@@ -30,14 +35,17 @@ export default class User {
                         })
                         .catch(console.log.bind(console));
                 } else {
-                    if (user.password === userData.password) {
-                        return user
+                    if (user.validatePassword(foundUser.password)) {
+                        return foundUser
                     } else {
                         throw new Error('Wrong password! Cannot auth current user!')
                     }
                 }
             })
-            .then((user) => { return user })
+            .then((user) => {
+                delete user.password;
+                return user
+            })
             .catch(console.log.bind(console));
     };
 

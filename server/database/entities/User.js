@@ -3,6 +3,7 @@
  */
 
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
 
 const Schema = mongoose.Schema;
 
@@ -17,6 +18,14 @@ const UserSchema = new Schema({
         required: true
     }
 });
+
+UserSchema.methods.generateHash = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+UserSchema.methods.validatePassword = (password) => {
+    return bcrypt.compareSync(password, this.password);
+};
 
 UserSchema.statics.findByEmail = function(request) {
     return this.model('User').findOne({  email: request });
