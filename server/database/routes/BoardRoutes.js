@@ -7,28 +7,29 @@ import Board from '../../database/crud/Board';
 
 let router = express.Router();
 
-router.get('/get-started/:id', (req, res) => {
-    Board.findBoardByUserId(req.params.id)
-        .then((foundBoard) => {
-            res.send(foundBoard);
-        });
-});
+module.exports = function(router, passport) {
+    router.get('/get-started/:id', (req, res) => {
+        Board.findBoardByUserId(req.params.id)
+            .then((foundBoard) => {
+                res.send(foundBoard);
+            });
+    });
 
-router.get('/board/:id', (req, res) => {
-    Board
-        .findBoardById(req.params.id)
-        .then((foundBoard) => {
-            res.send(foundBoard)
-        });
-});
+    router.get('/board/:id', (req, res) => {
+        Board
+            .findBoardById(req.params.id)
+            .then((foundBoard) => {
+                res.send(foundBoard)
+            });
+    });
 
-router.patch('/board/update', (req, res) => {
-    Board
-        .updateBoard(req.body)
-        .then((updatedBoard) => {
-            res.send(updatedBoard)
-        });
-});
+    router.patch('/board/update', (req, res) => {
+        Board
+            .updateBoard(req.body)
+            .then((updatedBoard) => {
+                res.send(updatedBoard)
+            });
+    });
 
 // router.post('/board/create', (req, res) => {
 //     Board
@@ -46,4 +47,4 @@ router.patch('/board/update', (req, res) => {
 //         });
 // });
 
-module.exports = router;
+};

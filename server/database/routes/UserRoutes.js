@@ -3,21 +3,22 @@ import User  from '../../database/crud/User';
 
 let router = express.Router();
 
-router.post('/login', (req, res) => {
-    User
-        .loginUser(req.body)
-        .then((loggedInUser) => {
-            res.send(loggedInUser);
-        });
-});
+module.exports = function(router, passport) {
+    router.post('/login', (req, res) => {
+        User
+            .loginUser(req.body)
+            .then((loggedInUser) => {
+                res.send(loggedInUser);
+            });
+    });
 
-router.get('/user/:id', (req, res) => {
-    User
-        .findUserById(req.params.id)
-        .then((foundUser) => {
-            res.send(foundUser);
-        })
-});
+    router.get('/user/:id', (req, res) => {
+        User
+            .findUserById(req.params.id)
+            .then((foundUser) => {
+                res.send(foundUser);
+            })
+    });
 
 // router.post('/user/update', (req, res) => {
 //     User
@@ -36,4 +37,4 @@ router.get('/user/:id', (req, res) => {
 //         .catch(console.log.bind(console));
 // });
 
-module.exports = router;
+};
