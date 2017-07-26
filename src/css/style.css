@@ -1,0 +1,118 @@
+
+.collapse{
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.panel-title{
+    color: black !important;
+}
+
+ .panel-default{
+    width: 250px;
+     min-height: 200px;
+}
+
+.workspace-tbl{
+     width: 250px;
+     min-height: 200px;
+    /* background: #4cae4c; */
+     display: inline-block;
+     float: left;
+     margin-right: 10px;
+     margin-top: 10px;
+
+ }
+
+.workspace-tbl-last{
+    width: 250px;
+    min-height: 200px;
+   /* background: #4cae4c; */
+    display: inline-block;
+    float: left;
+    margin-top: 10px;
+
+}
+.cont{
+    width: 1290px;
+    margin: 0 auto;
+    height: 500px;
+
+}
+.wrp{
+    width: 100%;
+}
+
+.navbar-nav > li > a, .navbar-brand{
+    padding-top: 10px !important;
+    padding-bottom:0 !important;
+    color: #fff !important;
+}
+
+
+.navbar {
+background-color: rgba(0,0,0,0.3) !important;
+    border-radius: 0px !important;
+    border: none !important;
+}
+
+.panel-heading{
+    border-radius: 6px !important;
+    background: rgba(195, 201, 200, 0.2) !important;
+    border-bottom: none !important;
+
+}
+.panel{
+    background: rgba(195, 201, 200, 0.7) !important;
+    border-radius: 6px !important;
+}
+.panel-title{
+    padding-left: 2px;
+    color: #222222 !important;
+    font-size: 18px !important;
+}
+.list-group-item {
+    border-bottom: none !important;
+    margin-bottom: 10px !important;
+    border-radius: 6px !important;
+}
+.panel-body{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.breadcrumb{
+    margin-bottom: 0px !important;
+    padding-left: 30px !important;
+    background-color: transparent !important;
+
+
+}
+
+.non-transperent{
+    height: 30px;
+    width: 100%;
+    opacity: 0.8 !important;
+    position: absolute;
+}
+.navbar-collapse{
+    padding-left: 0px !important;
+}
+body {
+    background: url('http://2.bp.blogspot.com/-xmjmQzG1SE8/VC2L9UZNYbI/AAAAAAAAikU/QGO0KFnjANk/s1600/Abstract%2BTriangles%2BWallpapers%2B2.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.white_text{
+    color: #ffffff;
+}
+
+.panel-icons{
+    color: #4e6461 !important;
+}
+
