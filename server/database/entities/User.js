@@ -26,15 +26,16 @@ UserSchema.methods.generateHash = (password) => {
 UserSchema.methods.validatePassword = (inputPassword, passwordHash) => {
     return new Promise((resolve, reject) => {
         let bcryptResult = bcrypt.compareSync(inputPassword, passwordHash);
-
         (bcryptResult) ? resolve(bcryptResult) : reject('Wrong password');
     });
 };
 
 UserSchema.statics.findByEmail = function(request) {
     return new Promise((resolve, reject) => {
-        this.model('User').findOne({  email: request }).then((result) => {
-            (result) ? resolve(result) : reject('User not found');
+        this.model('User')
+            .findOne({ email: request })
+            .then((result) => {
+                (result) ? resolve(result) : reject('User not found');
         });
     });
 };

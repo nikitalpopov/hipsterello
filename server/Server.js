@@ -13,29 +13,26 @@ import * as db from './database/DataBaseUtils';
 const app = express();
 
 db.setUpConnection();
-require('./Passport')(passport);
 
 app.use( morgan('dev') );
+
+app.use( cors({ origin: '*' }) );
 app.use( cp() );
 app.use( bp.json() );
-app.use( cors({ origin: '*' }) );
-
+app.use( bp.urlencoded({}) );
 app.use( session({ secret: 'hipsterello' }) );
+
+require('./Passport')(passport);
 app.use( passport.initialize() );
 app.use( passport.session() );
 
-// app.use( require('./database/routes/UserRoutes') );
-// app.use( require('./database/routes/BoardRoutes') );
-// app.use( require('./database/routes/ListRoutes') );
-// app.use( require('./database/routes/CardRoutes') );
-
 require( './database/routes/UserRoutes' )(app, passport);
-require( './database/routes/BoardRoutes' )(app, passport);
+require( './database/routes/BoardRoutes')(app, passport);
 require( './database/routes/ListRoutes' )(app, passport);
 require( './database/routes/CardRoutes' )(app, passport);
 
-export default app;
-
-const server = app.listen(serverPort, () => {
+app.listen(serverPort, () => {
     console.log(`Server is up and running on port ${serverPort}`);
 });
+
+export default app;

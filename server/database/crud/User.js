@@ -3,41 +3,8 @@
  */
 
 import { User as UserModel } from '../entities/User';
-import Board from './Board';
 
 export default class User {
-    /**
-     * @description Обрабатываем запрос пользователя на вход/регистрацию
-     * @param userData
-     */
-    static loginUser(userData) {
-        let user = new UserModel();
-
-        user.email    = userData.email;
-        user.password = user.generateHash(userData.password);
-
-        let responseUser;
-
-        return UserModel.findByEmail(user.email)
-            .then((foundUser) => {
-                return foundUser;
-            })
-            .catch((error) => {
-                return User.createUser(user);
-            })
-            .then((existedUser) => {
-                responseUser = existedUser;
-                return user.validatePassword(userData.password, existedUser.password)
-            })
-            .catch((loginError) => {
-                throw new Error('Wrong password! Cannot auth current user!')
-            })
-            .then(() => {
-                return responseUser;
-            })
-        ;
-    };
-
     /**
      * @description Создаем пользователя
      * @param userData
@@ -60,7 +27,10 @@ export default class User {
      */
     static findUserById(userId) {
         return UserModel
-            .findById(userId)
+            .findById(
+                userId,
+                ['_id', 'email']
+            )
             .catch(console.log.bind(console));
     };
 
@@ -70,7 +40,7 @@ export default class User {
      */
     static findUserByEmail(userData) {
         return UserModel
-            .findOne({ email: userData.email })
+            .findByEmail(userData.email)
             .catch(console.log.bind(console));
     };
     /**
@@ -120,7 +90,7 @@ export default class User {
                 .catch(console.log.bind(console));
         } else {
             return UserModel
-                .findOne({ email: userData.email })
+                .findByEmail(userData.email)
                 .then((foundUser) => {
                     if (userData.password === foundUser.password) {
                         return foundUser
