@@ -19,8 +19,14 @@ app.use( morgan('dev') );
 app.use( cors({ origin: '*' }) );
 app.use( cp() );
 app.use( bp.json() );
-app.use( bp.urlencoded({}) );
-app.use( session({ secret: 'hipsterello' }) );
+app.use( bp.urlencoded({ extended: false }) );
+app.use(
+    session({
+        secret: 'hipsterello',
+        resave: false,
+        saveUninitialized: false
+    })
+);
 
 require('./Passport')(passport);
 app.use( passport.initialize() );
