@@ -16,37 +16,26 @@ export default class User {
         user.email    = userData.email;
         user.password = user.generateHash(userData.password);
 
-        return UserModel
-            .findByEmail(user.email)
-            .then((foundUser) => {
-                if (!foundUser) {
-                    return User
-                        .createUser(foundUser)
-                        .then((createdUser) => {
-                            const board = ({
-                                usersId: createdUser._id,
-                                title: "New board"
-                            });
+        let responseUser;
 
-                            return Board
-                                .createBoard(board)
-                                .then(() => { return createdUser })
-                                .catch(console.log.bind(console));
-                        })
-                        .catch(console.log.bind(console));
-                } else {
-                    if (user.validatePassword(foundUser.password)) {
-                        return foundUser
-                    } else {
-                        throw new Error('Wrong password! Cannot auth current user!')
-                    }
-                }
+        return UserModel.findByEmail(user.email)
+            .then((foundUser) => {
+                return foundUser;
             })
-            .then((user) => {
-                delete user.password;
-                return user
+            .catch((error) => {
+                return User.createUser(user);
             })
-            .catch(console.log.bind(console));
+            .then((existedUser) => {
+                responseUser = existedUser;
+                return user.validatePassword(userData.password, existedUser.password)
+            })
+            .catch((loginError) => {
+                throw new Error('Wrong password! Cannot auth current user!')
+            })
+            .then(() => {
+                return responseUser;
+            })
+        ;
     };
 
     /**

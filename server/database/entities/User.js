@@ -23,12 +23,20 @@ UserSchema.methods.generateHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-UserSchema.methods.validatePassword = (password) => {
-    return bcrypt.compareSync(password, this.password);
+UserSchema.methods.validatePassword = (inputPassword, passwordHash) => {
+    return new Promise((resolve, reject) => {
+        let bcryptResult = bcrypt.compareSync(inputPassword, passwordHash);
+
+        (bcryptResult) ? resolve(bcryptResult) : reject('Wrong password');
+    });
 };
 
 UserSchema.statics.findByEmail = function(request) {
-    return this.model('User').findOne({  email: request });
+    return new Promise((resolve, reject) => {
+        this.model('User').findOne({  email: request }).then((result) => {
+            (result) ? resolve(result) : reject('User not found');
+        });
+    });
 };
 
 export default UserSchema;
