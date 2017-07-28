@@ -19,7 +19,7 @@ module.exports = (passport) => {
     passport.deserializeUser((userId, done) => {
         User.findById(userId)
             .then((err, user) => {
-                done(err, user);
+                done(err, { _id: user._id, email: user.email });
             });
     });
 

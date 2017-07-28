@@ -10,8 +10,8 @@ export default function(state = {}, action) {
             return {
                 ...state,
                 ...{
-                    isAuthorized: !!action.payload.data._id,
-                    user: action.payload.data
+                    isAuthorized: action.payload.data.isAuthorized,
+                    user: { email: action.payload.data.email, _id: action.payload.data._id }
                 }
             };
 
