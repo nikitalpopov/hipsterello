@@ -1,5 +1,15 @@
 body {
+    overflow: hidden;
+    min-height: 600px;
+}
+
+#padding {
     padding: 0 40px 5px 40px;
+}
+
+#board {
+    max-height: 84vh;
+    overflow-y: scroll;
 }
 
 #card {
