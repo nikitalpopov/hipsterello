@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { logInUser } from './AuthActions';
+import PageHeader from '../app/PageHeader';
 
 class Auth extends Component {
     constructor(props) {
@@ -43,36 +44,39 @@ class Auth extends Component {
 
         if (!this.props.isAuthorized) {
             return (
-                <form className="form-horizontal">
-                    <fieldset>
-                        <legend>Auth</legend>
-                        <div className="form-group">
-                            <label className="col-md-4 control-label">E-mail</label>
-                            <div className="col-md-4">
-                                <input id="textinput" onChange={ this.handleEmailChange.bind(this) }
-                                       name="textinput" type="text" placeholder="Enter e-mail"
-                                       className="form-control input-md"/>
+                <div>
+                    <PageHeader />
+                    <form className="form-horizontal">
+                        <fieldset>
+                            <legend>Auth</legend>
+                            <div className="form-group">
+                                <label className="col-md-4 control-label">E-mail</label>
+                                <div className="col-md-4">
+                                    <input id="textinput" onChange={ this.handleEmailChange.bind(this) }
+                                           name="textinput" type="text" placeholder="Enter e-mail"
+                                           className="form-control input-md"/>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="col-md-4 control-label">Password</label>
-                            <div className="col-md-4">
-                                <input id="passwordinput" onChange={ this.handlePasswordChange.bind(this) }
-                                       name="passwordinput" type="password" placeholder="Enter password"
-                                       className="form-control input-md"/>
+                            <div className="form-group">
+                                <label className="col-md-4 control-label">Password</label>
+                                <div className="col-md-4">
+                                    <input id="passwordinput" onChange={ this.handlePasswordChange.bind(this) }
+                                           name="passwordinput" type="password" placeholder="Enter password"
+                                           className="form-control input-md"/>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group">
-                            <label className="col-md-4 control-label"></label>
-                            <div className="col-md-4">
-                                <button id="login-button" name="login-button" className="btn btn-info"
-                                        onClick={ this.handleLoginButtonClick.bind(this) }>
-                                    Log in
-                                </button>
+                            <div className="form-group">
+                                <label className="col-md-4 control-label"></label>
+                                <div className="col-md-4">
+                                    <button id="login-button" name="login-button" className="btn btn-info"
+                                            onClick={ this.handleLoginButtonClick.bind(this) }>
+                                        Log in
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                </div>
             );
         }
     }

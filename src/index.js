@@ -24,7 +24,6 @@ ReactDOM.render(
     <Provider store={ store }>
         <Router>
             <div>
-                <h1>Hipsterello</h1>
                 <Switch>
                     <Route exact path="/" component={ App } />
                     <Route path="/boards" component={ App } />
