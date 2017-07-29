@@ -3,6 +3,8 @@
  */
 
 import React, { Component } from 'react';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import ListsContainer from "../lists/ListsContainer";
 
@@ -51,7 +53,7 @@ export class Board extends Component {
                     </div>
                 </div>
 
-                <div className="panel-body panel-board row">
+                <div className="panel-body" id="board">
                     <ListsContainer boardId={ this.state._id } />
                 </div>
             </div>
@@ -59,4 +61,4 @@ export class Board extends Component {
     }
 }
 
-export default Board;
+export default DragDropContext(HTML5Backend)(Board);
