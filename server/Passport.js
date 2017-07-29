@@ -7,7 +7,6 @@ import { Strategy } from 'passport-local';
 import User from './database/crud/User';
 import { User as UserModel } from './database/entities/User';
 
-/** @todo fix with promises */
 module.exports = (passport) => {
     passport.serializeUser((user, done) => {
         done(
