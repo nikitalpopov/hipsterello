@@ -1,26 +1,36 @@
 import express from 'express';
 import passport from 'passport';
+
 import User from '../../database/crud/User';
 
 let router = express.Router();
 require('../../Passport')(passport);
 
-module.exports = function(router, passport) {
-    router.post(
-        '/login',
-        passport.authenticate('local'),
-        (req, res) => {
-            res.send({ _id: req.user._id, email: req.user.email, isAuthorized: req.isAuthenticated() })
-        }
-    );
+router.use( passport.initialize() );
+router.use( passport.session() );
 
-    router.get('/user/:id', (req, res) => {
-        User
-            .findUserById(req.params.id)
-            .then((foundUser) => {
-                res.send(foundUser);
-            })
-    });
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    return res.redirect('/login');
+}
+
+router.post(
+    '/login',
+    passport.authenticate('local'),
+    (req, res) => {
+        res.send({ _id: req.user._id, email: req.user.email, isAuthorized: req.isAuthenticated() })
+    }
+);
+
+router.get('/user/:id', (req, res) => {
+    User
+        .findUserById(req.params.id)
+        .then((foundUser) => {
+            res.send(foundUser);
+        })
+});
 
 // router.post('/user/update', (req, res) => {
 //     User
@@ -39,4 +49,4 @@ module.exports = function(router, passport) {
 //         .catch(console.log.bind(console));
 // });
 
-};
+module.exports = router;
