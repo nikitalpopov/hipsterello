@@ -6,8 +6,10 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push as Menu } from 'react-burger-menu'
 
 import { getInitialData, updateBoard } from './BoardActions';
+import PageHeader from '../../app/PageHeader';
 import Board from './Board';
 
 export class BoardsContainer extends Component {
@@ -24,11 +26,22 @@ export class BoardsContainer extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
-                <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
-                    <Board
-                        board={ this.props.board }
-                        onUpdateBoard={ this.onUpdateBoard.bind(this) }
-                    />
+                <div>
+                <PageHeader />
+                <div id="outer-container">
+                    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }
+                          className="bm-overlay" isOpen={ false } noOverlay id="padding">
+                        <a id="home" className="menu-item" href="/">There are should be Boards previews</a>
+                    </Menu>
+                    <main id="page-wrap">
+                        <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
+                            <Board
+                                board={ this.props.board }
+                                onUpdateBoard={ this.onUpdateBoard.bind(this) }
+                            />
+                        </div>
+                    </main>
+                </div>
                 </div>
             )
         } else {
