@@ -4,7 +4,7 @@
 
 import cookie from 'react-cookies';
 
-import { LOGIN_USER } from './AuthActions'
+import { LOGIN_USER, LOGOUT_USER } from './AuthActions'
 
 export default function(state = {}, action) {
     switch (action.type) {
@@ -13,8 +13,9 @@ export default function(state = {}, action) {
             cookie.save('isAuthorized', action.payload.data.isAuthorized, { path: '/', maxAge: 86400000 });
 
             localStorage.setItem('_id', action.payload.data._id);
-            localStorage.setItem('isAuthorized', action.payload.data.isAuthorized);
             localStorage.setItem('expires', action.payload.data.expires);
+            localStorage.setItem('isAuthorized', action.payload.data.isAuthorized);
+
             return {
                 ...state,
                 ...{ user: {
@@ -22,6 +23,19 @@ export default function(state = {}, action) {
                         _id: action.payload.data._id
                     }
                 }
+            };
+
+        case LOGOUT_USER:
+            cookie.remove('_id');
+            cookie.remove('isAuthorized');
+
+            localStorage.removeItem('_id');
+            localStorage.removeItem('expires');
+            localStorage.setItem('isAuthorized', action.payload.data.isAuthorized);
+
+            return {
+                ...state,
+                ...{}
             };
 
         default:

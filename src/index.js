@@ -1,24 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
 
-import reducer from './app/AppReducer';
 import App from './app/App';
 import Auth from './auth/Auth';
 import NotFound from './app/NotFound';
 
+import reducer from './app/AppReducer';
 let initialState = {
     auth: {
-        _id: localStorage.getItem('_id'),
+        user: { _id: localStorage.getItem('_id') },
         isAuthorized: !!localStorage.getItem('isAuthorized')
     }
 };

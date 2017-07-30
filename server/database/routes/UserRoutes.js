@@ -47,4 +47,11 @@ router.get('/user/:id', (req, res) => {
 //         .catch(console.log.bind(console));
 // });
 
+router.post('/logout', (req, res) => {
+    req.logOut();
+    req.session.destroy();
+    // console.log(req.isAuthenticated());  ??
+    res.send({ isAuthorized: req.isAuthenticated() });
+});
+
 module.exports = router;
