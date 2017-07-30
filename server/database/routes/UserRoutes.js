@@ -9,13 +9,6 @@ require('../../Passport')(passport);
 router.use( passport.initialize() );
 router.use( passport.session() );
 
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    return res.redirect('/login');
-}
-
 router.post(
     '/login',
     passport.authenticate('local'),
