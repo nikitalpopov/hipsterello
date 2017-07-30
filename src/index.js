@@ -16,7 +16,14 @@ import App from './app/App';
 import Auth from './auth/Auth';
 import NotFound from './app/NotFound';
 
-const store = createStore(reducer, composeWithDevTools(
+let initialState = {
+    auth: {
+        _id: localStorage.getItem('_id'),
+        isAuthorized: !!localStorage.getItem('isAuthorized')
+    }
+};
+
+const store = createStore(reducer, initialState, composeWithDevTools(
     applyMiddleware(ReduxPromise)
 ));
 
