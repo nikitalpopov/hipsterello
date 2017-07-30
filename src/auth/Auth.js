@@ -12,7 +12,6 @@ class Auth extends Component {
         this.state = {
             enteredEmail: '',
             enteredPassword: '',
-            isAuthorized: localStorage.getItem('isAuthorized') ? (localStorage.getItem('isAuthorized') === 'true') : false
         };
     }
 
@@ -37,7 +36,7 @@ class Auth extends Component {
 
     renderHelper() {
         debugger;
-        if (this.state.isAuthorized === true) {
+        if (this.props.isAuthorized === true) {
             return (
                 <Redirect to="/boards"/>
             );
@@ -86,15 +85,14 @@ class Auth extends Component {
     }
 }
 
-
-const mapStateToProps = (state) => {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized
-    }
-};
+        isAuthorized: store.auth.isAuthorized,
+    };
+}
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ logInUser }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStoreToProps, mapDispatchToProps)(Auth);

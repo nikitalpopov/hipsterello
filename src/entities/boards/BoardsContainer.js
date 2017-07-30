@@ -51,11 +51,11 @@ export class BoardsContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized,
-        user: state.auth.user,
-        board: state.boards
+        isAuthorized: store.auth.isAuthorized,
+        user: store.auth.user,
+        board: store.boards
     };
 }
 
@@ -63,4 +63,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ getInitialData, updateBoard }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardsContainer);
+export default connect(mapStoreToProps, mapDispatchToProps)(BoardsContainer);
