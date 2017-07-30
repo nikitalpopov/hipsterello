@@ -11,7 +11,8 @@ class Auth extends Component {
 
         this.state = {
             enteredEmail: '',
-            enteredPassword: ''
+            enteredPassword: '',
+            isAuthorized: localStorage.getItem('isAuthorized') ? (localStorage.getItem('isAuthorized') === 'true') : false
         };
     }
 
@@ -35,13 +36,11 @@ class Auth extends Component {
     }
 
     renderHelper() {
-        if (this.props.isAuthorized) {
+        if (this.props.isAuthorized === true) {
             return (
                 <Redirect to="/boards"/>
             );
-        }
-
-        if (!this.props.isAuthorized) {
+        } else {
             return (
                 <form className="form-horizontal">
                     <fieldset>
