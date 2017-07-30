@@ -16,12 +16,11 @@ class App extends Component {
     }
 
     renderHelper() {
-        if (!this.props.isAuthorized === true) {
-            console.log(this.state.isAuthorized);
-            return ( <Redirect to='/login'/> );
-        } else {
-            console.log(this.state.isAuthorized);
+        debugger;
+        if (this.state.isAuthorized === true) {
             return ( <BoardsContainer /> );
+        } else {
+            return ( <Redirect to='/login'/> );
         }
     }
 

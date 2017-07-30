@@ -9,10 +9,12 @@ import { LOGIN_USER } from './AuthActions'
 export default function(state = {}, action) {
     switch (action.type) {
         case LOGIN_USER:
-            let isAuthorized = (action.payload.data.isAuthorized) ? action.payload.data.isAuthorized : false;
-            cookie.save('isAuthorized', isAuthorized, { path: '/', maxAge: 86400000 });
-            localStorage.setItem('isAuthorized', isAuthorized);
+            cookie.save('_id', action.payload.data._id, { path: '/', maxAge: 86400000 });
+            cookie.save('isAuthorized', action.payload.data.isAuthorized, { path: '/', maxAge: 86400000 });
 
+            localStorage.setItem('_id', action.payload.data._id);
+            localStorage.setItem('isAuthorized', action.payload.data.isAuthorized);
+            localStorage.setItem('expires', action.payload.data.expires);
             return {
                 ...state,
                 ...{ user: {

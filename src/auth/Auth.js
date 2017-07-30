@@ -36,7 +36,8 @@ class Auth extends Component {
     }
 
     renderHelper() {
-        if (this.props.isAuthorized === true) {
+        debugger;
+        if (this.state.isAuthorized === true) {
             return (
                 <Redirect to="/boards"/>
             );

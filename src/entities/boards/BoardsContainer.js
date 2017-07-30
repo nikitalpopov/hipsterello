@@ -14,7 +14,11 @@ export class BoardsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.props.getInitialData(this.props.user)
+        if (localStorage.getItem('_id')) {
+            this.props.getInitialData({ _id: localStorage.getItem('_id') })
+        } else {
+            this.props.getInitialData(this.props.user)
+        }
     }
 
     onUpdateBoard(boardData) {

@@ -13,7 +13,12 @@ router.post(
     '/login',
     passport.authenticate('local'),
     (req, res) => {
-        res.send({ _id: req.user._id, email: req.user.email, isAuthorized: req.isAuthenticated() })
+        res.send({
+            _id: req.user._id,
+            email: req.user.email,
+            isAuthorized: req.isAuthenticated(),
+            expires: new Date(new Date() + 86400000)
+        })
     }
 );
 
