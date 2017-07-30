@@ -34,6 +34,7 @@ ReactDOM.render(
                     <Route exact path="/" component={ App } />
                     <Route path="/boards" component={ App } />
                     <Route path="/login" component={ Auth } />
+                    <Route path="/logout" component="" />
                     <Route path="*" component={ NotFound } />
                 </Switch>
             </div>

@@ -8,8 +8,8 @@ class App extends Component {
     renderHelper() {
         debugger;
         return (this.props.isAuthorized)
-            ? <div><Redirect to='/boards'/><BoardsContainer /></div>
-            : <Redirect to='/login'/>;
+            ? <div><Redirect to='/boards' /><BoardsContainer /></div>
+            : <Redirect to='/login' />;
     }
 
     render() {

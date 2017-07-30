@@ -38,7 +38,7 @@ class Auth extends Component {
         debugger;
         if (this.props.isAuthorized === true) {
             return (
-                <Redirect to="/boards"/>
+                <Redirect to="/boards" />
             );
         } else {
             return (
