@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getInitialData, updateBoard } from './BoardActions';
+import { logOutUser } from '../../auth/AuthActions';
 import Board from './Board';
 
 export class BoardsContainer extends Component {
@@ -25,6 +26,12 @@ export class BoardsContainer extends Component {
         this.props.updateBoard(boardData)
     }
 
+    handleLogoutButtonClick(event) {
+        event.preventDefault();
+
+        this.props.logOutUser(this.props.user);
+    }
+
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
@@ -33,6 +40,10 @@ export class BoardsContainer extends Component {
                         board={ this.props.board }
                         onUpdateBoard={ this.onUpdateBoard.bind(this) }
                     />
+                    <button type="button" className="btn btn-warning"
+                            onClick={ (event) => { this.handleLogoutButtonClick.bind(this) } }>
+                        Log out
+                    </button>
                 </div>
             )
         } else {
@@ -60,7 +71,7 @@ function mapStoreToProps(store) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getInitialData, updateBoard }, dispatch)
+    return bindActionCreators({ getInitialData, updateBoard, logOutUser }, dispatch)
 };
 
 export default connect(mapStoreToProps, mapDispatchToProps)(BoardsContainer);
