@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 
 import User from '../../database/crud/User';
+import { expires } from '../../../src/config.json';
 
 let router = express.Router();
 require('../../Passport')(passport);
@@ -17,7 +18,7 @@ router.post(
             _id: req.user._id,
             email: req.user.email,
             isAuthorized: req.isAuthenticated(),
-            expires: new Date(new Date() + 86400000)
+            expires: new Date(new Date() + expires)
         })
     }
 );

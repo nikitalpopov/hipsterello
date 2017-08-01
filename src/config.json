@@ -1,9 +1,10 @@
 {
   "apiPrefix": "http://localhost:3033",
   "serverPort": "3033",
-  "db":{
+  "db": {
     "name": "hipsterello",
     "host": "localhost",
     "port": 27017
-  }
+  },
+  "expires": 1000
 }

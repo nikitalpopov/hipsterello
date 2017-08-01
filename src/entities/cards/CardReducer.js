@@ -24,7 +24,9 @@ export default function(state = [], action) {
 
         case UPDATE_CARD:
             if (action.payload.data.isUpdated === true) {
-                copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data.card._id)] = action.payload.data.card;
+                copiedState[copiedState.findIndex(
+                    (obj) => obj._id === action.payload.data.card._id
+                )] = action.payload.data.card;
             }
 
             return copiedState;

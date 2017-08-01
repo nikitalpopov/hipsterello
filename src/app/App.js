@@ -6,7 +6,6 @@ import BoardsContainer from '../entities/boards/BoardsContainer';
 
 class App extends Component {
     renderHelper() {
-        debugger;
         return (this.props.isAuthorized)
             ? <div><Redirect to='/boards' /><BoardsContainer /></div>
             : <Redirect to='/login' />;

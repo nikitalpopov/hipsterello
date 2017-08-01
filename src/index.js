@@ -16,8 +16,8 @@ import NotFound from './app/NotFound';
 import reducer from './app/AppReducer';
 let initialState = {
     auth: {
-        user: { _id: localStorage.getItem('_id') },
-        isAuthorized: !!localStorage.getItem('isAuthorized')
+        user: { _id: localStorage.getItem('_id'), email: null },
+        isAuthorized: localStorage.getItem('isAuthorized') && localStorage.getItem('isAuthorized') === 'true'
     }
 };
 
@@ -34,7 +34,7 @@ ReactDOM.render(
                     <Route exact path="/" component={ App } />
                     <Route path="/boards" component={ App } />
                     <Route path="/login" component={ Auth } />
-                    <Route path="/logout" component="" />
+                    {/*<Route path="/logout" component="" />*/}
                     <Route path="*" component={ NotFound } />
                 </Switch>
             </div>
