@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { logInUser } from './AuthActions';
+// import { expires } from '../config.json';
+//
+// function expire() {
+//     localStorage.removeItem('_id');
+//     localStorage.removeItem('email');
+//     localStorage.setItem('isAuthorized', false);
+//     localStorage.removeItem('expires');
+// }
 
 class Auth extends Component {
     constructor(props) {
@@ -32,10 +40,10 @@ class Auth extends Component {
         });
 
         this.props.logInUser(user);
+        // setTimeout(expire, expires);
     }
 
     renderHelper() {
-        debugger;
         if (this.props.isAuthorized === true) {
             return (
                 <Redirect to="/boards" />

@@ -16,7 +16,7 @@ import NotFound from './app/NotFound';
 import reducer from './app/AppReducer';
 let initialState = {
     auth: {
-        user: { _id: localStorage.getItem('_id'), email: null },
+        user: { _id: localStorage.getItem('_id'), email: localStorage.getItem('email') },
         isAuthorized: localStorage.getItem('isAuthorized') && localStorage.getItem('isAuthorized') === 'true'
     }
 };
