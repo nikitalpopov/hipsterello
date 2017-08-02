@@ -41,7 +41,7 @@ export class BoardsContainer extends Component {
                         onUpdateBoard={ this.onUpdateBoard.bind(this) }
                     />
                     <button type="button" className="btn btn-warning"
-                            onClick={ (event) => { this.handleLogoutButtonClick.bind(this) } }>
+                            onClick={ this.handleLogoutButtonClick.bind(this) }>
                         Log out
                     </button>
                 </div>
