@@ -58,9 +58,9 @@ export class ListsContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStoreToProps(store) {
     return {
-        lists: state.lists
+        lists: store.lists
     };
 }
 
@@ -68,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createList, getList, updateList, deleteList }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListsContainer);
+export default connect(mapStoreToProps, mapDispatchToProps)(ListsContainer);

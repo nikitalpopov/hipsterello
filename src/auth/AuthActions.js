@@ -5,10 +5,18 @@
 import api from '../api/api.js'
 
 export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export function logInUser(request) {
     return {
         type: LOGIN_USER,
         payload: api.logInUser(request)
+    }
+}
+
+export function logOutUser(request) {
+    return {
+        type: LOGOUT_USER,
+        payload: api.logOutUser(request)
     }
 }

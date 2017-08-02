@@ -2,7 +2,7 @@
  * Created by @nikitalpopov on 13/07/2017.
  */
 
-import { Card as CardModel } from '../entities/card/Card';
+import { Card as CardModel } from '../entities/Card';
 import Board from './Board';
 
 export default class Card {

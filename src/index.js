@@ -1,22 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
 
-import reducer from './app/AppReducer';
 import App from './app/App';
 import Auth from './auth/Auth';
 import NotFound from './app/NotFound';
 
-const store = createStore(reducer, composeWithDevTools(
+import reducer from './app/AppReducer';
+
+let initialState = {};
+let now = new Date().getTime();
+if (Date.parse(localStorage.getItem('expires')) >= now) {
+    initialState = {
+        auth: {
+            user: {_id: localStorage.getItem('_id'), email: localStorage.getItem('email')},
+            isAuthorized: localStorage.getItem('isAuthorized') && localStorage.getItem('isAuthorized') === 'true'
+        }
+    }
+} else {
+    initialState = {
+        auth: {
+            user: { _id: null, email: null },
+            isAuthorized: false
+        }
+    }
+}
+
+const store = createStore(reducer, initialState, composeWithDevTools(
     applyMiddleware(ReduxPromise)
 ));
 
@@ -28,6 +45,7 @@ ReactDOM.render(
                     <Route exact path="/" component={ App } />
                     <Route path="/boards" component={ App } />
                     <Route path="/login" component={ Auth } />
+                    {/*<Route path="/logout" component="" />*/}
                     <Route path="*" component={ NotFound } />
                 </Switch>
             </div>

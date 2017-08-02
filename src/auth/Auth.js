@@ -36,13 +36,11 @@ class Auth extends Component {
     }
 
     renderHelper() {
-        if (this.props.isAuthorized) {
+        if (this.props.isAuthorized === true) {
             return (
-                <Redirect to="/boards"/>
+                <Redirect to="/boards" />
             );
-        }
-
-        if (!this.props.isAuthorized) {
+        } else {
             return (
                 <div>
                     <PageHeader />
@@ -90,15 +88,14 @@ class Auth extends Component {
     }
 }
 
-
-const mapStateToProps = (state) => {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized
-    }
-};
+        isAuthorized: store.auth.isAuthorized,
+    };
+}
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ logInUser }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStoreToProps, mapDispatchToProps)(Auth);

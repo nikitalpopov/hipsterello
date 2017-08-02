@@ -1,15 +1,28 @@
 import express from 'express';
-import User  from '../../database/crud/User';
+import passport from 'passport';
+
+import User from '../../database/crud/User';
+import { expires } from '../../../src/config.json';
 
 let router = express.Router();
+require('../../Passport')(passport);
 
-router.post('/login', (req, res) => {
-    User
-        .loginUser(req.body)
-        .then((loggedInUser) => {
-            res.send(loggedInUser);
-        });
-});
+router.use( passport.initialize() );
+router.use( passport.session() );
+
+router.post(
+    '/login',
+    passport.authenticate('local'),
+    (req, res) => {
+        let now = new Date().getTime();
+        res.send({
+            _id: req.user._id,
+            email: req.user.email,
+            isAuthorized: req.isAuthenticated(),
+            expires: new Date(now + expires)
+        })
+    }
+);
 
 router.get('/user/:id', (req, res) => {
     User
@@ -35,5 +48,12 @@ router.get('/user/:id', (req, res) => {
 //         })
 //         .catch(console.log.bind(console));
 // });
+
+router.post('/logout', (req, res) => {
+    req.logOut();
+    req.session.destroy();
+    // console.log(req.isAuthenticated());  ??
+    res.send({ isAuthorized: req.isAuthenticated() });
+});
 
 module.exports = router;
