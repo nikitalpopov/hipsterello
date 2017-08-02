@@ -6,11 +6,9 @@ import BoardsContainer from '../entities/boards/BoardsContainer';
 
 class App extends Component {
     renderHelper() {
-        if (this.props.isAuthorized) {
-            return ( <BoardsContainer /> );
-        } else {
-            return ( <Redirect to='/login'/> );
-        }
+        return (this.props.isAuthorized)
+            ? <div><Redirect to='/boards' /><BoardsContainer /></div>
+            : <Redirect to='/login' />;
     }
 
     render() {
@@ -22,10 +20,10 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized
-    }
-};
+        isAuthorized: store.auth.isAuthorized,
+    };
+}
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStoreToProps, null)(App);

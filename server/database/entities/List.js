@@ -4,8 +4,6 @@
 
 import mongoose from 'mongoose';
 
-import CardSchema from '../card/Card';
-
 const Schema = mongoose.Schema;
 
 const ListSchema = new Schema({

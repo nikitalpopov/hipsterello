@@ -3,6 +3,7 @@
  */
 
 import express from 'express';
+
 import Board from '../../database/crud/Board';
 
 let router = express.Router();

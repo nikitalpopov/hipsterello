@@ -20,7 +20,9 @@ export default function(state = [], action) {
 
         case UPDATE_LIST:
             if (action.payload.data.isUpdated === true) {
-                copiedState[copiedState.findIndex((obj) => obj._id === action.payload.data.list._id)] = action.payload.data.list;
+                copiedState[copiedState.findIndex(
+                    (obj) => obj._id === action.payload.data.list._id
+                )] = action.payload.data.list;
             }
 
             return copiedState;

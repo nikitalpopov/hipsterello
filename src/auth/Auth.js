@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
 import { logInUser } from './AuthActions';
+// import { expires } from '../config.json';
+//
+// function expire() {
+//     localStorage.removeItem('_id');
+//     localStorage.removeItem('email');
+//     localStorage.setItem('isAuthorized', false);
+//     localStorage.removeItem('expires');
+// }
 
 class Auth extends Component {
     constructor(props) {
@@ -11,7 +19,7 @@ class Auth extends Component {
 
         this.state = {
             enteredEmail: '',
-            enteredPassword: ''
+            enteredPassword: '',
         };
     }
 
@@ -32,16 +40,15 @@ class Auth extends Component {
         });
 
         this.props.logInUser(user);
+        // setTimeout(expire, expires);
     }
 
     renderHelper() {
-        if (this.props.isAuthorized) {
+        if (this.props.isAuthorized === true) {
             return (
-                <Redirect to="/boards"/>
+                <Redirect to="/boards" />
             );
-        }
-
-        if (!this.props.isAuthorized) {
+        } else {
             return (
                 <form className="form-horizontal">
                     <fieldset>
@@ -86,15 +93,14 @@ class Auth extends Component {
     }
 }
 
-
-const mapStateToProps = (state) => {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized
-    }
-};
+        isAuthorized: store.auth.isAuthorized,
+    };
+}
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ logInUser }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+export default connect(mapStoreToProps, mapDispatchToProps)(Auth);

@@ -2,45 +2,9 @@
  * Created by @nikitalpopov on 13/07/2017.
  */
 
-import { User as UserModel } from '../entities/user/User';
-import Board from './Board';
+import { User as UserModel } from '../entities/User';
 
 export default class User {
-    /**
-     * @description Обрабатываем запрос пользователя на вход/регистрацию
-     * @param userData
-     */
-    static loginUser(userData) {
-        return UserModel
-            .findByEmail(userData.email)
-            .then((user) => {
-                if (!user) {
-                    return User
-                        .createUser(userData)
-                        .then((createdUser) => {
-                            const board = ({
-                                usersId: createdUser._id,
-                                title: "New board"
-                            });
-
-                            return Board
-                                .createBoard(board)
-                                .then(() => { return createdUser })
-                                .catch(console.log.bind(console));
-                        })
-                        .catch(console.log.bind(console));
-                } else {
-                    if (user.password === userData.password) {
-                        return user
-                    } else {
-                        throw new Error('Wrong password! Cannot auth current user!')
-                    }
-                }
-            })
-            .then((user) => { return user })
-            .catch(console.log.bind(console));
-    };
-
     /**
      * @description Создаем пользователя
      * @param userData
@@ -63,7 +27,10 @@ export default class User {
      */
     static findUserById(userId) {
         return UserModel
-            .findById(userId)
+            .findById(
+                userId,
+                ['_id', 'email']
+            )
             .catch(console.log.bind(console));
     };
 
@@ -73,7 +40,7 @@ export default class User {
      */
     static findUserByEmail(userData) {
         return UserModel
-            .findOne({ email: userData.email })
+            .findByEmail(userData.email)
             .catch(console.log.bind(console));
     };
     /**
@@ -123,7 +90,7 @@ export default class User {
                 .catch(console.log.bind(console));
         } else {
             return UserModel
-                .findOne({ email: userData.email })
+                .findByEmail(userData.email)
                 .then((foundUser) => {
                     if (userData.password === foundUser.password) {
                         return foundUser

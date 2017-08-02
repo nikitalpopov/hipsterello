@@ -55,9 +55,9 @@ export class CardsContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStoreToProps(store) {
     return {
-        cards: state.cards
+        cards: store.cards
     };
 }
 
@@ -65,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createCard, getCard, updateCard, deleteCard }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
+export default connect(mapStoreToProps, mapDispatchToProps)(CardsContainer);

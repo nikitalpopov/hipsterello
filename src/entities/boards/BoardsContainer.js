@@ -8,17 +8,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getInitialData, updateBoard } from './BoardActions';
+import { logOutUser } from '../../auth/AuthActions';
 import Board from './Board';
 
 export class BoardsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.props.getInitialData(this.props.user)
+        if (localStorage.getItem('_id')) {
+            this.props.getInitialData({ _id: localStorage.getItem('_id') })
+        } else {
+            this.props.getInitialData(this.props.user)
+        }
     }
 
     onUpdateBoard(boardData) {
         this.props.updateBoard(boardData)
+    }
+
+    handleLogoutButtonClick(event) {
+        event.preventDefault();
+
+        this.props.logOutUser(this.props.user);
     }
 
     renderHelper() {
@@ -29,6 +40,10 @@ export class BoardsContainer extends Component {
                         board={ this.props.board }
                         onUpdateBoard={ this.onUpdateBoard.bind(this) }
                     />
+                    <button type="button" className="btn btn-warning"
+                            onClick={ this.handleLogoutButtonClick.bind(this) }>
+                        Log out
+                    </button>
                 </div>
             )
         } else {
@@ -47,16 +62,16 @@ export class BoardsContainer extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStoreToProps(store) {
     return {
-        isAuthorized: state.auth.isAuthorized,
-        user: state.auth.user,
-        board: state.boards
+        isAuthorized: store.auth.isAuthorized,
+        user: store.auth.user,
+        board: store.boards
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ getInitialData, updateBoard }, dispatch)
+    return bindActionCreators({ getInitialData, updateBoard, logOutUser }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardsContainer);
+export default connect(mapStoreToProps, mapDispatchToProps)(BoardsContainer);
