@@ -37,31 +37,26 @@ export class BoardsContainer extends Component {
     renderHelper() {
         if (this.props.isAuthorized) {
             return (
-                <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
-                    <Board
-                        board={ this.props.board }
-                        onUpdateBoard={ this.onUpdateBoard.bind(this) }
-                    />
-                    <button type="button" className="btn btn-warning"
-                            onClick={ this.handleLogoutButtonClick.bind(this) }>
-                        Log out
-                    </button>
                 <div>
-                <PageHeader />
-                <div id="outer-container">
-                    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }
-                          className="bm-overlay" isOpen={ false } noOverlay id="padding">
-                        <a id="home" className="menu-item" href="/">There are should be Boards previews</a>
-                    </Menu>
-                    <main id="page-wrap">
-                        <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
-                            <Board
-                                board={ this.props.board }
-                                onUpdateBoard={ this.onUpdateBoard.bind(this) }
-                            />
-                        </div>
-                    </main>
-                </div>
+                    <PageHeader />
+                    <div id="outer-container">
+                        <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }
+                              className="bm-overlay" isOpen={ false } noOverlay id="padding">
+                            <a id="home" className="menu-item" href="/">There are should be Boards previews</a>
+                        </Menu>
+                        <main id="page-wrap">
+                            <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
+                                <Board
+                                    board={ this.props.board }
+                                    onUpdateBoard={ this.onUpdateBoard.bind(this) }
+                                />
+                            </div>
+                            <button type="button" className="btn btn-warning"
+                                    onClick={ this.handleLogoutButtonClick.bind(this) }>
+                                Log out
+                            </button>
+                        </main>
+                    </div>
                 </div>
             )
         } else {
