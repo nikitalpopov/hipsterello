@@ -14,11 +14,12 @@ router.post(
     '/login',
     passport.authenticate('local'),
     (req, res) => {
+        let now = new Date().getTime();
         res.send({
             _id: req.user._id,
             email: req.user.email,
             isAuthorized: req.isAuthenticated(),
-            expires: new Date(new Date() + expires)
+            expires: new Date(now + expires)
         })
     }
 );

@@ -46,7 +46,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "cross-env ./node_modules/.bin/nodemon --watch server --exec ./node_modules/babel-cli/bin/babel-node.js server/Server.js",
+    "server": "cross-env ./node_modules/.bin/nodemon --watch server --watch src/config.json --exec ./node_modules/babel-cli/bin/babel-node.js server/Server.js",
     "test": "react-scripts test --env=jsdom",
     "jest": "cross-env ./node_modules/jest/bin/jest.js server",
     "eject": "react-scripts eject"

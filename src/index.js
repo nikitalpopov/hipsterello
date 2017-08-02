@@ -14,12 +14,24 @@ import Auth from './auth/Auth';
 import NotFound from './app/NotFound';
 
 import reducer from './app/AppReducer';
-let initialState = {
-    auth: {
-        user: { _id: localStorage.getItem('_id'), email: localStorage.getItem('email') },
-        isAuthorized: localStorage.getItem('isAuthorized') && localStorage.getItem('isAuthorized') === 'true'
+
+let initialState = {};
+let now = new Date().getTime();
+if (Date.parse(localStorage.getItem('expires')) >= now) {
+    initialState = {
+        auth: {
+            user: {_id: localStorage.getItem('_id'), email: localStorage.getItem('email')},
+            isAuthorized: localStorage.getItem('isAuthorized') && localStorage.getItem('isAuthorized') === 'true'
+        }
     }
-};
+} else {
+    initialState = {
+        auth: {
+            user: { _id: null, email: null },
+            isAuthorized: false
+        }
+    }
+}
 
 const store = createStore(reducer, initialState, composeWithDevTools(
     applyMiddleware(ReduxPromise)

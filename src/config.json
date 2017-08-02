@@ -6,5 +6,5 @@
     "host": "localhost",
     "port": 27017
   },
-  "expires": 1000
+  "expires": 3600000
 }
