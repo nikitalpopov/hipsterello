@@ -4,6 +4,9 @@
 
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push as Menu } from 'react-burger-menu'
@@ -87,4 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ getInitialData, updateBoard, logOutUser }, dispatch)
 };
 
-export default connect(mapStoreToProps, mapDispatchToProps)(BoardsContainer);
+export default compose(
+    DragDropContext(HTML5Backend),
+    connect(mapStoreToProps, mapDispatchToProps)
+)(BoardsContainer);
