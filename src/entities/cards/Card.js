@@ -118,8 +118,8 @@ export class Card extends Component {
 const cardSource = {
     beginDrag(props) {
         return {
-            _id: props._id,
-            listId: props.listId,
+            _id: props.card._id,
+            listId: props.card.listId,
             card: props.card,
             index: props.index
         };
@@ -129,8 +129,8 @@ const cardSource = {
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
 
-        console.dir(dropResult);
-        console.dir(item);
+        // console.dir(dropResult);
+        // console.dir(item);
         /**@todo check whether it works*/
         if (dropResult.listId && dropResult.listId !== item.listId) {
             props.onRemoveCard(item._id);
