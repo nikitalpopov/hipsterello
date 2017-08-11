@@ -3,6 +3,9 @@
  */
 
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
+import { DragSource, DropTarget  } from 'react-dnd';
+import { compose } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export class Card extends Component {
@@ -21,6 +24,7 @@ export class Card extends Component {
     componentWillReceiveProps(nextProps) {
         return this.setState({
             boardId: nextProps.boardId,
+            index: nextProps.index
         });
     }
 
@@ -101,12 +105,85 @@ export class Card extends Component {
     }
 
     render() {
-        return (
+        const { connectDragSource, connectDropTarget } = this.props;
+
+        return connectDragSource(connectDropTarget(
             <div>
                 { this.renderHelper() }
             </div>
-        )
+        ))
     }
 }
 
-export default Card;
+const cardSource = {
+    beginDrag(props) {
+        return {
+            _id: props._id,
+            listId: props.listId,
+            card: props.card,
+            index: props.index
+        };
+    },
+
+    endDrag(props, monitor) {
+        const item = monitor.getItem();
+        const dropResult = monitor.getDropResult();
+
+        console.dir(dropResult);
+        console.dir(item);
+        /**@todo check whether it works*/
+        if (dropResult.listId && dropResult.listId !== item.listId) {
+            props.onRemoveCard(item._id);
+        }
+    }
+};
+
+const cardTarget = {
+    hover(props, monitor, component) {
+        const dragId = monitor.getItem().index;
+        const sourceListId = monitor.getItem().listId;
+        let hoverId = null;
+        if (props.card._id === 0) {
+            // console.log('trying to drop to "Add new list"');
+            return;
+        } else hoverId = props.index;
+
+        if (dragId === hoverId) {
+            // console.log('dragId === hoverId');
+            return;
+        }
+
+        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+        const clientOffset = monitor.getClientOffset();
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+        if (dragId < hoverId && hoverClientY < hoverMiddleY) {
+            console.log('dragId < hoverId && hoverClientY < hoverMiddleY');
+            return;
+        }
+
+        if (dragId > hoverId && hoverClientY > hoverMiddleY) {
+            console.log('dragId > hoverId && hoverClientY > hoverMiddleY');
+            return;
+        }
+
+        if ( props.listId === sourceListId ) {
+            // console.dir(dragId);
+            // console.dir(hoverId);
+
+            props.onMoveList(dragId, hoverId);
+            monitor.getItem().index = hoverId;
+        }
+    }
+};
+
+export default  compose(
+    DropTarget('CARD', cardTarget, connect => ({
+        connectDropTarget: connect.dropTarget()
+    })),
+    DragSource('CARD', cardSource, (connect, monitor) => ({
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }))
+)(Card);
