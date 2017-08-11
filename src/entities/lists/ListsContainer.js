@@ -3,6 +3,7 @@
  */
 
 import React, { Component } from 'react';
+import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -20,7 +21,7 @@ export class ListsContainer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        return this.setState({
+        this.setState({
             boardId: nextProps.boardId,
             lists: nextProps.lists
         });
@@ -35,47 +36,72 @@ export class ListsContainer extends Component {
     }
 
     onDeleteList(listData) {
-        console.dir(listData);
         this.props.deleteList(listData)
     }
 
     onPushList(listData) {
         console.log('push list');
-        let newState = JSON.parse(JSON.stringify(this.state));
+        // let newState = JSON.parse(JSON.stringify(this.state));
+        // newState.lists.push(listData);
         // console.dir(newState);
-        newState.lists.push(listData);
+        //
+        // return this.setState(newState);
 
-        return this.setState(newState);
+        this.setState(update(this.state, {
+            lists: {
+                $push: [ listData ]
+            }
+        }));
     }
 
     onRemoveList(index) {
         console.log('remove list');
-        let newState = JSON.parse(JSON.stringify(this.state));
+        // let newState = JSON.parse(JSON.stringify(this.state));
+        // newState.lists.filter((obj) => {
+        //     return obj._id !== index;
+        // });
         // console.dir(newState);
-        newState.lists.filter((obj) => {
-            return obj._id !== index;
-        });
+        //
+        // return this.setState(newState);
 
-        return this.setState(newState);
+        this.setState(update(this.state, {
+            lists: {
+                $splice: [
+                    [index, 1]
+                ]
+            }
+        }));
     }
 
     onMoveList(dragIndex, hoverIndex) {
         console.log('move list');
-        let newState = JSON.parse(JSON.stringify(this.state));
+        // let newState = JSON.parse(JSON.stringify(this.state));
+        // // console.dir(newState);
+        // const dragList = newState.lists[dragIndex];
+        //
+        // newState.lists.splice(dragIndex, 1);
+        // newState.lists.splice(hoverIndex, 0, dragList);
         // console.dir(newState);
-        const dragList = newState.lists[dragIndex];
+        //
+        // return this.setState(newState);
 
-        newState.lists.splice(dragIndex, 1);
-        newState.lists.splice(hoverIndex, 0, dragList);
-        // console.dir(newState);
+        const { lists } = this.state;
+        const dragList = lists[dragIndex];
 
-        return this.setState(newState);
+        this.setState(update(this.state, {
+            lists: {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragList]
+                ]
+            }
+        }));
     }
 
     render() {
-        // const { connectDropTarget } = this.props;
+        const { connectDropTarget } = this.props;
 
-        return (
+        return connectDropTarget(
             <div>
                 { this.props.lists
                     .map((list, index) => {
@@ -99,6 +125,7 @@ export class ListsContainer extends Component {
                     <List
                         key={ 0 } boardId={ this.props.boardId }
                         list={ ({ _id: 0, title: "Add new list" }) }
+                        index={ this.props.lists.length }
                         onCreateList={ this.onCreateList.bind(this) }
                         />
                 </div>
@@ -121,7 +148,10 @@ const listTarget = {
     drop(props, monitor, component) {
         const { boardId } = props;
         const item = monitor.getItem();
+        // console.dir(item);
+
         if (boardId !== item.boardId) component.onPushList(item.list);
+
         return {
             boardId: boardId
         };

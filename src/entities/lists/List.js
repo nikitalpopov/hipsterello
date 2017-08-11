@@ -120,7 +120,10 @@ const listSource = {
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
 
-        if (monitor.didDrop() && dropResult && dropResult.boardId !== item.boardId) {
+        // console.dir(dropResult);
+        // console.dir(item);
+        /**@todo check whether it works (useless with lists for now, but needed for cards)*/
+        if (dropResult.boardId && dropResult.boardId !== item.boardId) {
             props.onRemoveList(item._id);
         }
     }
@@ -129,45 +132,52 @@ const listSource = {
 const listTarget = {
     hover(props, monitor, component) {
         const dragId = monitor.getItem().index;
-        const hoverId = props.index;
         const sourceBoardId = monitor.getItem().boardId;
+        let hoverId = null;
+        if (props.list._id === 0) {
+            // console.log('trying to drop to "Add new list"');
+            return;
+        } else hoverId = props.index;
 
-        // // Don't replace items with themselves
-        // if (dragId === hoverId) {
-        //     console.log('dragId === hoverId');
-        //     return;
-        // }
-        //
-        // // Determine rectangle on screen
-        // const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-        //
-        // // Get vertical middle
-        // const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        //
-        // // Determine mouse position
-        // const clientOffset = monitor.getClientOffset();
-        //
-        // // Get pixels to the top
-        // const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-        //
-        // // Only perform the move when the mouse has crossed half of the items height
-        // // When dragging downwards, only move when the cursor is below 50%
-        // // When dragging upwards, only move when the cursor is above 50%
-        //
-        // // Dragging downwards
-        // if (dragId < hoverId && hoverClientY < hoverMiddleY) {
-        //     console.log('dragId < hoverId && hoverClientY < hoverMiddleY');
-        //     return;
-        // }
-        //
-        // // Dragging upwards
-        // if (dragId > hoverId && hoverClientY > hoverMiddleY) {
-        //     console.log('dragId > hoverId && hoverClientY > hoverMiddleY');
-        //     return;
-        // }
+        // Don't replace items with themselves
+        if (dragId === hoverId) {
+            // console.log('dragId === hoverId');
+            return;
+        }
+
+        // Determine rectangle on screen
+        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
+
+        // Get vertical middle
+        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+        // Determine mouse position
+        const clientOffset = monitor.getClientOffset();
+
+        // Get pixels to the top
+        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+        // Only perform the move when the mouse has crossed half of the items height
+        // When dragging downwards, only move when the cursor is below 50%
+        // When dragging upwards, only move when the cursor is above 50%
+
+        // Dragging downwards
+        if (dragId < hoverId && hoverClientY < hoverMiddleY) {
+            console.log('dragId < hoverId && hoverClientY < hoverMiddleY');
+            return;
+        }
+
+        // Dragging upwards
+        if (dragId > hoverId && hoverClientY > hoverMiddleY) {
+            console.log('dragId > hoverId && hoverClientY > hoverMiddleY');
+            return;
+        }
 
         // Time to actually perform the action
         if ( props.boardId === sourceBoardId ) {
+            // console.dir(dragId);
+            // console.dir(hoverId);
+
             props.onMoveList(dragId, hoverId);
 
             // Note: we're mutating the monitor item here!
