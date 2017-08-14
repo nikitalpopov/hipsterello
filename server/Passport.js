@@ -39,12 +39,8 @@ module.exports = (passport) => {
 
                 return UserModel
                     .findByEmail(user.email)
-                    .then((foundUser) => {
-                        return foundUser;
-                    })
-                    .catch((error) => {
-                        return User.createUser(user);
-                    })
+                    .then((foundUser) => { return foundUser })
+                    .catch((error) => { return User.createUser(user) })
                     .then((existedUser) => {
                         responseUser = existedUser;
                         return user.validatePassword(password, existedUser.password);
@@ -52,9 +48,7 @@ module.exports = (passport) => {
                     .catch((loginError) => {
                         return done(null, false, { message: 'Wrong password! Cannot auth current user!' } );
                     })
-                    .then(() => {
-                        return done(null, responseUser);
-                    });
+                    .then(() => { return done(null, responseUser) });
             }
         )
     )
