@@ -83,7 +83,8 @@ export class CardsContainer extends Component {
 
         return connectDropTarget(
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                { this.props.cards
+                { this.props.cards.length > 0
+                    ? this.props.cards
                     .map((card, index) => {
                         if (String(this.props.listId) === String(card.listId)) {
                             return (
@@ -98,7 +99,7 @@ export class CardsContainer extends Component {
                                     onMoveCard=  { this.onMoveCard.bind(this) }
                                 />
                             )} else { return null; }
-                    })
+                    }) : {}
                 }
                 <Card
                     key={ 0 } boardId={ this.props.boardId } index={ this.props.cards.length }
