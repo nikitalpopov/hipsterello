@@ -10,7 +10,8 @@ import config from '../../src/config.json';
 mongoose.Promise = bluebird;
 
 export function setUpConnection() {
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useMongoClient: true });
+    // mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useMongoClient: true });
+    mongoose.connect(`mongodb://admin:summerschool2017@ds115583.mlab.com:15583/heroku_f297lvqt`, { useMongoClient: true });
     mongoose.connection.once('open', function() {
         console.log('Connected to MongoDB');
     });
