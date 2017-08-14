@@ -3,6 +3,7 @@
  */
 
 import { User as UserModel } from '../entities/User';
+import Board from '../../database/crud/Board';
 
 export default class User {
     /**
@@ -17,7 +18,15 @@ export default class User {
 
         return UserModelInstance
             .save()
-            .then((createdUser) => { return createdUser })
+            .then((createdUser) => {
+                const boardObject = {
+                    usersId: createdUser._id,
+                    title: 'New board'
+                };
+                Board.createBoard(boardObject);
+
+                return createdUser
+            })
             .catch(console.log.bind(console));
     };
 
