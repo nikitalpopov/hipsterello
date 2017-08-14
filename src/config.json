@@ -2,9 +2,11 @@
   "apiPrefix": "http://localhost:3033",
   "serverPort": "3033",
   "db": {
-    "name": "hipsterello",
-    "host": "localhost",
-    "port": 27017
+    "name": "heroku_f297lvqt",
+    "host": "ds115583.mlab.com",
+    "port": 15583,
+    "username": "admin",
+    "password": "summerschool2017"
   },
   "expires": 3600000
 }
