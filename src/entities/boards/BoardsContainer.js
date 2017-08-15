@@ -9,7 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push as Menu } from 'react-burger-menu'
+// import { push as Menu } from 'react-burger-menu'
 
 import { getInitialData, updateBoard } from './BoardActions';
 import { logOutUser } from '../../auth/AuthActions';
