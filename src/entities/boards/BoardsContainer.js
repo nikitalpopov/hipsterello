@@ -43,10 +43,10 @@ export class BoardsContainer extends Component {
                 <div>
                     <PageHeader />
                     <div id="outer-container">
-                        <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }
-                              className="bm-overlay" isOpen={ false } noOverlay id="padding">
-                            <a id="home" className="menu-item" href="/">There are should be Boards previews</a>
-                        </Menu>
+                        {/*<Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }*/}
+                              {/*className="bm-overlay" isOpen={ false } noOverlay id="padding">*/}
+                            {/*<a id="home" className="menu-item" href="/">There are should be Boards previews</a>*/}
+                        {/*</Menu>*/}
                         <main id="page-wrap">
                             <div className="container col-xs-12 col-md-12 col-lg-10 col-lg-offset-1">
                                 <Board

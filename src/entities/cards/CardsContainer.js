@@ -96,9 +96,8 @@ export class CardsContainer extends Component {
                             onMoveCard=  { this.onMoveCard.bind(this) }
                         />
                 );
-            }
-            })
-        ;
+            } else return '';
+        });
     }
 
     render() {
