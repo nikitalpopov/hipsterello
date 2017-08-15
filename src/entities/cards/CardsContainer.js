@@ -15,9 +15,9 @@ export class CardsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.setState({
+        this.state = {
             cards: this.props.cards
-        })
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -78,29 +78,35 @@ export class CardsContainer extends Component {
         }));
     }
 
+    renderCards() {
+        if (this.props.cards.length === 0) {
+            return '';
+        }
+
+        return this.props.cards.map((card, index) => {
+            if (String(this.props.listId) === String(card.listId)) {
+                return (
+                        <Card
+                            key={ card._id } boardId={ this.props.boardId }
+                            card={ card } index={ index }
+                            onUpdateCard={ this.onUpdateCard.bind(this) }
+                            onDeleteCard={ this.onDeleteCard.bind(this) }
+                            onPushCard=  { this.onPushCard.bind(this) }
+                            onRemoveCard={ this.onRemoveCard.bind(this) }
+                            onMoveCard=  { this.onMoveCard.bind(this) }
+                        />
+                );
+            }
+            })
+        ;
+    }
+
     render() {
         const { connectDropTarget } = this.props;
 
         return connectDropTarget(
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                { this.props.cards.length > 0
-                    ? this.props.cards
-                    .map((card, index) => {
-                        if (String(this.props.listId) === String(card.listId)) {
-                            return (
-                                <Card
-                                    key={ card._id } boardId={ this.props.boardId }
-                                    card={ card } index={ index }
-
-                                    onUpdateCard={ this.onUpdateCard.bind(this) }
-                                    onDeleteCard={ this.onDeleteCard.bind(this) }
-                                    onPushCard=  { this.onPushCard.bind(this) }
-                                    onRemoveCard={ this.onRemoveCard.bind(this) }
-                                    onMoveCard=  { this.onMoveCard.bind(this) }
-                                />
-                            )} else { return null; }
-                    }) : {}
-                }
+                { this.renderCards() }
                 <Card
                     key={ 0 } boardId={ this.props.boardId } index={ this.props.cards.length }
                     card={ ({ _id: 0, title: "Add new card", text: "with this text", listId: this.props.listId }) }

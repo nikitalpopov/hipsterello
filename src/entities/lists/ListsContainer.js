@@ -15,9 +15,9 @@ export class ListsContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.setState({
+        this.state = {
             lists: this.props.lists
-        })
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -98,30 +98,35 @@ export class ListsContainer extends Component {
         }));
     }
 
+    renderLists() {
+        if (this.props.lists.length === 0) {
+            return '';
+        }
+
+        return this.props.lists.map((list, index) => {
+            return (
+                <div key={ list._id } className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <List
+                        key={ list._id } boardId={ this.props.boardId }
+                        list={ list } index={ index }
+                        onUpdateList={ this.onUpdateList.bind(this) }
+                        onDeleteList={ this.onDeleteList.bind(this) }
+                        onPushList=  { this.onPushList.bind(this) }
+                        onRemoveList={ this.onRemoveList.bind(this) }
+                        onMoveList=  { this.onMoveList.bind(this) }
+                    />
+                </div>
+            )
+        });
+    }
+
     render() {
         const { connectDropTarget } = this.props;
 
         return connectDropTarget(
             <div>
-                { this.props.lists.length > 0
-                    ? this.props.lists
-                    .map((list, index) => {
-                        return (
-                            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                                <List
-                                    key={ list._id } boardId={ this.props.boardId }
-                                    list={ list } index={ index }
+                { this.renderLists() }
 
-                                    onUpdateList={ this.onUpdateList.bind(this) }
-                                    onDeleteList={ this.onDeleteList.bind(this) }
-                                    onPushList=  { this.onPushList.bind(this) }
-                                    onRemoveList={ this.onRemoveList.bind(this) }
-                                    onMoveList=  { this.onMoveList.bind(this) }
-                                />
-                            </div>
-                        )}
-                    ) : {}
-                }
                 <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <List
                         key={ 0 } boardId={ this.props.boardId }
