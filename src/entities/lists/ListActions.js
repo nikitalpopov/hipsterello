@@ -1,9 +1,10 @@
 import api from '../../api/api.js'
 
-export const CREATE_LIST      = 'CREATE_LIST';
-export const GET_LIST         = 'GET_LIST';
-export const UPDATE_LIST      = 'UPDATE_LIST';
-export const DELETE_LIST      = 'DELETE_LIST';
+export const CREATE_LIST = 'CREATE_LIST';
+export const GET_LIST    = 'GET_LIST';
+export const UPDATE_LIST = 'UPDATE_LIST';
+export const DELETE_LIST = 'DELETE_LIST';
+export const MOVE_LIST   = 'MOVE_LIST';
 
 /**
  * @description Отдаёт данные для запроса на создание списка
@@ -46,5 +47,12 @@ export function deleteList(request) {
     return {
         type: DELETE_LIST,
         payload: api.deleteList(request)
+    }
+}
+
+export function moveList(request) {
+    return {
+        type: MOVE_LIST,
+        payload: request
     }
 }

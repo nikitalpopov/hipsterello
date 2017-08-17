@@ -1,5 +1,5 @@
 import { GET_INITIAL_DATA } from '../boards/BoardActions';
-import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST } from './ListActions';
+import { CREATE_LIST, GET_LIST, UPDATE_LIST, DELETE_LIST, MOVE_LIST } from './ListActions';
 
 export default function(state = [], action) {
     let copiedState = state.slice();
@@ -35,6 +35,9 @@ export default function(state = [], action) {
             }
 
             return copiedState;
+
+        case MOVE_LIST:
+            return action.payload.lists;
 
         default:
             return state;

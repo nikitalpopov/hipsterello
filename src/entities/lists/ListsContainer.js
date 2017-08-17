@@ -3,12 +3,11 @@
  */
 
 import React, { Component } from 'react';
-import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
-import { createList, getList, updateList, deleteList } from './ListActions';
+import { createList, getList, updateList, deleteList, moveList } from './ListActions';
 import List from './List';
 
 export class ListsContainer extends Component {
@@ -40,62 +39,32 @@ export class ListsContainer extends Component {
     }
 
     onPushList(listData) {
-        console.log('push list');
-        // let newState = JSON.parse(JSON.stringify(this.state));
-        // newState.lists.push(listData);
-        // console.dir(newState);
-        //
-        // return this.setState(newState);
+        // console.log('push list');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        newState.lists.push(listData);
 
-        this.setState(update(this.state, {
-            lists: {
-                $push: [ listData ]
-            }
-        }));
+        this.props.moveList(newState);
     }
 
     onRemoveList(index) {
-        console.log('remove list');
-        // let newState = JSON.parse(JSON.stringify(this.state));
-        // newState.lists.filter((obj) => {
-        //     return obj._id !== index;
-        // });
-        // console.dir(newState);
-        //
-        // return this.setState(newState);
+        // console.log('remove list');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        newState.lists.filter((obj) => {
+            return obj._id !== index;
+        });
 
-        this.setState(update(this.state, {
-            lists: {
-                $splice: [
-                    [index, 1]
-                ]
-            }
-        }));
+        this.props.moveList(newState);
     }
 
     onMoveList(dragIndex, hoverIndex) {
-        console.log('move list');
-        // let newState = JSON.parse(JSON.stringify(this.state));
-        // // console.dir(newState);
-        // const dragList = newState.lists[dragIndex];
-        //
-        // newState.lists.splice(dragIndex, 1);
-        // newState.lists.splice(hoverIndex, 0, dragList);
-        // console.dir(newState);
-        //
-        // return this.setState(newState);
+        // console.log('move list');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        const dragList = newState.lists[dragIndex];
 
-        const { lists } = this.state;
-        const dragList = lists[dragIndex];
+        newState.lists.splice(dragIndex, 1);
+        newState.lists.splice(hoverIndex, 0, dragList);
 
-        this.setState(update(this.state, {
-            lists: {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, dragList]
-                ]
-            }
-        }));
+        this.props.moveList(newState);
     }
 
     renderLists() {
@@ -147,14 +116,19 @@ function mapStoreToProps(store) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ createList, getList, updateList, deleteList }, dispatch)
+    return bindActionCreators({
+        createList,
+        getList,
+        updateList,
+        deleteList,
+        moveList
+    }, dispatch)
 };
 
 const listTarget = {
     drop(props, monitor, component) {
         const { boardId } = props;
         const item = monitor.getItem();
-        // console.dir(item);
 
         if (boardId !== item.boardId) component.onPushList(item.list);
 
