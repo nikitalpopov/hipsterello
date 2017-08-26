@@ -3,12 +3,11 @@
  */
 
 import React, { Component } from 'react';
-import update from 'react/lib/update';
 import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
-import { createCard, getCard, updateCard, deleteCard } from './CardActions';
+import { createCard, getCard, updateCard, deleteCard, moveCard } from './CardActions';
 import Card from './Card';
 
 export class CardsContainer extends Component {
@@ -42,40 +41,31 @@ export class CardsContainer extends Component {
 
     onPushCard(cardData) {
         console.log('push card');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        newState.cards.push(cardData);
 
-        this.setState(update(this.state, {
-            cards: {
-                $push: [ cardData ]
-            }
-        }));
+        return this.props.moveCard(newState);
     }
 
     onRemoveCard(index) {
         console.log('remove card');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        newState.cards.filter((obj) => {
+            return obj._id !== index;
+        });
 
-        this.setState(update(this.state, {
-            cards: {
-                $splice: [
-                    [index, 1]
-                ]
-            }
-        }));
+        this.props.moveCard(newState);
     }
 
     onMoveCard(dragIndex, hoverIndex) {
-        console.log('move card');
+        // console.log('move card');
+        let newState = JSON.parse(JSON.stringify(this.state));
+        const dragCard = newState.cards[dragIndex];
 
-        const { cards } = this.state;
-        const dragCard = cards[dragIndex];
+        newState.cards.splice(dragIndex, 1);
+        newState.cards.splice(hoverIndex, 0, dragCard);
 
-        this.setState(update(this.state, {
-            cards: {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, dragCard]
-                ]
-            }
-        }));
+        this.props.moveCard(newState);
     }
 
     renderCards() {
@@ -123,7 +113,13 @@ function mapStoreToProps(store) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ createCard, getCard, updateCard, deleteCard }, dispatch)
+    return bindActionCreators({
+        createCard,
+        getCard,
+        updateCard,
+        deleteCard,
+        moveCard
+    }, dispatch)
 };
 
 const cardTarget = {
@@ -135,7 +131,14 @@ const cardTarget = {
         console.log('item');
         console.dir(item);
 
-        if (listId !== item.listId) component.onPushList(item.card);
+        if (listId !== item.listId)
+        {
+            item.card.listId = listId;
+            console.dir(item.card);
+            console.dir(props);
+            console.dir(component);
+            component.onPushCard(item.card);
+        }
 
         return {
             listId: listId

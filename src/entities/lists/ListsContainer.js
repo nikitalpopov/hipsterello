@@ -130,6 +130,7 @@ const listTarget = {
         const { boardId } = props;
         const item = monitor.getItem();
 
+        /** @todo Doesn't work */
         if (boardId !== item.boardId) component.onPushList(item.list);
 
         return {

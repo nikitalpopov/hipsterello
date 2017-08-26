@@ -4,10 +4,11 @@
 
 import api from '../../api/api.js'
 
-export const CREATE_CARD      = 'CREATE_CARD';
-export const GET_CARD         = 'GET_CARD';
-export const UPDATE_CARD      = 'UPDATE_CARD';
-export const DELETE_CARD      = 'DELETE_CARD';
+export const CREATE_CARD = 'CREATE_CARD';
+export const GET_CARD    = 'GET_CARD';
+export const UPDATE_CARD = 'UPDATE_CARD';
+export const DELETE_CARD = 'DELETE_CARD';
+export const MOVE_CARD = 'MOVE_CARD';
 
 /**
  * @description Отдаёт данные для запроса на создание карточки
@@ -50,5 +51,12 @@ export function deleteCard(request) {
     return {
         type: DELETE_CARD,
         payload: api.deleteCard(request)
+    }
+}
+
+export function moveCard(request) {
+    return {
+        type: MOVE_CARD,
+        payload: request
     }
 }

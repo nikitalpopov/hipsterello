@@ -3,7 +3,6 @@
  */
 
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget  } from 'react-dnd';
 import { compose } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -139,40 +138,20 @@ const cardSource = {
 };
 
 const cardTarget = {
-    hover(props, monitor, component) {
+    hover(props, monitor) {
         const dragId = monitor.getItem().index;
         const sourceListId = monitor.getItem().listId;
         let hoverId = null;
         if (props.card._id === 0) {
-            // console.log('trying to drop to "Add new list"');
             return;
         } else hoverId = props.index;
 
         if (dragId === hoverId) {
-            // console.log('dragId === hoverId');
             return;
         }
 
-        const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-        if (dragId < hoverId && hoverClientY < hoverMiddleY) {
-            console.log('dragId < hoverId && hoverClientY < hoverMiddleY');
-            return;
-        }
-
-        if (dragId > hoverId && hoverClientY > hoverMiddleY) {
-            console.log('dragId > hoverId && hoverClientY > hoverMiddleY');
-            return;
-        }
-
-        if ( props.listId === sourceListId ) {
-            // console.dir(dragId);
-            // console.dir(hoverId);
-
-            props.onMoveList(dragId, hoverId);
+        if ( props.card.listId === sourceListId ) {
+            props.onMoveCard(dragId, hoverId);
             monitor.getItem().index = hoverId;
         }
     }

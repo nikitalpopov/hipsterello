@@ -3,7 +3,7 @@
  */
 
 import { GET_INITIAL_DATA } from '../boards/BoardActions';
-import { CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD } from './CardActions';
+import { CREATE_CARD, GET_CARD, UPDATE_CARD, DELETE_CARD, MOVE_CARD } from './CardActions';
 
 export default function(state = [], action) {
     let copiedState = state.slice();
@@ -39,6 +39,10 @@ export default function(state = [], action) {
             }
 
             return copiedState;
+
+        case MOVE_CARD:
+            console.dir(action.payload);
+            return action.payload.cards;
 
         default:
             return state;
