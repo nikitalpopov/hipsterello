@@ -97,11 +97,19 @@ export class List extends Component {
     render() {
         const { connectDragSource, connectDropTarget } = this.props;
 
-        return connectDragSource(connectDropTarget(
-            <div>
-                { this.renderHelper() }
-            </div>
-        ))
+        if (this.props.list._id !== 0) {
+            return connectDragSource(connectDropTarget(
+                <div>
+                    { this.renderHelper() }
+                </div>
+            ))
+        } else {
+            return (
+                <div>
+                    { this.renderHelper() }
+                </div>
+            )
+        }
     }
 }
 
